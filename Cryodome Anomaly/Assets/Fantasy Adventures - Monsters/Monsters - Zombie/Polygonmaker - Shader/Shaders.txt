@@ -1,0 +1,9 @@
+StandardDoubleSided=Unity Standard but double sided.
+Default from Unity: Used on some Polygonmaker Renders
+
+Polygonmaker-Skin: Created using amplify shader. 
+
+Polygonmaker_Toon:
+-Simple Shader to achieve "Unlit look"
+-Shaderforge Shader
+-Blinn-Phong Lighting
