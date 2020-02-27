@@ -9,7 +9,7 @@ public class cubeMove : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        moveSpeed = 1f;
+        
     }
 
     // Update is called once per frame

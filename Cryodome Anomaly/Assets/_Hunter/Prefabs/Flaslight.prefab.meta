@@ -1,6 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 2e11e2833b1d76f469b0a098a47af3c9
 PrefabImporter:
+=======
+<<<<<<< HEAD:Cryodome Anomaly/Assets/_Damien/Assets/3DPlayer.meta
+guid: 6deb98d6779dc2e45b3cc14ab4dcb245
+folderAsset: yes
+DefaultImporter:
+=======
+guid: 5affae9d293a0444eba9f968999c3886
+PrefabImporter:
+>>>>>>> 2c2408a5b022f6d35ced17e229906d61da1b5f68:Cryodome Anomaly/Assets/_Hunter/Prefabs/Flaslight.prefab.meta
+>>>>>>> 2c2408a5b022f6d35ced17e229906d61da1b5f68
   externalObjects: {}
   userData: 
   assetBundleName: 
