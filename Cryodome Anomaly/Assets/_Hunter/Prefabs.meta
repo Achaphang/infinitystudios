@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+guid: f32a0061387f47444aec4b216ed66fa1
+=======
+<<<<<<<< HEAD:Cryodome Anomaly/Assets/_Hunter/Prefabs.meta
 guid: a3a51758704a76a4193123abea80b006
+========
+guid: 78c190942b57ed7459c51a94ecdcc470
+>>>>>>>> 2c2408a5b022f6d35ced17e229906d61da1b5f68:Cryodome Anomaly/Assets/_Damien.meta
+>>>>>>> 2c2408a5b022f6d35ced17e229906d61da1b5f68
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
