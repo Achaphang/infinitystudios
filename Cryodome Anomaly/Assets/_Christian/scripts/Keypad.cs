@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random;
 
-public class GeneratePasscode : MonoBehaviour
+public class Keypad : MonoBehaviour
 {
     int[] passcode = new int[4];
 
