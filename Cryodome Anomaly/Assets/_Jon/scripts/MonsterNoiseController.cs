@@ -14,12 +14,13 @@ public class MonsterNoiseController : MonoBehaviour
             audioClips.Add(a);
         }
         StartCoroutine(breathe());
+        commitDie();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!audioClips[2].isPlaying && Random.Range(0, 1000f) > 999f) {
+        if (!audioClips[2].isPlaying && Random.Range(0, 10000f) > 9989f) {
             locatedPlayer();
         }
     }
@@ -34,6 +35,13 @@ public class MonsterNoiseController : MonoBehaviour
     }
 
     public void locatedPlayer() {
-        audioClips[2].Play();
+        if (Random.Range(1f, 5f) > 3f)
+            audioClips[2].Play();
+        else
+            audioClips[4].Play();
+    }
+
+    public void commitDie() {
+        audioClips[3].Play();
     }
 }

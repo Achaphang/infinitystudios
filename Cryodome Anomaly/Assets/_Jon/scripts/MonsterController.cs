@@ -13,12 +13,20 @@ public class MonsterController : MonoBehaviour
     // For testing purposes.
     public Transform exampleTransform;
 
+    // Used for running duration.
+    float stamina = 100f;
+    bool running = false;
+    float walkSpeed;
+    float runSpeed;
+
     void Start() {
         // Generates list, must call constructor
         targets = new List<Transform>();
         markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
         agent = GetComponent<NavMeshAgent>();
         targets.Add(exampleTransform);
+        walkSpeed = agent.speed;
+        runSpeed = walkSpeed * 2;
     }
 
     void Update() {
@@ -27,6 +35,21 @@ public class MonsterController : MonoBehaviour
             return;
 
         agent.destination = targets[0].position;
+
+        if (stamina <= 0f)
+            stopRunning();
+    }
+
+    public void FixedUpdate() {
+        if (running)
+            stamina -= .1f;
+        else if (stamina < 100f)
+            stamina += .05f;
+    }
+
+    void stopRunning() {
+        running = false;
+        agent.speed = walkSpeed;
     }
 
     // Adds a new target with a given priority. Currently only accepts high or low priority. Generates a target to move to.
