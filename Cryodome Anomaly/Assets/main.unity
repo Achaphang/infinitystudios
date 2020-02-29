@@ -18840,7 +18840,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 81526242528035686, guid: e4a44daee2cdaf941b4fcca5737bde8c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4a44daee2cdaf941b4fcca5737bde8c, type: 3}
 --- !u!1 &1009731291
 GameObject:
@@ -19687,7 +19688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1069262347
 Transform:
   m_ObjectHideFlags: 0
@@ -31627,6 +31628,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 4847095356702970682, guid: af5a3194c1cc82a4cba7f072e942347c,
+        type: 3}
+      propertyPath: rig2DFallback
+      value: 
+      objectReference: {fileID: 1069262346}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af5a3194c1cc82a4cba7f072e942347c, type: 3}
 --- !u!4 &1771097124 stripped
@@ -31645,7 +31651,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1771514512}
   - component: {fileID: 1771514514}
-  - component: {fileID: 1771514513}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -31667,14 +31672,6 @@ Transform:
   m_Father: {fileID: 1345468368}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &1771514513
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1771514511}
-  m_Enabled: 1
 --- !u!20 &1771514514
 Camera:
   m_ObjectHideFlags: 0
