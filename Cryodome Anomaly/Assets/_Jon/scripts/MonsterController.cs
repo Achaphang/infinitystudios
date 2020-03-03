@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour
 {
-    List<Vector3> targets;
+    [SerializeField] List<GameObject> targets;
+    GameObject priorityTarget;
     // This object is a square box that acts as a target collider for the monster.
     public GameObject markerPrefab;
     NavMeshAgent agent;
@@ -18,10 +19,11 @@ public class MonsterController : MonoBehaviour
     bool running = false;
     float walkSpeed;
     float runSpeed;
+    float chaseTimer;
 
     void Start() {
         // Generates list, must call constructor
-        targets = new List<Vector3>();
+        targets = new List<GameObject>();
         // Marker prefab temporary solution
         //markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
         agent = GetComponent<NavMeshAgent>();
@@ -33,10 +35,13 @@ public class MonsterController : MonoBehaviour
 
     void Update() {
         // If targets is empty, do nothing for now.
-        if (targets.Count == 0)
+        if (targets.Count == 0 && priorityTarget == null)
             return;
 
-        agent.destination = targets[0];
+        if (priorityTarget != null)
+            agent.destination = priorityTarget.transform.position;
+        else
+            agent.destination = targets[0].transform.position;
 
         if (stamina <= 0f)
             stopRunning();
@@ -44,9 +49,15 @@ public class MonsterController : MonoBehaviour
 
     public void FixedUpdate() {
         if (running)
-            stamina -= .1f;
+            stamina -= Time.deltaTime;
         else if (stamina < 100f)
-            stamina += .05f;
+            stamina += Time.deltaTime;
+
+        if(chaseTimer <= 0f) {
+            priorityTarget = null;
+        } else {
+            chaseTimer -= Time.deltaTime;
+        }
     }
 
     Vector3 GetRandomLocation() {
@@ -66,7 +77,7 @@ public class MonsterController : MonoBehaviour
     }
 
     void GenerateRandomTarget() {
-        AddTarget(GetRandomLocation(), 3);
+        AddTarget(GetRandomLocation());
     }
 
     void stopRunning() {
@@ -76,18 +87,31 @@ public class MonsterController : MonoBehaviour
 
     // Adds a new target with a given priority. Currently only accepts high or low priority. Generates a target to move to.
     // TODO: Allow targets to be placed as child of object, so that they can move, for example to follow the player. Currently static markers only.
-    public void AddTarget(Vector3 targ, int priority) {
+    public void AddTarget(GameObject targ, int priority) {
+        GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         if (priority == 1) {
-            targets.Insert(0, targ);
+            priorityTarget = targ;
+            chaseTimer = 5f;
         } else {
-            targets.Add(targ);
+            targets.Add(temp);
         }
 
-        Instantiate(markerPrefab, targ, Quaternion.identity);
+    }
+
+    public void AddTarget(Vector3 targ) {
+        GameObject temp = Instantiate(markerPrefab, targ, Quaternion.identity);
+        targets.Add(temp);
+    }
+
+    public void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "Player" && chaseTimer > 0f) { 
+            Debug.Log("Ate player, good job");
+            chaseTimer = 0f;
+            priorityTarget = null;
+        }
     }
 
     public void OnTriggerEnter(Collider collision) {
-        Debug.Log("AAAA");
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
             targets.RemoveAt(0);
