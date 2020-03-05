@@ -120,4 +120,9 @@ public class MonsterController : MonoBehaviour
             GenerateRandomTarget();
         }
     }
+
+    // Used for test cases.
+    public int GetTargetCount() {
+        return targets.Count;
+    }
 }
