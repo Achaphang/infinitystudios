@@ -14,13 +14,15 @@ namespace Tests
         [UnityTest]
         public IEnumerator PlayerBoundsCheck()
         {
-            //SetupScene();
+            UnloadPrevScene();
             yield return new WaitForSeconds(5);
+            UnloadPrevScene();
+            yield return new WaitForSecondsRealtime(5);
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
             yield return null;
         }
-        
+
         [UnityTest]
         public IEnumerator PlayerPickupBoundsCheck()
         {
@@ -56,7 +58,7 @@ namespace Tests
         // **/
 
         /** Hunter's Tests
-         **/ 
+         **/
         [UnityTest]
         public IEnumerator StressSpawn()
         {
@@ -97,6 +99,10 @@ namespace Tests
             SceneManager.LoadScene("main");
         }
 
+        public void UnloadPrevScene()
+        {
+            SceneManager.LoadScene("blank");
+        }
 
     }
 }
