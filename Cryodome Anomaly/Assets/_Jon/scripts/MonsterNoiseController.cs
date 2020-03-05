@@ -5,7 +5,6 @@ using UnityEngine;
 public class MonsterNoiseController : MonoBehaviour
 {
     List<AudioSource> audioClips;
-    int tempCounter = 0;
     // Start is called before the first frame update
     void Start()
     {
