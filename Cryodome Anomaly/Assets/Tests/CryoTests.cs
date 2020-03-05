@@ -9,18 +9,42 @@ namespace Tests
 {
     public class CryoTests
     {
-        // Damien's Tests
+        /** Damien's Tests
+         **/
         [UnityTest]
         public IEnumerator PlayerBoundsCheck()
         {
-            SetupScene();
+            //SetupScene();
+            yield return new WaitForSeconds(5);
+            // Use the Assert class to test conditions.
+            // Use yield to skip a frame.
+            yield return null;
+        }
+        
+        [UnityTest]
+        public IEnumerator PlayerPickupBoundsCheck()
+        {
+            //SetupScene();
             yield return new WaitForSeconds(5);
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
             yield return null;
         }
 
-        // Jon's Tests
+        [UnityTest]
+        public IEnumerator PlayerStressSpawn()
+        {
+            //SetupScene();
+            yield return new WaitForSeconds(5);
+            // Use the Assert class to test conditions.
+            // Use yield to skip a frame.
+            yield return null;
+        }
+
+        // **/
+
+        /** Jon's Tests
+          **/
         [UnityTest]
         public IEnumerator MonsterBoundsCheck()
         {
@@ -29,7 +53,10 @@ namespace Tests
             yield return null;
         }
 
-        // Hunter's Tests
+        // **/
+
+        /** Hunter's Tests
+         **/ 
         [UnityTest]
         public IEnumerator StressSpawn()
         {
@@ -38,7 +65,10 @@ namespace Tests
             yield return null;
         }
 
-        // Tobias's Tests
+        // **/
+
+        /** Tobias's Tests
+         **/
         [UnityTest]
         public IEnumerator MenuInputTest()
         {
@@ -47,7 +77,10 @@ namespace Tests
             yield return null;
         }
 
-        // Christian's Tests
+        // **/
+
+        /** Christian's Tests
+         **/
         [UnityTest]
         public IEnumerator RandomNumGeneratorTest()
         {
@@ -55,6 +88,8 @@ namespace Tests
             // Use yield to skip a frame.
             yield return null;
         }
+
+        // **/
 
         // External Functions(Comment your portions if you try to use this like the above Tests
         public void SetupScene()
