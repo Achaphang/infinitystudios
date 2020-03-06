@@ -8,7 +8,7 @@ using UnityEngine;
 //Assign this script to a "Door" Object (the one with a Trigger Collider)
 //Make sure the main Character is tagged "Player"
 //Upon walking into trigger area the door should Open automatically
-public class SlidingDoor : MonoBehaviour
+public class DoorAnimation : MonoBehaviour
 {
     // Sliding door
     public enum OpenDirection { x, y, z }
