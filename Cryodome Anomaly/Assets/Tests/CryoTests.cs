@@ -88,7 +88,7 @@ namespace Tests
                 // Assert.Fail();
         }
         */
-        
+
 
         // **/
 
@@ -97,16 +97,34 @@ namespace Tests
         [UnityTest]
         public IEnumerator StressSpawn()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
+            var time = 1 / Time.deltaTime;
+            for (int i = 0; i < 100; i++)
+            {
+                time = 1 / Time.deltaTime;
+                for (int j = 0; j < 100; j++)
+                {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("Flashlight"));
+                }
+                Debug.Log(time);
+                yield return new WaitForSeconds(1);
+                if (time < 15)
+                {
+                    Debug.Log((i + 1) * 100);
+                    if (i < 10)
+                    {
+                        Assert.Fail();
+                    }
+                    yield break;
+                }
+            }
             yield return null;
         }
 
-        // **/
+    // **/
 
-        /** Tobias's Tests
-         **/
-        [UnityTest]
+    /** Tobias's Tests
+     **/
+    [UnityTest]
         public IEnumerator MenuInputTest()
         {
             // Use the Assert class to test conditions.
