@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
+
 namespace Tests
 {
     public class CryoTests
@@ -97,18 +98,22 @@ namespace Tests
         [UnityTest]
         public IEnumerator StressSpawn()
         {
+           // UnloadPrevScene();
+            SetupScene();
+            //MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestingCamera"));
             var time = 1 / Time.deltaTime;
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10; i++)
             {
                 time = 1 / Time.deltaTime;
-                for (int j = 0; j < 100; j++)
+                for (int j = 0; j < 1; j++)
                 {
-                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("Flashlight"));
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>(""));
                 }
                 Debug.Log(time);
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(5);
                 if (time < 15)
                 {
+                    //if able to instantiate 1000 object success
                     Debug.Log((i + 1) * 100);
                     if (i < 10)
                     {
