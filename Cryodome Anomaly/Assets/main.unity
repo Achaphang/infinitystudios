@@ -1122,6 +1122,67 @@ Transform:
   m_Father: {fileID: 649469195}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &50836293
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 50836296}
+  - component: {fileID: 50836295}
+  - component: {fileID: 50836294}
+  m_Layer: 0
+  m_Name: DoorOpen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &50836294
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50836293}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &50836295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50836293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87645406302bc7b498683eb1076ca940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: 1
+  openDistance: 3
+  openSpeed: 2
+  doorBody: {fileID: 274401631}
+--- !u!4 &50836296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50836293}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.2824764, y: 0.73291636, z: 16.124361}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &54331815
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5548,6 +5609,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4033570268475052, guid: 1e67cab3a0136d34f8f3b9c1da0e5323,
     type: 3}
   m_PrefabInstance: {fileID: 274392529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &274401631 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4694692092654818, guid: df7226b6a0d443d4a8086ec88b924312,
+    type: 3}
+  m_PrefabInstance: {fileID: 227998331}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &279091981
 PrefabInstance:
