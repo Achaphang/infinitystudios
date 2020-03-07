@@ -13,39 +13,49 @@ public class DoorAnimation : MonoBehaviour
     // Sliding door
     public enum OpenDirection { x, y, z }
     public OpenDirection direction = OpenDirection.y;
-    public float openDistance = 3f; //How far should door slide (change direction by entering either a positive or a negative value)
+    public float openDistance = 1f; //How far should door slide (change direction by entering either a positive or a negative value)
     public float openSpeed = 2.0f; //Increasing this value will make the door open faster
-    public Transform doorBody; //Door body Transform
+    public GameObject doorBody1; //Door body Transform
+    public GameObject doorBody2;
 
     bool open = false;
+    bool monsterOpen = false;
 
-    Vector3 defaultDoorPosition;
+    Vector3 defaultDoor1Position;
+    Vector3 defaultDoor2Position;
 
     void Start()
     {
-        if (doorBody)
+        if (doorBody1)
         {
-            defaultDoorPosition = doorBody.localPosition;
+            defaultDoor1Position = doorBody1.transform.localPosition;
+            defaultDoor2Position = doorBody2.transform.localPosition;
         }
     }
 
     // Main function
     void Update()
     {
-        if (!doorBody)
+        if (!doorBody1)
             return;
 
         if (direction == OpenDirection.x)
         {
-            doorBody.localPosition = new Vector3(Mathf.Lerp(doorBody.localPosition.x, defaultDoorPosition.x + (open ? openDistance : 0), Time.deltaTime * openSpeed), doorBody.localPosition.y, doorBody.localPosition.z);
+            doorBody1.transform.localPosition = new Vector3(Mathf.Lerp(doorBody1.transform.localPosition.x, defaultDoor1Position.x + (open ? openDistance : 0), Time.deltaTime * openSpeed), doorBody1.transform.localPosition.y, doorBody1.transform.localPosition.z);
         }
         else if (direction == OpenDirection.y)
         {
-            doorBody.localPosition = new Vector3(doorBody.localPosition.x, Mathf.Lerp(doorBody.localPosition.y, defaultDoorPosition.y + (open ? openDistance : 0), Time.deltaTime * openSpeed), doorBody.localPosition.z);
+            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, Mathf.Lerp(doorBody1.transform.localPosition.y, defaultDoor1Position.y + (open ? openDistance : 0), Time.deltaTime * openSpeed), doorBody1.transform.localPosition.z);
         }
         else if (direction == OpenDirection.z)
         {
-            doorBody.localPosition = new Vector3(doorBody.localPosition.x, doorBody.localPosition.y, Mathf.Lerp(doorBody.localPosition.z, defaultDoorPosition.z + (open ? openDistance : 0), Time.deltaTime * openSpeed));
+            //if (open) {
+                doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
+                doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
+            /*} else if (monsterOpen) {
+                doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (monsterOpen ? -openDistance + Random.Range(-.1f, .01f) : 0), Time.deltaTime * openSpeed / 20));
+                doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (monsterOpen ? openDistance + Random.Range(-.01f, .1f) : 0), Time.deltaTime * openSpeed / 20));
+            }*/
         }
     }
 
@@ -55,7 +65,10 @@ public class DoorAnimation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             open = true;
-
+            monsterOpen = false;
+        }else if (other.CompareTag("Monster")) {
+            if (!open)
+                monsterOpen = true;
         }
     }
 
@@ -65,6 +78,10 @@ public class DoorAnimation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             open = false;
+        }
+
+        if (other.CompareTag("Monster")) {
+            monsterOpen = false;
         }
     }
 }
