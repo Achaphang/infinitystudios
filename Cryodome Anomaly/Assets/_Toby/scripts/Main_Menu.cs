@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Main_Menu : MonoBehaviour
 {
     public GameObject mainMenu;
     public GameObject chooseInput;
+    public GameObject settingsMenu;
+    public Slider masterSlider;
+    public Slider musicSlider;
+    public AudioSource musicVolume;
 
     public void OnNormalModeClick()
     {
@@ -28,7 +33,9 @@ public class Main_Menu : MonoBehaviour
 
     public void OnSettingsClick()
     {
-
+        //Hide mainMenu Menu and Activate settingsMenu Menu
+        mainMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 
     public void OnLeaderboardClick()
@@ -62,5 +69,20 @@ public class Main_Menu : MonoBehaviour
         //Hide chooseInput Menu and Reactivate mainMenu
         mainMenu.SetActive(true);
         chooseInput.SetActive(false);
+        settingsMenu.SetActive(false);
+    }
+
+    public void MasterVolumeSlider()
+    {
+        PlayerPrefs.SetFloat("Master Volume", masterSlider.value);
+
+        AudioListener.volume = masterSlider.value;
+    }
+
+    public void MusicVolumeSlider()
+    {
+        PlayerPrefs.SetFloat("Music Volume", musicSlider.value);
+
+        musicVolume.volume = musicSlider.value;
     }
 }
