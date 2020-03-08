@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 
+
 namespace Tests
 {
     public class CryoTests
@@ -14,13 +15,15 @@ namespace Tests
         [UnityTest]
         public IEnumerator PlayerBoundsCheck()
         {
-            //SetupScene();
+            UnloadPrevScene();
             yield return new WaitForSeconds(5);
+            UnloadPrevScene();
+            yield return new WaitForSecondsRealtime(5);
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
             yield return null;
         }
-        
+
         [UnityTest]
         public IEnumerator PlayerPickupBoundsCheck()
         {
@@ -52,24 +55,81 @@ namespace Tests
             // Use yield to skip a frame.
             yield return null;
         }
+        /*
+        [UnityTest]
+        public IEnumerator SpawnMassMarkers() {
+            MonsterController monster = GameObject.Find("Monster").GetComponent<MonsterController>();
+            for (int i = 0; i < 999; i++) {
+                monster.AddTarget(new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)));
+            }
+        }
+        [UnityTest]
+        void PlayNoises() {
+            MonsterNoiseController monster = GameObject.Find("Monster").GetComponent<MonsterNoiseController>();
+            for(int i = 0; i < 999; i++) {
+                monster.commitDie();
+                monster.locatedPlayer();
+            }
+        }
+
+        // Goal: Spawn tons of markers directly on top of the monster. They should all immediately be deleted.
+        // Pass: No markers remain after a set amount of time.
+        // Fail: At least one marker is still in the scene.
+        [UnityTest]
+        void MassMarkerPlaceAtMe() {
+            MonsterController monster = GameObject.Find("Monster").GetComponent<MonsterController>();
+            int temp = monster.GetTargetCount();
+            for (int i = 0; i < 999; i++) {
+                monster.AddTarget(monster.gameObject.transform.position);
+            }
+
+            // Todo: incorporate Assert.Fail()
+            if (temp != monster.GetTargetCount())
+                return;
+                // Assert.Fail();
+        }
+        */
+
 
         // **/
 
         /** Hunter's Tests
-         **/ 
+         **/
         [UnityTest]
         public IEnumerator StressSpawn()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
+           // UnloadPrevScene();
+            SetupScene();
+            //MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestingCamera"));
+            var time = 1 / Time.deltaTime;
+            for (int i = 0; i < 10; i++)
+            {
+                time = 1 / Time.deltaTime;
+                for (int j = 0; j < 1; j++)
+                {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>(""));
+                }
+                Debug.Log(time);
+                yield return new WaitForSeconds(5);
+                if (time < 15)
+                {
+                    //if able to instantiate 1000 object success
+                    Debug.Log((i + 1) * 100);
+                    if (i < 10)
+                    {
+                        Assert.Fail();
+                    }
+                    yield break;
+                }
+            }
             yield return null;
         }
 
-        // **/
+    // **/
 
-        /** Tobias's Tests
-         **/
-        [UnityTest]
+    /** Tobias's Tests
+     **/
+    [UnityTest]
         public IEnumerator MenuInputTest()
         {
             // Use the Assert class to test conditions.
@@ -97,6 +157,10 @@ namespace Tests
             SceneManager.LoadScene("main");
         }
 
+        public void UnloadPrevScene()
+        {
+            SceneManager.LoadScene("blank");
+        }
 
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] List<GameObject> targets;
+    List<GameObject> doors;
     GameObject priorityTarget;
     // This object is a square box that acts as a target collider for the monster.
     public GameObject markerPrefab;
@@ -16,6 +17,8 @@ public class MonsterController : MonoBehaviour
 
     // Used for running duration.
     float stamina = 100f;
+    float idleCounter = 20f;
+    float forceIdleCounter = 0f;
     bool running = false;
     float walkSpeed;
     float runSpeed;
@@ -24,6 +27,10 @@ public class MonsterController : MonoBehaviour
     void Start() {
         // Generates list, must call constructor
         targets = new List<GameObject>();
+        doors = new List<GameObject>();
+        foreach(GameObject g in GameObject.FindGameObjectsWithTag("DoorMarker")) {
+            doors.Add(g);
+        }
         // Marker prefab temporary solution
         //markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
         agent = GetComponent<NavMeshAgent>();
@@ -35,7 +42,23 @@ public class MonsterController : MonoBehaviour
 
     void Update() {
         // If targets is empty, do nothing for now.
-        if (targets.Count == 0 && priorityTarget == null)
+        if(agent.velocity.magnitude == 0) {
+            idleCounter -= Time.deltaTime;
+            if(idleCounter <= 0f) {
+                idleCounter = 20f;
+                foreach(GameObject g in targets) {
+                    Destroy(g);
+                }
+                targets.Clear();
+                GenerateRandomTarget();
+            }
+        } else {
+            idleCounter = 20f;
+        }
+
+        forceIdleCounter -= Time.deltaTime;
+
+        if ((targets.Count == 0 && priorityTarget == null) || forceIdleCounter > 0f)
             return;
 
         if (priorityTarget != null)
@@ -53,7 +76,8 @@ public class MonsterController : MonoBehaviour
         else if (stamina < 100f)
             stamina += Time.deltaTime;
 
-        if(chaseTimer <= 0f) {
+        if(chaseTimer <= 0f && priorityTarget != null) {
+            AddTarget(priorityTarget, 2);
             priorityTarget = null;
         } else {
             chaseTimer -= Time.deltaTime;
@@ -90,9 +114,14 @@ public class MonsterController : MonoBehaviour
     public void AddTarget(GameObject targ, int priority) {
         GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         if (priority == 1) {
+            forceIdleCounter = 0f;
             priorityTarget = targ;
             chaseTimer = 5f;
-        } else {
+        }else if(priority == 2) {
+            // This is called when the monster loses sight of the player.
+            targets.Insert(0, temp);
+        }
+        else {
             targets.Add(temp);
         }
 
@@ -114,11 +143,19 @@ public class MonsterController : MonoBehaviour
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
+            if(priorityTarget == null)
+                forceIdleCounter = 10f;
             targets.RemoveAt(0);
             Destroy(collision.gameObject);
             // TODO: Remove this
-            GenerateRandomTarget();
+            if(targets.Count <= 0)
+                GenerateRandomTarget();
         }
+    }
+
+    // Monster stuck? Use this function to find a nearby door to go into.
+    void MoveToNearestDoor() {
+
     }
 
     // Used for test cases.
