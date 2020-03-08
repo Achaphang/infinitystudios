@@ -13,7 +13,7 @@ public class MonsterVisibilityController : MonoBehaviour
     void Start()
     {
         players = new List<GameObject>();
-        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Player")) {
+        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("ActualPlayer")) {
             players.Add(obj);
         }
         monsterController = GetComponentInParent<MonsterController>();
@@ -28,6 +28,7 @@ public class MonsterVisibilityController : MonoBehaviour
             foreach(GameObject p in players) {
                 if (Physics.Raycast(transform.position, (p.transform.position - transform.position), out hit)) {
                     monsterController.AddTarget(p, 1);
+                    Debug.Log("YUPP");
                     seeCooldown = 1f;
                 }
             }
@@ -36,14 +37,13 @@ public class MonsterVisibilityController : MonoBehaviour
 
     // Todo: fix this function. Something in the middle of the level is triggering it, find the invisible player object. I'd guess the flashlight?
     public void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Player") {
-            Debug.Log("I saw player.");
+        if(other.gameObject.tag == "ActualPlayer") {
             canSee = true;
         }
     }
 
     public void OnTriggerExit(Collider other) {
-        if(other.gameObject.tag == "Player") {
+        if(other.gameObject.tag == "ActualPlayer") {
             canSee = false;
         }
     }

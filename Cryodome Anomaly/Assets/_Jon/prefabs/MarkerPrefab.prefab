@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3336107008479524307}
   - component: {fileID: 1702318733266940096}
   - component: {fileID: 2685821439552209575}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MarkerPrefab
   m_TagString: MonsterMarker
   m_Icon: {fileID: 0}
