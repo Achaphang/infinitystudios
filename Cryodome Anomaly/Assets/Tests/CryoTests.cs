@@ -55,6 +55,57 @@ namespace Tests
             // Use yield to skip a frame.
             yield return null;
         }
+
+        [UnityTest]
+        public IEnumerator MonsterSpawningStress() {
+            // UnloadPrevScene();
+            SetupScene();
+            //MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestingCamera"));
+            yield return new WaitForSeconds(5);
+            var fps = 1 / Time.deltaTime;
+            for (int i = 0; i < 5; i++) {
+                fps = 1 / Time.deltaTime;
+                for (int j = 0; j < 1; j++) {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("MonsterTesting"));
+                }
+                Debug.Log(fps);
+                yield return new WaitForSeconds(3);
+                if (fps < 15) {
+                    //if able to instantiate 1000 object success
+                    Debug.Log((i + 1) * 100);
+                    if (i < 10) {
+                        Assert.Fail();
+                    }
+                    yield break;
+                }
+            }
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator MonsterMarkerSpawningStress() {
+            // UnloadPrevScene();
+            SetupScene();
+            //MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestingCamera"));
+            var fps = 1 / Time.deltaTime;
+            for (int i = 0; i < 10; i++) {
+                fps = 1 / Time.deltaTime;
+                for (int j = 0; j < 100; j++) {
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("MarkerTesting"));
+                }
+                Debug.Log(fps);
+                yield return new WaitForSeconds(1);
+                if (fps < 15) {
+                    //if able to instantiate 1000 object success
+                    Debug.Log((i + 1) * 100);
+                    if (i < 10) {
+                        Assert.Fail();
+                    }
+                    yield break;
+                }
+            }
+            yield return null;
+        }
         /*
         [UnityTest]
         public IEnumerator SpawnMassMarkers() {
@@ -101,17 +152,17 @@ namespace Tests
            // UnloadPrevScene();
             SetupScene();
             //MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestingCamera"));
-            var time = 1 / Time.deltaTime;
-            for (int i = 0; i < 10; i++)
+            var fps = 1 / Time.deltaTime;
+            for (int i = 0; i < 5; i++)
             {
-                time = 1 / Time.deltaTime;
-                for (int j = 0; j < 1; j++)
+                fps = 1 / Time.deltaTime;
+                for (int j = 0; j < 20; j++)
                 {
-                    MonoBehaviour.Instantiate(Resources.Load<GameObject>(""));
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("FlashlightTesting"));
                 }
-                Debug.Log(time);
-                yield return new WaitForSeconds(5);
-                if (time < 15)
+                Debug.Log(fps);
+                yield return new WaitForSeconds(1);
+                if (fps < 15)
                 {
                     //if able to instantiate 1000 object success
                     Debug.Log((i + 1) * 100);

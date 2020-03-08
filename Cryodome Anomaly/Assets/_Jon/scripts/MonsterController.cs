@@ -12,9 +12,6 @@ public class MonsterController : MonoBehaviour
     public GameObject markerPrefab;
     NavMeshAgent agent;
 
-    // For testing purposes.
-    public Transform exampleTransform;
-
     // Used for running duration.
     float stamina = 100f;
     float idleCounter = 20f;
@@ -34,7 +31,7 @@ public class MonsterController : MonoBehaviour
         // Marker prefab temporary solution
         //markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
         agent = GetComponent<NavMeshAgent>();
-        //targets.Add(exampleTransform);
+        agent.Warp(new Vector3(-26, 1, -16));
         walkSpeed = agent.speed;
         runSpeed = walkSpeed * 2;
         GenerateRandomTarget();
