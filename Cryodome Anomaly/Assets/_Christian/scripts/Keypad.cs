@@ -21,7 +21,7 @@ public class Keypad : MonoBehaviour
             passcode[i] = UnityEngine.Random.Range(0, 9);
         }
 
-        txt = transform.FindChild("KeypadText").GetComponentInChildren<Text>();
+        txt = transform.Find("KeypadText").GetComponentInChildren<Text>();
         txt.text = string.Join("", passcode);
     }
 
