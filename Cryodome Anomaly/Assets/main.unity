@@ -21497,6 +21497,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Teleport
       objectReference: {fileID: 0}
+    - target: {fileID: 3847365483920049327, guid: 463fc2fcef3e40c45a8b6df2b903a7f3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 463fc2fcef3e40c45a8b6df2b903a7f3, type: 3}
 --- !u!1001 &1093764263
@@ -42144,6 +42149,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176095466435616604, guid: acc1fe28d06995540b2c4a8294e8d20f,
+        type: 3}
+      propertyPath: m_Speed
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3176095466435616604, guid: acc1fe28d06995540b2c4a8294e8d20f,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3176095466435616605, guid: acc1fe28d06995540b2c4a8294e8d20f,
         type: 3}

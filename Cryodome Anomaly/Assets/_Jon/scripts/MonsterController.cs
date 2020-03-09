@@ -141,7 +141,7 @@ public class MonsterController : MonoBehaviour
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
             if(priorityTarget == null)
-                forceIdleCounter = 10f;
+                forceIdleCounter = 3f + Random.Range(0, 5f);
             targets.RemoveAt(0);
             Destroy(collision.gameObject);
             // TODO: Remove this

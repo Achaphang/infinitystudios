@@ -51,8 +51,23 @@ namespace Tests
         [UnityTest]
         public IEnumerator MonsterBoundsCheck()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
+            // UnloadPrevScene();
+            SetupScene();
+            //MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestingCamera"));
+            yield return new WaitForSeconds(5);
+
+            GameObject tempMarker = MonoBehaviour.Instantiate(Resources.Load<GameObject>("MarkerTesting"));
+            GameObject invalidMarker = MonoBehaviour.Instantiate(Resources.Load<GameObject>("MarkerTesting"));
+            GameObject monster = MonoBehaviour.Instantiate(Resources.Load<GameObject>("MonsterSpeedTesting"));
+
+            tempMarker.transform.position = new Vector3(-26, 1, -16);
+            invalidMarker.transform.position = new Vector3(-26, -10, -16);
+            invalidMarker.transform.localScale = new Vector3(100, 1, 100);
+
+            yield return new WaitForSeconds(25);
+            if (tempMarker != null || invalidMarker == null)
+                Assert.Fail();
+
             yield return null;
         }
 
