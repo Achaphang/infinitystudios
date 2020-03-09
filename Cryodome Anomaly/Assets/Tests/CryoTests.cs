@@ -4,14 +4,14 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
-
+using System;
 
 namespace Tests
 {
     public class CryoTests
     {
         /** Damien's Tests
-         **/
+         **
         [UnityTest]
         public IEnumerator PlayerFallCheck()
         {
@@ -35,11 +35,29 @@ namespace Tests
         }
 
         [UnityTest]
-        public IEnumerator PlayerVelocityBoundsCheck()
+        public IEnumerator PlayerMapFallCheck()
         {
             SetupScene();
-            yield return new WaitForSecondsRealtime(5);
+            float xSpeed = 2f;
+            yield return new WaitForSecondsRealtime(12);
+            GameObject playerLoc = MonoBehaviour.Instantiate(Resources.Load<GameObject>("PlayerTesting"));
+            playerLoc.GetComponent<Rigidbody>().velocity = new Vector3(xSpeed, 0, 0);
+            for (int i = 1; i < 10; i++)
+            {
+                yield return new WaitForSecondsRealtime(4);
+                if(playerLoc.transform.position.y < 0)
+                {
+                    Debug.Log("The test failed");
+                    Assert.Fail();
+                    yield break;
+                }
+                else
+                {
+                    Debug.Log("Test hasn't failed yet");
+                }
 
+            }
+         
 
             UnloadPrevScene();
             yield return null;
