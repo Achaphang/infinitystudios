@@ -62,7 +62,7 @@ public class DoorAnimation : MonoBehaviour
     // Activate the Main function when Player enter the trigger area
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("ActualPlayer"))
         {
             open = true;
             monsterOpen = false;
@@ -75,7 +75,7 @@ public class DoorAnimation : MonoBehaviour
     // Deactivate the Main function when Player exit the trigger area
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("ActualPlayer"))
         {
             open = false;
         }

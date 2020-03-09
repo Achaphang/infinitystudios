@@ -12,9 +12,6 @@ public class MonsterController : MonoBehaviour
     public GameObject markerPrefab;
     NavMeshAgent agent;
 
-    // For testing purposes.
-    public Transform exampleTransform;
-
     // Used for running duration.
     float stamina = 100f;
     float idleCounter = 20f;
@@ -23,6 +20,9 @@ public class MonsterController : MonoBehaviour
     float walkSpeed;
     float runSpeed;
     float chaseTimer;
+
+    bool hasDied = false;
+    MonsterNoiseController noiseController;
 
     void Start() {
         // Generates list, must call constructor
@@ -33,8 +33,9 @@ public class MonsterController : MonoBehaviour
         }
         // Marker prefab temporary solution
         //markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
+        noiseController = GetComponent<MonsterNoiseController>();
         agent = GetComponent<NavMeshAgent>();
-        //targets.Add(exampleTransform);
+        agent.Warp(new Vector3(-26, 1, -16));
         walkSpeed = agent.speed;
         runSpeed = walkSpeed * 2;
         GenerateRandomTarget();
@@ -132,24 +133,35 @@ public class MonsterController : MonoBehaviour
         targets.Add(temp);
     }
 
-    public void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "Player" && chaseTimer > 0f) { 
-            Debug.Log("Ate player, good job");
+    /*public void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.tag == "ActualPlayer") {
+            if (!hasDied) {
+                noiseController.commitDie();
+                hasDied = true;
+            }
             chaseTimer = 0f;
             priorityTarget = null;
         }
-    }
+    }*/
 
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
             if(priorityTarget == null)
-                forceIdleCounter = 10f;
+                forceIdleCounter = 3f + Random.Range(0, 5f);
             targets.RemoveAt(0);
             Destroy(collision.gameObject);
             // TODO: Remove this
             if(targets.Count <= 0)
                 GenerateRandomTarget();
+        }
+        if(collision.gameObject.tag == "ActualPlayer") {
+            if (!hasDied) {
+                noiseController.commitDie();
+                hasDied = true;
+            }
+            chaseTimer = 0f;
+            priorityTarget = null;
         }
     }
 
