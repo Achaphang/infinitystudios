@@ -28,7 +28,6 @@ public class MonsterVisibilityController : MonoBehaviour
             foreach(GameObject p in players) {
                 if (Physics.Raycast(transform.position, (p.transform.position - transform.position), out hit)) {
                     monsterController.AddTarget(p, 1);
-                    Debug.Log("YUPP");
                     seeCooldown = 1f;
                 }
             }

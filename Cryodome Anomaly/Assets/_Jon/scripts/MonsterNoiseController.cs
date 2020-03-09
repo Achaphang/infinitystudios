@@ -13,7 +13,7 @@ public class MonsterNoiseController : MonoBehaviour
             audioClips.Add(a);
         }
         StartCoroutine(breathe());
-        commitDie();
+        //commitDie();
     }
 
     // Update is called once per frame
