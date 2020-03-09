@@ -11,7 +11,7 @@ namespace Tests
     public class CryoTests
     {
         /** Damien's Tests
-         **
+         * */
         [UnityTest]
         public IEnumerator PlayerFallCheck()
         {
@@ -215,6 +215,7 @@ namespace Tests
 
         /** Hunter's Tests
          **/
+         //Test to determine how many batteries we can spawn before frame rate drops below 15FPS
         [UnityTest]
         public IEnumerator StressSpawn()
         {
@@ -244,12 +245,67 @@ namespace Tests
             }
             yield return null;
         }
+        //This test has the same functionality as Damiens. Spawn a battery, add velocity to the battery and see if it will end up falling out of the map
+        [UnityTest]
+        public IEnumerator BatteryFallCheck()
+        {
+            SetupScene();
+            float Vel = 2f;
+            yield return new WaitForSecondsRealtime(12);
+            GameObject BatteryLoc = MonoBehaviour.Instantiate(Resources.Load<GameObject>("TestBattery"));
+            BatteryLoc.GetComponent<Rigidbody>().velocity = new Vector3(Vel, 0, 0);
+            for (int i = 1; i < 10; i++)
+            {
+                yield return new WaitForSecondsRealtime(4);
+                if (BatteryLoc.transform.position.y < 0)
+                {
+                    Debug.Log("Test Failed, battery fell");
+                    Assert.Fail();
+                    yield break;
+                }
+                else
+                {
+                    Debug.Log("Test Not Failing");
+                }
+            }
+            yield return null;
+        }
+        //Spawn flashlight, make sure it does not fly out of map
+        [UnityTest]
+        public IEnumerator FlashlightFallCheck()
+        {
+            SetupScene();
+            float Vel = 2f;
+            yield return new WaitForSecondsRealtime(12);
+            GameObject BatteryLoc = MonoBehaviour.Instantiate(Resources.Load<GameObject>("FlashlightTesting"));
+            BatteryLoc.GetComponent<Rigidbody>().velocity = new Vector3(Vel, 0, 0);
+            for (int i = 1; i < 10; i++)
+            {
+                yield return new WaitForSecondsRealtime(4);
+                if (BatteryLoc.transform.position.y < 0)
+                {
+                    Debug.Log("Test Failed, Flashlight fell");
+                    Assert.Fail();
+                    yield break;
+                }
+                else
+                {
+                    Debug.Log("Test Not Failing");
+                }
+            }
+            yield return null;
+        }
 
-    // **/
 
-    /** Tobias's Tests
-     **/
-    [UnityTest]
+
+
+
+
+        // **/
+
+        /** Tobias's Tests
+         **/
+        [UnityTest]
         public IEnumerator MenuInputTest()
         {
             // Use the Assert class to test conditions.
