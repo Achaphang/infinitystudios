@@ -40,7 +40,7 @@ public class Main_Menu : MonoBehaviour
 
     public void OnLeaderboardClick()
     {
-
+        //Waiting for database to exist
     }
 
     public void OnExitGameClick()
