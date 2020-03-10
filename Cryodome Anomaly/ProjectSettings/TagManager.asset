@@ -10,6 +10,7 @@ TagManager:
   - DoorMarker
   - Monster
   - ActualPlayer
+  - UI
   layers:
   - Default
   - TransparentFX
