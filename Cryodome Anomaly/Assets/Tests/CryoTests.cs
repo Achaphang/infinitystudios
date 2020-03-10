@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.UI;
 
 namespace Tests
 {
@@ -306,10 +307,163 @@ namespace Tests
         /** Tobias's Tests
          **/
         [UnityTest]
-        public IEnumerator MenuInputTest()
+        public IEnumerator ButtonSpawnTest_ThisIsDumb()
         {
-            // Use the Assert class to test conditions.
-            // Use yield to skip a frame.
+            SceneManager.LoadScene("MainMenu");  //Load MainMenu Scene for Test
+
+            yield return new WaitForSeconds(7);
+
+            Scene mainMenu = SceneManager.GetActiveScene();
+            GameObject[] array = mainMenu.GetRootGameObjects();
+
+            Canvas canvas = null;   //Will reference the Canvas
+
+            //FIND THE BUTTON TO GET TO NEXT SCENE
+            foreach (GameObject obj in array)
+            {
+                if (obj.CompareTag("UI") == true)
+                {
+                    canvas = obj.GetComponent<Canvas>();   //Reference the Canvas
+                    Debug.Log("Found Canvas");
+                }
+            }
+            Transform Main_Menu_Position = canvas.transform.Find("Main Menu");   //Find Main Menu
+            Debug.Log("Found Main Menu");
+            Transform Normal_Mode_Position = Main_Menu_Position.Find("Normal_Mode");   //Find Normal Mode Button
+            Debug.Log("Found Normal Mode");
+
+            //BREAK THE SYSTEM IN THE STUPIDEST WAY POSSIBLE CAUSE THIS WILL NEVER ACTUALLY HAPPEN
+            var fps = 1 / Time.deltaTime;
+            for (int i = 0; i < 100; i++)
+            {
+                fps = 1 / Time.deltaTime;
+                for (int j = 0; j < 200; j++)
+                {
+                    GameObject stupid = MonoBehaviour.Instantiate(Normal_Mode_Position.gameObject,canvas.transform);
+                    stupid.transform.position = new Vector3(UnityEngine.Random.Range(0,100), UnityEngine.Random.Range(0, 100), 0);
+                }
+                yield return new WaitForSeconds(0.1f);
+                Debug.Log(fps);
+                if (fps < 60)
+                {
+                    Debug.Log((i + 1) * 100);
+                    if (i < 30)
+                    {
+                        Debug.Log("This is really dumb and shouldn't even be a test...");
+                        Assert.Fail();
+                    }
+                    yield break;
+                }
+            }
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator PlayerPrefTest()
+        {
+            SceneManager.LoadScene("MainMenu");  //Load MainMenu Scene for Test
+
+            yield return new WaitForSeconds(7);
+
+            Scene mainMenu = SceneManager.GetActiveScene();
+            GameObject[] array = mainMenu.GetRootGameObjects();
+
+            Canvas canvas = null;   //Will reference the Canvas
+
+            //FIND THE BUTTON TO GET TO NEXT SCENE
+            foreach (GameObject obj in array)
+            {
+                if (obj.CompareTag("UI") == true)
+                {
+                    canvas = obj.GetComponent<Canvas>();   //Reference the Canvas
+                    Debug.Log("Found Canvas");
+                }
+            }
+            Transform Main_Menu_Position = canvas.transform.Find("Main Menu");   //Find Main Menu
+            Debug.Log("Found Main Menu");
+            Transform Normal_Mode_Position = Main_Menu_Position.Find("Normal_Mode");   //Find Normal Mode Button
+            Debug.Log("Found Normal Mode");
+
+            Normal_Mode_Position.GetComponent<Button>().onClick.Invoke();   //Click the Normal Mode Button
+            Debug.Log("Clicked NM");
+            yield return new WaitForSeconds(5);   //Wait
+
+            Transform Choose_Input_Position = canvas.transform.Find("Choose Input");   //Find Choose Input Menu
+            Debug.Log("Found Choose Input");
+            Transform Keyboard_Position = Choose_Input_Position.Find("Keyboard_Mouse");   //Find Keyboard_Mouse Button
+            Debug.Log("Found Keyboard");
+
+            Keyboard_Position.GetComponent<Button>().onClick.Invoke();   //Click the Keyboard_Mouse Button
+            Debug.Log("Clicked KB");
+
+            yield return new WaitForSeconds(30);   //Wait 30 seconds for new scene to load
+
+            //TEST FOR FAILURE
+            if ((PlayerPrefs.GetInt("Mode") != 1) && (PlayerPrefs.GetInt("Input") != 2))
+            {
+                Debug.Log("Test Failed.  Player Pref Not Consistent.");
+                Assert.Fail();
+            }
+            else
+            {
+                Debug.Log("Test Passed.  Player Pref Consistent.");
+            }
+
+            yield return null;
+        }
+
+        [UnityTest]
+        public IEnumerator SceneTransitionTest()
+        {
+            SceneManager.LoadScene("MainMenu");  //Load MainMenu Scene for Test
+
+            yield return new WaitForSeconds(7);
+
+            Scene mainMenu = SceneManager.GetActiveScene();
+            GameObject[] array = mainMenu.GetRootGameObjects();
+
+            Canvas canvas = null;   //Will reference the Canvas
+
+            //FIND THE BUTTON TO GET TO NEXT SCENE
+            foreach (GameObject obj in array)
+            {
+                if(obj.CompareTag("UI") == true)
+                {
+                    canvas = obj.GetComponent<Canvas>();   //Reference the Canvas
+                    Debug.Log("Found Canvas");
+                }
+            }
+            Transform Main_Menu_Position = canvas.transform.Find("Main Menu");   //Find Main Menu
+            Debug.Log("Found Main Menu");
+            Transform Normal_Mode_Position = Main_Menu_Position.Find("Normal_Mode");   //Find Normal Mode Button
+            Debug.Log("Found Normal Mode");
+
+            Normal_Mode_Position.GetComponent<Button>().onClick.Invoke();   //Click the Normal Mode Button
+            Debug.Log("Clicked NM");
+            yield return new WaitForSeconds(5);   //Wait
+
+            Transform Choose_Input_Position = canvas.transform.Find("Choose Input");   //Find Choose Input Menu
+            Debug.Log("Found Choose Input");
+            Transform Keyboard_Position = Choose_Input_Position.Find("Keyboard_Mouse");   //Find Keyboard_Mouse Button
+            Debug.Log("Found Keyboard");
+
+            Keyboard_Position.GetComponent<Button>().onClick.Invoke();   //Click the Keyboard_Mouse Button
+            Debug.Log("Clicked KB");
+
+            yield return new WaitForSeconds(30);   //Wait 30 seconds for new scene to load
+
+            //TEST FOR FAILURE
+            if(SceneManager.GetActiveScene().name != "main")
+            {
+                Debug.Log("Test Failed.  Proper Scene Was Not Loaded.");
+                Assert.Fail();
+            }
+            else
+            {
+                Debug.Log("Test Passed.  Scene Loaded.");
+            }
+
             yield return null;
         }
 
@@ -322,6 +476,19 @@ namespace Tests
         {
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
+            int[] passcode = new int[4];
+            for (int i = 0; i < 4; i ++) {
+                passcode[i] = -1;
+            }
+            for (int i = 0; i < 4; i ++) {
+                passcode[i] = UnityEngine.Random.Range(0, 9);
+            }
+            for (int i = 0; i < 4; i ++) {
+                if (passcode[i] < 0 || passcode[i] > 9) {
+                    Assert.Fail();
+                    yield break;
+                }
+            }
             yield return null;
         }
 
