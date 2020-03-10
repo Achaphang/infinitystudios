@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.UI;
 
 namespace Tests
 {
@@ -306,11 +307,54 @@ namespace Tests
         /** Tobias's Tests
          **/
         [UnityTest]
-        public IEnumerator MenuInputTest()
+        public IEnumerator PlayerPrefTest()
         {
+            SceneManager.LoadScene("MainMenu");  //Load MainMenu Scene for Test
+
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
+
+            Canvas Canvas = GameObject.FindObjectOfType<Canvas>();   //
+            
+            
             yield return null;
+            
+
+        }
+
+        [UnityTest]
+        public IEnumerator SceneTransitionTest()
+        {
+            SceneManager.LoadScene("MainMenu");  //Load MainMenu Scene for Test
+
+            // Use the Assert class to test conditions.
+            // Use yield to skip a frame.
+
+            //FIND THE BUTTON TO GET TO NEXT SCENE
+            Canvas canvas = GameObject.FindObjectOfType<Canvas>();   //Reference the Canvas
+            Transform Main_Menu_Position = canvas.transform.Find("Main_Menu");   //Find Main Menu
+            Transform Normal_Mode_Position = Main_Menu_Position.Find("Normal_Mode");   //Find Normal Mode Button
+            Transform Choose_Input_Position = canvas.transform.Find("Choose Input");   //Find Choose Input Menu
+            Transform Keyboard_Position = Choose_Input_Position.Find("Keyboard/Mouse");   //Find Keyboard/Mouse Button
+
+            //TRANSITION TO NORMAL MODE --> KEYBOARD/MOUSE
+            Normal_Mode_Position.GetComponent<Button>().onClick.Invoke();
+            Keyboard_Position.GetComponent<Button>().onClick.Invoke();
+
+            yield return new WaitForSeconds(30);   //Wait 30 seconds for new scene to load
+
+            if(SceneManager.GetActiveScene().name != "main")
+            {
+                Debug.Log("Test Failed.  Proper Scene Was Not Loaded.");
+                Assert.Fail();
+            }
+            else
+            {
+                Debug.Log("Test Passed.  Scene Loaded.");
+            }
+
+            yield return null;
+
         }
 
         // **/
