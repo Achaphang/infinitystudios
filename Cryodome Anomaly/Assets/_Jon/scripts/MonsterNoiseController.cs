@@ -5,7 +5,6 @@ using UnityEngine;
 public class MonsterNoiseController : MonoBehaviour
 {
     List<AudioSource> audioClips;
-    // Start is called before the first frame update
     void Start()
     {
         audioClips = new List<AudioSource>();
@@ -13,15 +12,6 @@ public class MonsterNoiseController : MonoBehaviour
             audioClips.Add(a);
         }
         StartCoroutine(breathe());
-        //commitDie();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!audioClips[2].isPlaying && Random.Range(0, 10000f) > 9989f) {
-            locatedPlayer();
-        }
     }
 
     IEnumerator breathe() {

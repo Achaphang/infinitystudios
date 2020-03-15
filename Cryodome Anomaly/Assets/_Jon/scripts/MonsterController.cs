@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour
 {
     [SerializeField] List<GameObject> targets;
-    List<GameObject> doors;
     GameObject priorityTarget;
     // This object is a square box that acts as a target collider for the monster.
     public GameObject markerPrefab;
@@ -21,16 +20,17 @@ public class MonsterController : MonoBehaviour
     float runSpeed;
     float chaseTimer;
 
+    // Used for boundry traversal
+    float doorSpeed;
+    bool isTraversing = false;
+    float traverseTime = 0;
+
     bool hasDied = false;
     MonsterNoiseController noiseController;
 
     void Start() {
         // Generates list, must call constructor
         targets = new List<GameObject>();
-        doors = new List<GameObject>();
-        foreach(GameObject g in GameObject.FindGameObjectsWithTag("DoorMarker")) {
-            doors.Add(g);
-        }
         // Marker prefab temporary solution
         //markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
         noiseController = GetComponent<MonsterNoiseController>();
@@ -38,10 +38,23 @@ public class MonsterController : MonoBehaviour
         agent.Warp(new Vector3(-26, 1, -16));
         walkSpeed = agent.speed;
         runSpeed = walkSpeed * 2;
+        doorSpeed = agent.speed * .5f;
+
         GenerateRandomTarget();
     }
 
     void Update() {
+        if (agent.isOnOffMeshLink && !isTraversing)
+            StartCoroutine(TraverseBoundry());
+        else if (!agent.isOnOffMeshLink && isTraversing) {
+            isTraversing = false;
+            agent.speed = walkSpeed;
+        }
+
+        // Prevents other things from happening while breaking through a door.
+        if (isTraversing)
+            return;
+
         // If targets is empty, do nothing for now.
         if(agent.velocity.magnitude == 0) {
             idleCounter -= Time.deltaTime;
@@ -67,11 +80,16 @@ public class MonsterController : MonoBehaviour
         else
             agent.destination = targets[0].transform.position;
 
+        if (!running)
+            agent.speed = walkSpeed;
         if (stamina <= 0f)
-            stopRunning();
+            StopRunning();
     }
 
     public void FixedUpdate() {
+        if (isTraversing)
+            return;
+
         if (running)
             stamina -= Time.deltaTime;
         else if (stamina < 100f)
@@ -105,21 +123,30 @@ public class MonsterController : MonoBehaviour
         AddTarget(GetRandomLocation());
     }
 
-    void stopRunning() {
+    void StopRunning() {
         running = false;
         agent.speed = walkSpeed;
     }
 
+    // Used in conjunction with off mesh links to allow pathfinding through doors but while still keeping them as obstacles.
+    IEnumerator TraverseBoundry() {
+        agent.speed = 0;
+        isTraversing = true;
+        yield return new WaitForSeconds(10);
+        agent.speed = doorSpeed;
+    }
+
     // Adds a new target with a given priority. Currently only accepts high or low priority. Generates a target to move to.
-    // TODO: Allow targets to be placed as child of object, so that they can move, for example to follow the player. Currently static markers only.
     public void AddTarget(GameObject targ, int priority) {
         GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         if (priority == 1) {
             forceIdleCounter = 0f;
+            if (priorityTarget != targ)
+                noiseController.locatedPlayer();
             priorityTarget = targ;
             chaseTimer = 5f;
         }else if(priority == 2) {
-            // This is called when the monster loses sight of the player.
+            // This is called when the monster loses sight of the player to go to the last known position.
             targets.Insert(0, temp);
         }
         else {
@@ -132,17 +159,6 @@ public class MonsterController : MonoBehaviour
         GameObject temp = Instantiate(markerPrefab, targ, Quaternion.identity);
         targets.Add(temp);
     }
-
-    /*public void OnCollisionEnter(Collision collision) {
-        if (collision.gameObject.tag == "ActualPlayer") {
-            if (!hasDied) {
-                noiseController.commitDie();
-                hasDied = true;
-            }
-            chaseTimer = 0f;
-            priorityTarget = null;
-        }
-    }*/
 
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
@@ -163,10 +179,7 @@ public class MonsterController : MonoBehaviour
             chaseTimer = 0f;
             priorityTarget = null;
         }
-    }
 
-    // Monster stuck? Use this function to find a nearby door to go into.
-    void MoveToNearestDoor() {
 
     }
 

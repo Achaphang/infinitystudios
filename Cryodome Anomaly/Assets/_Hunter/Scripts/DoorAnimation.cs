@@ -49,13 +49,8 @@ public class DoorAnimation : MonoBehaviour
         }
         else if (direction == OpenDirection.z)
         {
-            //if (open) {
-                doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
-                doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
-            /*} else if (monsterOpen) {
-                doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (monsterOpen ? -openDistance + Random.Range(-.1f, .01f) : 0), Time.deltaTime * openSpeed / 20));
-                doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (monsterOpen ? openDistance + Random.Range(-.01f, .1f) : 0), Time.deltaTime * openSpeed / 20));
-            }*/
+            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
+            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
         }
     }
 
@@ -65,7 +60,7 @@ public class DoorAnimation : MonoBehaviour
         if (other.CompareTag("ActualPlayer"))
         {
             open = true;
-            monsterOpen = false;
+            //monsterOpen = false;
         }else if (other.CompareTag("Monster")) {
             if (!open)
                 monsterOpen = true;
