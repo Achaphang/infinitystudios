@@ -24,6 +24,9 @@ public class MonsterNoiseController : MonoBehaviour
     }
 
     public void locatedPlayer() {
+        if (audioClips[2].isPlaying || audioClips[4].isPlaying)
+            return;
+
         if (Random.Range(1f, 5f) > 3f)
             audioClips[2].Play();
         else

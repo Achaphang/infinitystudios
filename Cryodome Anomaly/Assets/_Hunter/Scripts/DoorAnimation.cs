@@ -24,19 +24,30 @@ public class DoorAnimation : MonoBehaviour
     Vector3 defaultDoor1Position;
     Vector3 defaultDoor2Position;
 
+    // Used to enable and disable the doors for both the player and the monster.
+    GameObject doorLink1;
+    GameObject doorLink2;
+
+    public bool unlocked = true;
+
     void Start()
     {
-        if (doorBody1)
-        {
-            defaultDoor1Position = doorBody1.transform.localPosition;
-            defaultDoor2Position = doorBody2.transform.localPosition;
+        defaultDoor1Position = doorBody1.transform.localPosition;
+        defaultDoor2Position = doorBody2.transform.localPosition;
+
+        doorLink1 = transform.GetChild(0).gameObject;
+        doorLink2 = transform.GetChild(1).gameObject;
+
+        if (!unlocked) {
+            doorLink1.SetActive(false);
+            doorLink2.SetActive(false);
         }
     }
 
     // Main function
     void Update()
     {
-        if (!doorBody1)
+        if (!unlocked)
             return;
 
         if (direction == OpenDirection.x)
@@ -52,6 +63,12 @@ public class DoorAnimation : MonoBehaviour
             doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
             doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 40 : 1)));
         }
+    }
+
+    public void SetDoorLock(bool tf) {
+        unlocked = tf;
+        doorLink1.SetActive(tf);
+        doorLink2.SetActive(tf);
     }
 
     // Activate the Main function when Player enter the trigger area

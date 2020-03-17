@@ -21381,6 +21381,11 @@ PrefabInstance:
       propertyPath: doorBody2
       value: 
       objectReference: {fileID: 1480238465}
+    - target: {fileID: 2818092805563662389, guid: f532e43ccc6a2334388f92b5736217e0,
+        type: 3}
+      propertyPath: unlocked
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2818092805563662391, guid: f532e43ccc6a2334388f92b5736217e0,
         type: 3}
       propertyPath: m_Name
