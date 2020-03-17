@@ -4,32 +4,36 @@ using UnityEngine;
 
 public class MonsterVisibilityController : MonoBehaviour
 {
-    List<GameObject> players;
+    GameObject player;
     MonsterController monsterController;
     bool canSee = false;
-    float seeCooldown;
+    float spottingTimer = 0f;
+    RaycastHit hit;
 
     // Start is called before the first frame update
     void Start()
     {
-        players = new List<GameObject>();
-        foreach(GameObject obj in GameObject.FindGameObjectsWithTag("ActualPlayer")) {
-            players.Add(obj);
+        if(GameObject.Find("3dPlayerObjs").active == true) {
+            player = GameObject.Find("3dPlayerObjs");
+        } else {
+            player = GameObject.Find("HeadCollider");
         }
+
         monsterController = GetComponentInParent<MonsterController>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        seeCooldown -= Time.deltaTime;
-        if (canSee && seeCooldown <= 0f) {
-            RaycastHit hit;
-            foreach(GameObject p in players) {
-                if (Physics.Raycast(transform.position, (p.transform.position - transform.position), out hit)) {
-                    monsterController.AddTarget(p, 1);
-                    seeCooldown = 1f;
+    void FixedUpdate(){
+        if (canSee) {
+            Physics.Raycast(transform.position, (player.transform.position - transform.position), out hit);
+            if (hit.transform.tag == "ActualPlayer") {
+                spottingTimer += Time.deltaTime;
+                if(spottingTimer > .75f) {
+                    monsterController.AddTarget(player, 1);
+                    spottingTimer = 0;
                 }
+            } else {
+                spottingTimer = 0f;
             }
         }
     }

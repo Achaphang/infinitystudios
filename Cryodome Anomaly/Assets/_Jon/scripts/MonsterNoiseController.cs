@@ -57,6 +57,13 @@ public class MonsterNoiseController : MonoBehaviour
         }
     }
 
+    public void lostPlayer() {
+        if (!tempSource.isPlaying) {
+            tempSource.clip = lostClips[Random.Range(0, lostClips.Length)];
+            tempSource.Play();
+        }
+    }
+
     public void commitDie() {
         audioClips[3].Play();
     }

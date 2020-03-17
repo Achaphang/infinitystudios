@@ -87,17 +87,18 @@ public class MonsterController : MonoBehaviour
     }
 
     public void FixedUpdate() {
-        if (isTraversing)
-            return;
-
-        if (running)
+        if (running && !isTraversing) {
             stamina -= Time.deltaTime;
+            if (Random.Range(0f, 9999f) > 9988f)
+                noiseController.chasingPlayer();
+        }
         else if (stamina < 100f)
             stamina += Time.deltaTime;
 
         if(chaseTimer <= 0f && priorityTarget != null) {
             AddTarget(priorityTarget, 2);
             priorityTarget = null;
+            noiseController.lostPlayer();
         } else {
             chaseTimer -= Time.deltaTime;
         }
@@ -141,10 +142,10 @@ public class MonsterController : MonoBehaviour
         GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         if (priority == 1) {
             forceIdleCounter = 0f;
-            if (priorityTarget != targ)
+            if (priorityTarget == null)
                 noiseController.locatedPlayer();
             priorityTarget = targ;
-            chaseTimer = 5f;
+            chaseTimer = 13f;
         }else if(priority == 2) {
             // This is called when the monster loses sight of the player to go to the last known position.
             targets.Insert(0, temp);
@@ -167,7 +168,7 @@ public class MonsterController : MonoBehaviour
                 forceIdleCounter = 3f + Random.Range(0, 5f);
             targets.RemoveAt(0);
             Destroy(collision.gameObject);
-            // TODO: Remove this
+            // TODO: Remove this?? why
             if(targets.Count <= 0)
                 GenerateRandomTarget();
         }
