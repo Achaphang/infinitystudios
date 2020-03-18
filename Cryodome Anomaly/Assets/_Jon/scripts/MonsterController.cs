@@ -13,7 +13,7 @@ public class MonsterController : MonoBehaviour
     Animator anim;
 
     // Used for running duration.
-    float stamina = 20f;
+    float stamina = 30f;
     float idleCounter = 20f;
     float forceIdleCounter = 0f;
     bool running = false;
@@ -84,8 +84,8 @@ public class MonsterController : MonoBehaviour
             if (Random.Range(0f, 9999f) > 9888f)
                 noiseController.chasingPlayer();
         }
-        else if (stamina < 20f)
-            stamina += Time.deltaTime;
+        else if (stamina < 30f)
+            stamina += Time.deltaTime * 2;
 
         if(chaseTimer <= 0f && priorityTarget != null) {
             AddTarget(priorityTarget, 2);
@@ -147,7 +147,7 @@ public class MonsterController : MonoBehaviour
             if (priorityTarget == null)
                 noiseController.locatedPlayer();
             priorityTarget = targ;
-            chaseTimer = 13f;
+            chaseTimer = 10f;
             StartRunning();
         }else if(priority == 2) {
             // This is called when the monster loses sight of the player to go to the last known position.

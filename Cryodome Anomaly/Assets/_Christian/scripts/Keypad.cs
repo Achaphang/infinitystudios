@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Keypad : MonoBehaviour
 {
+    Overlord overlord;
+    Light light;
     int[] passcode = new int[4];
     int[] passcodeEntered = new int[4];
     string visiblePasscode;
@@ -13,16 +15,21 @@ public class Keypad : MonoBehaviour
     bool correctPasscode = false;
     bool canPress = true;
     Text txt;
+    Text title;
     public DoorAnimation door;
 
     // Start is called before the first frame update
     void Start()
     {
+        overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
+        light = GetComponentInChildren<Light>();
         for (int i = 0; i < 4; i ++) {
             passcode[i] = UnityEngine.Random.Range(0, 9);
         }
 
-        txt = transform.Find("KeypadText").GetComponentInChildren<Text>();
+        txt = transform.Find("KeypadText").GetChild(0).GetComponent<Text>();
+        title = transform.Find("KeypadText").GetChild(1).GetComponent<Text>();
+        title.text = overlord.generateNewKeypadName(0);
         txt.text = string.Join("", passcode);
     }
 
@@ -59,6 +66,7 @@ public class Keypad : MonoBehaviour
         // Do something cool
         correctPasscode = true;
         txt.text = "<color=lime>" + txt.text + "</color>";
+        light.color = Color.green;
         canPress = false;
         if(door != null)
             door.SetDoorUnlocked(true);

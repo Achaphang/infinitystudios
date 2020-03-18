@@ -16,8 +16,10 @@ public class Overlord : MonoBehaviour {
     float scaleCounter = 1f;
     GameObject deathObj;
     SpriteRenderer deathSprite;
+    List<string> keypadNames;
 
-    void Start(){
+    void Awake(){
+        keypadNames = new List<string>();
         audioClips = new List<AudioSource>();
         foreach(AudioSource a in GetComponents<AudioSource>()) {
             audioClips.Add(a);
@@ -67,5 +69,22 @@ public class Overlord : MonoBehaviour {
         if(endDying && dyingCounter < -2.5f) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+    }
+
+    // For now, just generate random values with specific colors.
+    public string generateNewKeypadName(int keypadAccessLevel) {
+        string final = "BIG CHUNGUS WAS HERE";
+        char c = (char)('A' + Random.Range(0, 26));
+        int i = Random.Range(0, 10);
+        // In case of duplicate, simply increment. This has the side effect of generating values bigger than 9. Whatevs.
+        while(keypadNames.Contains((c + i).ToString())) {
+            i++;
+        }
+        keypadNames.Add((c + i).ToString());
+        if (keypadAccessLevel == 0) {
+            final = "<b><color=green>" + c + "-" + i + "</color></b>";
+        }
+
+        return(final);
     }
 }
