@@ -12,7 +12,8 @@ public class Keypad : MonoBehaviour
     int[] passcodeEntered = new int[4];
     string visiblePasscode;
     int passcodeCounter = 0;
-    bool correctPasscode = false;
+    public bool correctPasscode = false;
+    public int accessLevel = 0;
     bool canPress = true;
     Text txt;
     Text title;
@@ -29,8 +30,12 @@ public class Keypad : MonoBehaviour
 
         txt = transform.Find("KeypadText").GetChild(0).GetComponent<Text>();
         title = transform.Find("KeypadText").GetChild(1).GetComponent<Text>();
-        title.text = overlord.generateNewKeypadName(0);
+        title.text = overlord.generateNewKeypadName(accessLevel);
         txt.text = string.Join("", passcode);
+        if (correctPasscode) {
+            //visiblePasscode.Insert(passcodeCounter, val.ToString())
+            txt.text = "<color=lime>" + passcode + "</color>";
+        }
     }
 
     public void EnterValue(int val) {

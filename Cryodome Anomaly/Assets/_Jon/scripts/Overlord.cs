@@ -83,8 +83,16 @@ public class Overlord : MonoBehaviour {
         keypadNames.Add((c + i).ToString());
         if (keypadAccessLevel == 0) {
             final = "<b><color=green>" + c + "-" + i + "</color></b>";
+        }else if(keypadAccessLevel == 1) {
+            final = "<b><color=yellow>" + c + "-" + i + "</color></b>";
+        } else if(keypadAccessLevel == 2) {
+            final = "<b><color=orange>" + c + "-" + i + "</color></b>";
+        }else if(keypadAccessLevel == 3) {
+            final = "<b><color=red>" + c + "-" + i + "</color></b>";
+        }else if(keypadAccessLevel == 4) {
+            final = "<b><color=black>" + c + "-" + i + "</color></b>";
         }
 
-        return(final);
+        return (final);
     }
 }
