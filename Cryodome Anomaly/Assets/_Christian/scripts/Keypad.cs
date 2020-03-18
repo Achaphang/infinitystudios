@@ -43,7 +43,7 @@ public class Keypad : MonoBehaviour
     }
 
     public void EnterPasscode() {
-        if (!canPress)
+        if (!canPress || correctPasscode)
             return;
         for(int i = 0; i < 4; i++) {
             if (passcodeEntered[i] != passcode[i]) {
@@ -62,6 +62,8 @@ public class Keypad : MonoBehaviour
     }
 
     public void ClearPasscode() {
+        if (correctPasscode)
+            return;
         Array.Clear(passcodeEntered, 0, passcodeEntered.Length);
         visiblePasscode = "";
         txt.text = "";
@@ -70,6 +72,8 @@ public class Keypad : MonoBehaviour
     }
 
     public void ResetPress() {
+        if (correctPasscode)
+            return;
         canPress = true;
     }
 }
