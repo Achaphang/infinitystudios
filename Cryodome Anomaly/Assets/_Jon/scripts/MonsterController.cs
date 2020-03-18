@@ -14,7 +14,6 @@ public class MonsterController : MonoBehaviour
 
     // Used for running duration.
     float stamina = 30f;
-    float idleCounter = 20f;
     float forceIdleCounter = 0f;
     bool running = false;
     float walkSpeed;
@@ -24,7 +23,6 @@ public class MonsterController : MonoBehaviour
     // Used for boundry traversal
     float doorSpeed;
     bool isTraversing = false;
-    float traverseTime = 0;
 
     bool hasDied = false;
     MonsterNoiseController noiseController;
