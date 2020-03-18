@@ -43,7 +43,7 @@ public class MonsterController : MonoBehaviour
     }
 
     void Update() {
-        if(agent.speed == 0 || agent.velocity == Vector3.zero) {
+        if(agent.speed == 0 || agent.velocity.magnitude < .3f) {
             anim.Play("idle");
         }else if(agent.speed <= walkSpeed) {
             anim.Play("walk");
@@ -62,21 +62,6 @@ public class MonsterController : MonoBehaviour
         if (isTraversing)
             return;
 
-        // If targets is empty, do nothing for now.
-        if(agent.velocity.magnitude == 0) {
-            idleCounter -= Time.deltaTime;
-            if(idleCounter <= 0f) {
-                idleCounter = 20f;
-                foreach(GameObject g in targets) {
-                    Destroy(g);
-                }
-                targets.Clear();
-                GenerateRandomTarget();
-            }
-        } else {
-            idleCounter = 20f;
-        }
-
         forceIdleCounter -= Time.deltaTime;
 
         if ((targets.Count == 0 && priorityTarget == null) || forceIdleCounter > 0f)
@@ -84,7 +69,7 @@ public class MonsterController : MonoBehaviour
 
         if (priorityTarget != null)
             agent.destination = priorityTarget.transform.position;
-        else
+        else if (forceIdleCounter <= 0f)
             agent.destination = targets[0].transform.position;
 
         if (!running)
