@@ -10,6 +10,8 @@ public class MonsterNoiseController : MonoBehaviour
     AudioClip[] lostClips;
 
     public AudioSource tempSource;
+
+    bool playerDead = false;
     
     void Start()
     {
@@ -43,7 +45,7 @@ public class MonsterNoiseController : MonoBehaviour
             audioClips[2].Play();
         else
             audioClips[4].Play();*/
-        if (!tempSource.isPlaying) {
+        if (!tempSource.isPlaying && !playerDead) {
             tempSource.clip = spottedClips[Random.Range(0, spottedClips.Length)];
             tempSource.Play();
         }
@@ -51,20 +53,21 @@ public class MonsterNoiseController : MonoBehaviour
     }
     
     public void chasingPlayer() {
-        if (!tempSource.isPlaying) {
+        if (!tempSource.isPlaying && !playerDead) {
             tempSource.clip = chasingClips[Random.Range(0, chasingClips.Length)];
             tempSource.Play();
         }
     }
 
     public void lostPlayer() {
-        if (!tempSource.isPlaying) {
+        if (!tempSource.isPlaying && !playerDead) {
             tempSource.clip = lostClips[Random.Range(0, lostClips.Length)];
             tempSource.Play();
         }
     }
 
     public void commitDie() {
+        playerDead = true;
         audioClips[3].Play();
     }
 }
