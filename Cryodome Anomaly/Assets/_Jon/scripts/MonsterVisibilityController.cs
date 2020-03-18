@@ -33,7 +33,7 @@ public class MonsterVisibilityController : MonoBehaviour
                 Physics.Raycast(transform.position, (player.transform.position - transform.position), out hit);
                 if (hit.transform.tag == "ActualPlayer") {
                     spottingTimer += Time.deltaTime;
-                    if (spottingTimer > .75f) {
+                    if (spottingTimer > .55f) {
                         monsterController.AddTarget(player, 1);
                         spottingTimer = 0;
                     }

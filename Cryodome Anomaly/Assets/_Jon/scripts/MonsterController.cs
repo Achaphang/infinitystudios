@@ -180,8 +180,6 @@ public class MonsterController : MonoBehaviour
             chaseTimer = 0f;
             priorityTarget = null;
         }
-
-
     }
 
     // Used for test cases.
