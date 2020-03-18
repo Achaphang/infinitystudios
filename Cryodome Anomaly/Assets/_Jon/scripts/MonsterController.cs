@@ -10,9 +10,10 @@ public class MonsterController : MonoBehaviour
     // This object is a square box that acts as a target collider for the monster.
     public GameObject markerPrefab;
     NavMeshAgent agent;
+    Animator anim;
 
     // Used for running duration.
-    float stamina = 100f;
+    float stamina = 20f;
     float idleCounter = 20f;
     float forceIdleCounter = 0f;
     bool running = false;
@@ -29,21 +30,27 @@ public class MonsterController : MonoBehaviour
     MonsterNoiseController noiseController;
 
     void Start() {
-        // Generates list, must call constructor
         targets = new List<GameObject>();
-        // Marker prefab temporary solution
-        //markerPrefab = Resources.Load("assets/prefabs/markerPrefab") as GameObject;
         noiseController = GetComponent<MonsterNoiseController>();
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
         agent.Warp(new Vector3(-26, 1, -16));
         walkSpeed = agent.speed;
-        runSpeed = walkSpeed * 2;
+        runSpeed = walkSpeed * 2.5f;
         doorSpeed = agent.speed * .5f;
 
         GenerateRandomTarget();
     }
 
     void Update() {
+        if(agent.speed == 0 || agent.velocity == Vector3.zero) {
+            anim.Play("idle");
+        }else if(agent.speed <= walkSpeed) {
+            anim.Play("walk");
+        } else{
+            anim.Play("run");
+        }
+
         if (agent.isOnOffMeshLink && !isTraversing)
             StartCoroutine(TraverseBoundry());
         else if (!agent.isOnOffMeshLink && isTraversing) {
@@ -89,10 +96,10 @@ public class MonsterController : MonoBehaviour
     public void FixedUpdate() {
         if (running && !isTraversing) {
             stamina -= Time.deltaTime;
-            if (Random.Range(0f, 9999f) > 9988f)
+            if (Random.Range(0f, 9999f) > 9888f)
                 noiseController.chasingPlayer();
         }
-        else if (stamina < 100f)
+        else if (stamina < 20f)
             stamina += Time.deltaTime;
 
         if(chaseTimer <= 0f && priorityTarget != null) {
@@ -124,7 +131,16 @@ public class MonsterController : MonoBehaviour
         AddTarget(GetRandomLocation());
     }
 
+    void StartRunning() {
+        if (isTraversing || stamina < 20f)
+            return;
+        running = true;
+        agent.speed = runSpeed;
+    }
+
     void StopRunning() {
+        if (isTraversing)
+            return;
         running = false;
         agent.speed = walkSpeed;
     }
@@ -135,6 +151,7 @@ public class MonsterController : MonoBehaviour
         isTraversing = true;
         yield return new WaitForSeconds(10);
         agent.speed = doorSpeed;
+
     }
 
     // Adds a new target with a given priority. Currently only accepts high or low priority. Generates a target to move to.
@@ -146,6 +163,7 @@ public class MonsterController : MonoBehaviour
                 noiseController.locatedPlayer();
             priorityTarget = targ;
             chaseTimer = 13f;
+            StartRunning();
         }else if(priority == 2) {
             // This is called when the monster loses sight of the player to go to the last known position.
             targets.Insert(0, temp);
