@@ -13,6 +13,7 @@ public class Keypad : MonoBehaviour
     bool correctPasscode = false;
     bool canPress = true;
     Text txt;
+    public DoorAnimation door;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +60,8 @@ public class Keypad : MonoBehaviour
         correctPasscode = true;
         txt.text = "<color=lime>" + txt.text + "</color>";
         canPress = false;
+        if(door != null)
+            door.SetDoorUnlocked(true);
     }
 
     public void ClearPasscode() {

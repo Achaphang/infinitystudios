@@ -300,7 +300,7 @@ InputManager:
     negativeButton: 
     positiveButton: left alt
     altNegativeButton: 
-    altPositiveButton: right alt
+    altPositiveButton: q
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

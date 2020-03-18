@@ -18,6 +18,9 @@ public class DoorAnimation : MonoBehaviour
     public GameObject doorBody1; //Door body Transform
     public GameObject doorBody2;
 
+    AudioSource doorSource;
+    AudioClip doorBreakClip;
+
     bool open = false;
     bool monsterOpen = false;
 
@@ -42,6 +45,9 @@ public class DoorAnimation : MonoBehaviour
             doorLink1.SetActive(false);
             doorLink2.SetActive(false);
         }
+
+        doorSource = GetComponent<AudioSource>();
+        doorBreakClip = Resources.Load<AudioClip>("Sounds/Misc/breakDoor");
     }
 
     // Main function
@@ -65,7 +71,7 @@ public class DoorAnimation : MonoBehaviour
         }
     }
 
-    public void SetDoorLock(bool tf) {
+    public void SetDoorUnlocked(bool tf) {
         unlocked = tf;
         doorLink1.SetActive(tf);
         doorLink2.SetActive(tf);
@@ -79,8 +85,13 @@ public class DoorAnimation : MonoBehaviour
             open = true;
             //monsterOpen = false;
         }else if (other.CompareTag("Monster")) {
-            if (!open)
+            if (!open) {
                 monsterOpen = true;
+                if (!doorSource.isPlaying) {
+                    doorSource.clip = doorBreakClip;
+                    doorSource.Play();
+                }
+            }
         }
     }
 
