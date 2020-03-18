@@ -134,7 +134,7 @@ public class MonsterController : MonoBehaviour
     IEnumerator TraverseBoundry() {
         agent.speed = 0;
         isTraversing = true;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(6);
         agent.speed = doorSpeed;
 
     }
