@@ -85,13 +85,13 @@ public class DoorAnimation : MonoBehaviour
             open = true;
             //monsterOpen = false;
         }else if (other.CompareTag("Monster")) {
-            if (!open) {
+            //if (!open) {
                 monsterOpen = true;
                 if (!doorSource.isPlaying && unlocked) {
                     doorSource.clip = doorBreakClip;
                     doorSource.Play();
                 }
-            }
+            //}
         }
     }
 

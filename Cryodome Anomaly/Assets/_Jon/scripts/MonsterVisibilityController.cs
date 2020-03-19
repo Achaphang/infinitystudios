@@ -35,7 +35,7 @@ public class MonsterVisibilityController : MonoBehaviour
                     spottingTimer += Time.deltaTime;
                     if (spottingTimer > .55f) {
                         monsterController.AddTarget(player, 1);
-                        spottingTimer = 0;
+                        spottingTimer = .45f;
                     }
                 } else {
                     spottingTimer = 0f;

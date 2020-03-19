@@ -19,6 +19,9 @@ public class Keypad : MonoBehaviour
     Text title;
     public DoorAnimation door;
 
+    AudioSource keypadSource;
+    AudioClip beepClip;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,16 +36,20 @@ public class Keypad : MonoBehaviour
         title.text = overlord.generateNewKeypadName(accessLevel);
         txt.text = string.Join("", passcode);
         if (correctPasscode) {
-            //visiblePasscode.Insert(passcodeCounter, val.ToString())
-            txt.text = "<color=lime>" + passcode + "</color>";
+            txt.text = "<color=lime>" + txt.text + "</color>";
         }
+
+        keypadSource = GetComponent<AudioSource>();
+        beepClip = Resources.Load<AudioClip>("Sounds/Misc/button");
     }
 
     public void EnterValue(int val) {
-        if (!canPress)
+        if (!canPress || correctPasscode)
             return;
-        if (correctPasscode)
-            return;
+
+        //keypadSource.clip = beepClip;
+        //keypadSource.Play();
+
         if(passcodeCounter < 4) {
             canPress = false;
             if (passcodeCounter == 0)
@@ -56,9 +63,10 @@ public class Keypad : MonoBehaviour
     }
 
     public void EnterPasscode() {
-        if (!canPress || correctPasscode)
+        if (correctPasscode)
             return;
-        for(int i = 0; i < 4; i++) {
+
+        for (int i = 0; i < 4; i++) {
             if (passcodeEntered[i] != passcode[i]) {
                 // Make a really dang loud noise cause you messed up
                 txt.text = "<color=red>" + txt.text + "</color>";
@@ -80,6 +88,7 @@ public class Keypad : MonoBehaviour
     public void ClearPasscode() {
         if (correctPasscode)
             return;
+
         Array.Clear(passcodeEntered, 0, passcodeEntered.Length);
         visiblePasscode = "";
         txt.text = "";
@@ -91,5 +100,10 @@ public class Keypad : MonoBehaviour
         if (correctPasscode)
             return;
         canPress = true;
+    }
+
+    public void beep() {
+        keypadSource.clip = beepClip;
+        keypadSource.Play();
     }
 }
