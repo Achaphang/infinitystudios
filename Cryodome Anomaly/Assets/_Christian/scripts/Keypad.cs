@@ -102,4 +102,22 @@ public class Keypad : MonoBehaviour
         keypadSource.clip = beepClip;
         keypadSource.Play();
     }
+
+    public string GetTitle() {
+        return title.text;
+    }
+
+    public int GetCode() {
+        int code = 0;
+
+        for(int i = 0; i < 4; i++) {
+            code = code + passcode[i] * (int)Mathf.Pow(10, 3 - i);
+        }
+
+        return code;
+    }
+
+    public int[] GetCodeArr() {
+        return passcode;
+    }
 }
