@@ -8,6 +8,7 @@ public class Keypad : MonoBehaviour
 {
     Overlord overlord;
     Light keypadLight;
+    Canvas canvas;
     int[] passcode = new int[4];
     int[] passcodeEntered = new int[4];
     string visiblePasscode;
@@ -26,6 +27,8 @@ public class Keypad : MonoBehaviour
     {
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
         keypadLight = GetComponentInChildren<Light>();
+        canvas = GetComponentInChildren<Canvas>();
+        StartCoroutine(LateStart(1));
         for (int i = 0; i < 4; i ++) {
             passcode[i] = UnityEngine.Random.Range(0, 9);
         }
@@ -40,6 +43,11 @@ public class Keypad : MonoBehaviour
 
         keypadSource = GetComponent<AudioSource>();
         beepClip = Resources.Load<AudioClip>("Sounds/Misc/button");
+    }
+
+    IEnumerator LateStart(float wait) {
+        yield return new WaitForSeconds(wait);
+        canvas.worldCamera = Camera.current;
     }
 
     public void EnterValue(int val) {
