@@ -19,9 +19,11 @@ public class Keypad : MonoBehaviour
     Text txt;
     Text title;
     public DoorAnimation door;
+    bool lockedOut = false;
 
     AudioSource keypadSource;
     AudioClip beepClip;
+    AudioClip alarmClip;
 
     void Start()
     {
@@ -43,6 +45,7 @@ public class Keypad : MonoBehaviour
 
         keypadSource = GetComponent<AudioSource>();
         beepClip = Resources.Load<AudioClip>("Sounds/Misc/button");
+        alarmClip = Resources.Load<AudioClip>("Sounds/Misc/keypadAlarm");
     }
 
     IEnumerator LateStart(float wait) {
@@ -67,7 +70,7 @@ public class Keypad : MonoBehaviour
     }
 
     public void EnterPasscode() {
-        if (correctPasscode)
+        if (correctPasscode || lockedOut)
             return;
 
         for (int i = 0; i < 4; i++) {
@@ -76,6 +79,7 @@ public class Keypad : MonoBehaviour
                 txt.text = "<color=red>" + txt.text + "</color>";
                 passcodeCounter = 0;
                 canPress = false;
+                StartCoroutine(KeypadFailure());
                 return;
             }
                 
@@ -90,7 +94,7 @@ public class Keypad : MonoBehaviour
     }
 
     public void ClearPasscode() {
-        if (correctPasscode)
+        if (correctPasscode || lockedOut)
             return;
 
         Array.Clear(passcodeEntered, 0, passcodeEntered.Length);
@@ -101,12 +105,14 @@ public class Keypad : MonoBehaviour
     }
 
     public void ResetPress() {
-        if (correctPasscode)
+        if (correctPasscode || lockedOut)
             return;
         canPress = true;
     }
 
     public void beep() {
+        if (correctPasscode || lockedOut)
+            return;
         keypadSource.clip = beepClip;
         keypadSource.Play();
     }
@@ -127,5 +133,21 @@ public class Keypad : MonoBehaviour
 
     public int[] GetCodeArr() {
         return passcode;
+    }
+
+    IEnumerator KeypadFailure() {
+        lockedOut = true;
+        keypadLight.color = Color.red;
+        keypadSource.clip = alarmClip;
+        keypadSource.volume = .65f;
+        for (int i = 0; i < 15; i++) {
+            keypadSource.Play();
+            yield return new WaitForSeconds(1);
+        }
+        keypadSource.volume = .25f;
+        keypadLight.color = Color.white;
+        lockedOut = false;
+        ClearPasscode();
+        ResetPress();
     }
 }
