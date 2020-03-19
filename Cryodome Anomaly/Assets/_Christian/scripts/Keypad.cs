@@ -22,7 +22,6 @@ public class Keypad : MonoBehaviour
     AudioSource keypadSource;
     AudioClip beepClip;
 
-    // Start is called before the first frame update
     void Start()
     {
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
@@ -46,9 +45,6 @@ public class Keypad : MonoBehaviour
     public void EnterValue(int val) {
         if (!canPress || correctPasscode)
             return;
-
-        //keypadSource.clip = beepClip;
-        //keypadSource.Play();
 
         if(passcodeCounter < 4) {
             canPress = false;
