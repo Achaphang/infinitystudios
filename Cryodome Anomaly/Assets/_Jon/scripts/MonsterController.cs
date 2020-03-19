@@ -143,7 +143,7 @@ public class MonsterController : MonoBehaviour
         if (isTraversing)
             return;
         running = false;
-        agent.speed = walkSpeed;
+        //agent.speed = walkSpeed;
     }
 
     // Used in conjunction with off mesh links to allow pathfinding through doors but while still keeping them as obstacles.
@@ -189,8 +189,10 @@ public class MonsterController : MonoBehaviour
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
-            if(priorityTarget == null)
+            if(priorityTarget == null) {
                 forceIdleCounter = 3f + Random.Range(0, 5f);
+                StopRunning();
+            }
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
             // TODO: Remove this?? why
