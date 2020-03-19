@@ -25,6 +25,8 @@ public class Keypad : MonoBehaviour
     AudioClip beepClip;
     AudioClip alarmClip;
 
+    MonsterController monster;
+
     void Start()
     {
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
@@ -46,6 +48,8 @@ public class Keypad : MonoBehaviour
         keypadSource = GetComponent<AudioSource>();
         beepClip = Resources.Load<AudioClip>("Sounds/Misc/button");
         alarmClip = Resources.Load<AudioClip>("Sounds/Misc/keypadAlarm");
+
+        monster = GameObject.Find("Monster").GetComponent<MonsterController>();
     }
 
     IEnumerator LateStart(float wait) {
@@ -140,6 +144,7 @@ public class Keypad : MonoBehaviour
         keypadLight.color = Color.red;
         keypadSource.clip = alarmClip;
         keypadSource.volume = .65f;
+        monster.AddTarget(gameObject, 2);
         for (int i = 0; i < 15; i++) {
             keypadSource.Play();
             yield return new WaitForSeconds(1);

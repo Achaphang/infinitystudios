@@ -13,8 +13,10 @@ public class MonsterController : MonoBehaviour
     Animator anim;
 
     // Used for running duration.
-    float stamina = 30f;
+    float stamina = 20f;
     float forceIdleCounter = 0f;
+    // Used to generate a new marker if the monster is stuck.
+    float idleResetCounter = 5f;
     bool running = false;
     float walkSpeed;
     float runSpeed;
@@ -41,7 +43,8 @@ public class MonsterController : MonoBehaviour
     }
 
     void Update() {
-        if(agent.speed == 0 || agent.velocity.magnitude < .3f) {
+        // This if statement basically checks for all possible times that the monster SHOULD be idle but might not be.
+        if(agent.speed == 0 || agent.velocity.magnitude < .3f || targets.Count == 0 || forceIdleCounter > 0f) {
             anim.Play("idle");
         }else if(agent.speed <= walkSpeed) {
             anim.Play("walk");
@@ -59,6 +62,19 @@ public class MonsterController : MonoBehaviour
         // Prevents other things from happening while breaking through a door.
         if (isTraversing)
             return;
+
+        if(agent.velocity.magnitude < .3f) {
+            idleResetCounter -= Time.deltaTime;
+            if(idleResetCounter <= 0f) {
+                Destroy(targets[0]);
+                targets.RemoveAt(0);
+                if(targets.Count == 0)
+                    GenerateRandomTarget();
+                idleResetCounter = 5f;
+            }
+        } else {
+            idleResetCounter = 5f;
+        }
 
         forceIdleCounter -= Time.deltaTime;
 
@@ -78,11 +94,13 @@ public class MonsterController : MonoBehaviour
 
     public void FixedUpdate() {
         if (running && !isTraversing) {
+            agent.speed = runSpeed;
             stamina -= Time.deltaTime;
             if (Random.Range(0f, 9999f) > 9888f)
                 noiseController.chasingPlayer();
         }
-        else if (stamina < 30f)
+
+        if (stamina < 20f && !running)
             stamina += Time.deltaTime * 2;
 
         if(chaseTimer <= 0f && priorityTarget != null) {
@@ -115,10 +133,10 @@ public class MonsterController : MonoBehaviour
     }
 
     void StartRunning() {
-        if (isTraversing || stamina < 20f)
+        if (stamina < 20f)
             return;
         running = true;
-        agent.speed = runSpeed;
+        //agent.speed = runSpeed;
     }
 
     void StopRunning() {
@@ -149,7 +167,13 @@ public class MonsterController : MonoBehaviour
             StartRunning();
         }else if(priority == 2) {
             // This is called when the monster loses sight of the player to go to the last known position.
+            // Also should be called when an alarm goes off.
+            // Removes all other markers as the monster has a high priority target, but it's not the player.
+            foreach (GameObject t in targets)
+                Destroy(t);
+            targets.Clear();
             targets.Insert(0, temp);
+            StartRunning();
         }
         else {
             targets.Add(temp);
@@ -167,7 +191,7 @@ public class MonsterController : MonoBehaviour
         if(collision.gameObject.tag == "MonsterMarker") {
             if(priorityTarget == null)
                 forceIdleCounter = 3f + Random.Range(0, 5f);
-            targets.RemoveAt(0);
+            targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
             // TODO: Remove this?? why
             if(targets.Count <= 0)
