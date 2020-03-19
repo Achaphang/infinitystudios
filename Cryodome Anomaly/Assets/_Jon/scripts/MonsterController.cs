@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour
 {
-    [SerializeField] List<GameObject> targets;
+    List<GameObject> targets;
     GameObject priorityTarget;
     // This object is a square box that acts as a target collider for the monster.
     public GameObject markerPrefab;
@@ -13,7 +13,8 @@ public class MonsterController : MonoBehaviour
     Animator anim;
 
     // Used for running duration.
-    float stamina = 20f;
+    float staminaMax = 40f;
+    float stamina = 0f;
     float forceIdleCounter = 0f;
     // Used to generate a new marker if the monster is stuck.
     float idleResetCounter = 5f;
@@ -36,7 +37,7 @@ public class MonsterController : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         agent.Warp(new Vector3(-26, 1, -16));
         walkSpeed = agent.speed;
-        runSpeed = walkSpeed * 2.5f;
+        runSpeed = walkSpeed * 3.25f;
         doorSpeed = agent.speed * .5f;
 
         GenerateRandomTarget();
@@ -100,7 +101,7 @@ public class MonsterController : MonoBehaviour
                 noiseController.chasingPlayer();
         }
 
-        if (stamina < 20f && !running)
+        if (stamina < staminaMax && !running)
             stamina += Time.deltaTime * 2;
 
         if(chaseTimer <= 0f && priorityTarget != null) {
@@ -133,7 +134,7 @@ public class MonsterController : MonoBehaviour
     }
 
     void StartRunning() {
-        if (stamina < 20f)
+        if (stamina < staminaMax)
             return;
         running = true;
         //agent.speed = runSpeed;

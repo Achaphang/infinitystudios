@@ -38,11 +38,11 @@ public class MonsterNoiseController : MonoBehaviour
 
     void Update() {
         float temp = anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1;
-        if(temp > .26f && temp < .34f && agent.velocity.magnitude > .3f) {
+        if(temp > .23f && temp < .3f && agent.velocity.magnitude > .3f) {
             move();
         }
 
-        if (temp > .71f && temp < .75f && agent.velocity.magnitude > .3f) {
+        if (temp > .7f && temp < .77f && agent.velocity.magnitude > .3f) {
             move();
         }
     }
