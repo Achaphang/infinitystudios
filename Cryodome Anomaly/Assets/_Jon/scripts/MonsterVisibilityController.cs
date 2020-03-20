@@ -10,8 +10,8 @@ public class MonsterVisibilityController : MonoBehaviour
     RaycastHit hit;
 
     // Used in the new vision system, angle generated a cone, distance is how far the monster can see.
-    public float viewAngle = 35f;
-    public float viewDistance = 20f;
+    public float viewAngle = 45f;
+    public float viewDistance = 30f;
 
     void Start()
     {
