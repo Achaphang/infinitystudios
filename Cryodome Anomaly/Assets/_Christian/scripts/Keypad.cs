@@ -24,6 +24,7 @@ public class Keypad : MonoBehaviour
     AudioSource keypadSource;
     AudioClip beepClip;
     AudioClip alarmClip;
+    AudioClip successClip;
 
     MonsterController monster;
 
@@ -48,6 +49,7 @@ public class Keypad : MonoBehaviour
         keypadSource = GetComponent<AudioSource>();
         beepClip = Resources.Load<AudioClip>("Sounds/Misc/button");
         alarmClip = Resources.Load<AudioClip>("Sounds/Misc/keypadAlarm");
+        successClip = Resources.Load<AudioClip>("Sounds/Misc/keypadSuccess");
 
         monster = GameObject.Find("Monster").GetComponent<MonsterController>();
     }
@@ -86,14 +88,17 @@ public class Keypad : MonoBehaviour
                 StartCoroutine(KeypadFailure());
                 return;
             }
-                
         }
         // Do something cool
         correctPasscode = true;
         txt.text = "<color=lime>" + txt.text + "</color>";
         keypadLight.color = Color.green;
         canPress = false;
-        foreach(DoorAnimation d in doors) {
+        keypadSource.clip = successClip;
+        keypadSource.volume = 1;
+        keypadSource.pitch = .75f;
+        keypadSource.Play();
+        foreach (DoorAnimation d in doors) {
             d.SetDoorUnlocked(true);
         }
     }
