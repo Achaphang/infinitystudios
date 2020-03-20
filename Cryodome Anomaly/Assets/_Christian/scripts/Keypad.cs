@@ -18,7 +18,7 @@ public class Keypad : MonoBehaviour
     bool canPress = true;
     Text txt;
     Text title;
-    public DoorAnimation door;
+    public List<DoorAnimation> doors;
     bool lockedOut = false;
 
     AudioSource keypadSource;
@@ -93,8 +93,9 @@ public class Keypad : MonoBehaviour
         txt.text = "<color=lime>" + txt.text + "</color>";
         keypadLight.color = Color.green;
         canPress = false;
-        if(door != null)
-            door.SetDoorUnlocked(true);
+        foreach(DoorAnimation d in doors) {
+            d.SetDoorUnlocked(true);
+        }
     }
 
     public void ClearPasscode() {
