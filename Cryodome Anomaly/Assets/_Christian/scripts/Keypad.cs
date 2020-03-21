@@ -121,7 +121,7 @@ public class Keypad : MonoBehaviour
     }
 
     public void beep() {
-        if (correctPasscode || lockedOut)
+        if (correctPasscode || lockedOut || !canPress)
             return;
         keypadSource.clip = beepClip;
         keypadSource.Play();

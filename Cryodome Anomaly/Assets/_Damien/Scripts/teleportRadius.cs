@@ -14,8 +14,8 @@ public class teleportRadius : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        xVal = 0.04f;
-        zVal = 0.04f;
+        xVal = 0.08f;
+        zVal = 0.08f;
         iteration = 1;
         defaultRad = new Vector3(.2f, 0.01f, .2f);
     }
