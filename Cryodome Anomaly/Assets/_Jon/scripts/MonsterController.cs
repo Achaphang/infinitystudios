@@ -222,6 +222,9 @@ public class MonsterController : MonoBehaviour
             if (!hasDied) {
                 noiseController.commitDie();
                 hasDied = true;
+                Camera temp = collision.transform.parent.GetComponentInChildren<Camera>();
+                if (temp == null)
+                    temp = collision.transform.parent.GetComponent<Camera>();
                 collision.transform.parent.GetComponentInChildren<Camera>().enabled = false;
                 GameObject.Find("Overlord").GetComponent<Overlord>().youDied();
             }

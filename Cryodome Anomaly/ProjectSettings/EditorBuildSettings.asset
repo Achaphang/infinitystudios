@@ -14,4 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/blank.unity
     guid: deafd7eac50f2cd42945bc79294b7e1e
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 21c5bcb37c0ed64488f852bdd26e777e,
+      type: 2}

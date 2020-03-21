@@ -81,6 +81,54 @@
       "name": "/actions/mixedreality/in/ExternalCamera",
       "type": "pose",
       "requirement": "optional"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/InteractUI",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/GrabPinch",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/GrabGrip",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/Pose",
+      "type": "pose"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/SkeletonLeftHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/left"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/SkeletonRightHand",
+      "type": "skeleton",
+      "skeleton": "/skeleton/hand/right"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/Squeeze",
+      "type": "vector1",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/HeadsetOnHead",
+      "type": "boolean",
+      "requirement": "optional"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/Locomotion",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/thumbstickVersion/in/SmoothTurn",
+      "type": "vector2"
+    },
+    {
+      "name": "/actions/thumbstickVersion/out/haptic",
+      "type": "vibration"
     }
   ],
   "action_sets": [
@@ -98,6 +146,10 @@
     },
     {
       "name": "/actions/mixedreality",
+      "usage": "single"
+    },
+    {
+      "name": "/actions/thumbstickVersion",
       "usage": "single"
     }
   ],
@@ -165,7 +217,17 @@
       "/actions/default/out/Haptic": "Haptic",
       "/actions/platformer/in/Jump": "Jump",
       "/actions/default/in/SnapTurnLeft": "Snap Turn (Left)",
-      "/actions/default/in/SnapTurnRight": "Snap Turn (Right)"
+      "/actions/default/in/SnapTurnRight": "Snap Turn (Right)",
+      "/actions/thumbstickVersion/in/InteractUI": "Interact With UI",
+      "/actions/thumbstickVersion/out/haptic": "Haptic",
+      "/actions/thumbstickVersion/in/GrabPinch": "Grab Pinch",
+      "/actions/thumbstickVersion/in/GrabGrip": "GrabGrip",
+      "/actions/thumbstickVersion/in/Pose": "Pose",
+      "/actions/thumbstickVersion/in/SkeletonLeftHand": "Skeleton (Left)",
+      "/actions/thumbstickVersion/in/SkeletonRightHand": "Skeleton (Right)",
+      "/actions/thumbstickVersion/in/HeadsetOnHead": "Headset on head (proximity sensor)",
+      "/actions/thumbstickVersion/in/Locomotion": "Locomotion",
+      "/actions/thumbstickVersion/in/SmoothTurn": "SmoothTurn"
     }
   ]
 }
