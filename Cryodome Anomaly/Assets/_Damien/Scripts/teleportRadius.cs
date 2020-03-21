@@ -21,7 +21,7 @@ public class teleportRadius : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if ((SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport").GetState(SteamVR_Input_Sources.Any)) && iteration <= 100) {
             gameObject.transform.localScale = new Vector3(.2f + xVal * iteration, 1, .2f + zVal * iteration);

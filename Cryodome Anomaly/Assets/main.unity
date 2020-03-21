@@ -9083,7 +9083,7 @@ Transform:
   m_GameObject: {fileID: 343084251}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 0.01, z: 5}
+  m_LocalScale: {x: 5, y: 0.04, z: 5}
   m_Children: []
   m_Father: {fileID: 321642749}
   m_RootOrder: 1
@@ -9134,7 +9134,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6e8b24558e6899742b276a1b6c480de1, type: 2}
+  - {fileID: 2100000, guid: 85924448553345143abd2787f7ae0470, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10436,7 +10436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &383072513
 Transform:
   m_ObjectHideFlags: 0
@@ -50656,9 +50656,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   floorFixupMaximumTraceDistance: 1
-  areaVisibleMaterial: {fileID: 2100000, guid: 6e8b24558e6899742b276a1b6c480de1, type: 2}
+  areaVisibleMaterial: {fileID: 2100000, guid: 85924448553345143abd2787f7ae0470, type: 2}
   areaLockedMaterial: {fileID: 2100000, guid: f6802bd638faedf4dbe4a57c1f222991, type: 2}
-  areaHighlightedMaterial: {fileID: 2100000, guid: 6e8b24558e6899742b276a1b6c480de1,
+  areaHighlightedMaterial: {fileID: 2100000, guid: b857670be25e438498121499bad19c05,
     type: 2}
   pointVisibleMaterial: {fileID: 2100000, guid: 510c6e0b8b5c948458c2b4bc3de5a637,
     type: 2}
@@ -54411,7 +54411,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.12
+  m_Radius: 0.04
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &4847095356310624849
 CapsuleCollider:
@@ -54567,8 +54567,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4847095356313370625}
+  m_Children: []
   m_Father: {fileID: 4847095356313330097}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54622,11 +54621,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4847095356313711409}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4847095356313360749}
+  m_Father: {fileID: 4847095356313396741}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4847095356313374445
@@ -54688,7 +54687,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4847095356313370625}
   m_Father: {fileID: 4847095356313330097}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54977,6 +54977,7 @@ GameObject:
   - component: {fileID: 4847095356313370625}
   - component: {fileID: 4847095356309728163}
   - component: {fileID: 4847095356318865977}
+  - component: {fileID: 4847095356313711410}
   m_Layer: 26
   m_Name: HeadCollider
   m_TagString: ActualPlayer
@@ -54984,6 +54985,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &4847095356313711410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4847095356313711409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73f4c44bca325394fb45a934c25360d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4847095356313715109
 GameObject:
   m_ObjectHideFlags: 0
@@ -55211,7 +55224,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 2
+  m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
@@ -55357,9 +55370,9 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &4848083260532644621
 GameObject:
