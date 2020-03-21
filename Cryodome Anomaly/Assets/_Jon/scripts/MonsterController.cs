@@ -13,7 +13,7 @@ public class MonsterController : MonoBehaviour
     Animator anim;
 
     // Used for running duration.
-    float staminaMax = 40f;
+    float staminaMax = 20f;
     float stamina = 0f;
     float forceIdleCounter = 0f;
     // Used to generate a new marker if the monster is stuck.
@@ -45,7 +45,7 @@ public class MonsterController : MonoBehaviour
 
     void Update() {
         // This if statement basically checks for all possible times that the monster SHOULD be idle but might not be.
-        if(agent.speed == 0 || agent.velocity.magnitude < .3f || targets.Count == 0 || forceIdleCounter > 0f) {
+        if(agent.speed == 0 || agent.velocity.magnitude < .3f || (targets.Count == 0 && priorityTarget == null) || forceIdleCounter > 0f) {
             anim.Play("idle");
         }else if(agent.speed <= walkSpeed) {
             anim.Play("walk");
@@ -67,8 +67,11 @@ public class MonsterController : MonoBehaviour
         if(agent.velocity.magnitude < .3f) {
             idleResetCounter -= Time.deltaTime;
             if(idleResetCounter <= 0f) {
-                Destroy(targets[0]);
-                targets.RemoveAt(0);
+                if(targets.Count > 0) {
+                    Destroy(targets[0]);
+                    targets.RemoveAt(0);
+                }
+
                 if(targets.Count == 0)
                     GenerateRandomTarget();
                 idleResetCounter = 5f;
@@ -97,16 +100,18 @@ public class MonsterController : MonoBehaviour
         if (running && !isTraversing) {
             agent.speed = runSpeed;
             stamina -= Time.deltaTime;
-            if (Random.Range(0f, 9999f) > 9888f)
+            if (Random.Range(0f, 9999f) > 9958f)
                 noiseController.chasingPlayer();
         }
 
         if (stamina < staminaMax && !running)
-            stamina += Time.deltaTime * 2;
+            stamina += Time.deltaTime * 5;
 
         if(chaseTimer <= 0f && priorityTarget != null) {
             AddTarget(priorityTarget, 2);
+            StartCoroutine(AddTargetLater(priorityTarget, 4));
             priorityTarget = null;
+
             noiseController.lostPlayer();
         } else {
             chaseTimer -= Time.deltaTime;
@@ -156,23 +161,31 @@ public class MonsterController : MonoBehaviour
 
     }
 
+    void ClearTargets() {
+        foreach (GameObject t in targets)
+            Destroy(t);
+        targets.Clear();
+    }
+
     // Adds a new target with a given priority. Currently only accepts high or low priority. Generates a target to move to.
     public void AddTarget(GameObject targ, int priority) {
-        GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         if (priority == 1) {
+            stamina = staminaMax;
+            ClearTargets();
             forceIdleCounter = 0f;
             if (priorityTarget == null)
                 noiseController.locatedPlayer();
             priorityTarget = targ;
-            chaseTimer = 10f;
+            chaseTimer = 4f;
             StartRunning();
-        }else if(priority == 2) {
+            return;
+        }
+        GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
+        if(priority == 2) {
             // This is called when the monster loses sight of the player to go to the last known position.
             // Also should be called when an alarm goes off.
             // Removes all other markers as the monster has a high priority target, but it's not the player.
-            foreach (GameObject t in targets)
-                Destroy(t);
-            targets.Clear();
+            ClearTargets();
             targets.Insert(0, temp);
             StartRunning();
         }
@@ -187,17 +200,22 @@ public class MonsterController : MonoBehaviour
         targets.Add(temp);
     }
 
+    IEnumerator AddTargetLater(GameObject targ, float wait) {
+        yield return new WaitForSeconds(wait);
+        AddTarget(targ.transform.position);
+    }
+
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
-            if(priorityTarget == null) {
+            if(priorityTarget == null && !running) {
                 forceIdleCounter = 3f + Random.Range(0, 5f);
                 StopRunning();
             }
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
             // TODO: Remove this?? why
-            if(targets.Count <= 0)
+            if(targets.Count <= 0 && priorityTarget == null)
                 GenerateRandomTarget();
         }
         if(collision.gameObject.tag == "ActualPlayer") {

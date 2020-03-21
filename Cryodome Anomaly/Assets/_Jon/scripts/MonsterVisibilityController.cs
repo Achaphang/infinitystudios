@@ -11,7 +11,7 @@ public class MonsterVisibilityController : MonoBehaviour
 
     // Used in the new vision system, angle generated a cone, distance is how far the monster can see.
     public float viewAngle = 45f;
-    public float viewDistance = 30f;
+    public float viewDistance = 45f;
 
     void Start()
     {
@@ -33,9 +33,9 @@ public class MonsterVisibilityController : MonoBehaviour
                 Physics.Raycast(transform.position, (player.transform.position - transform.position), out hit);
                 if (hit.transform.tag == "ActualPlayer") {
                     spottingTimer += Time.deltaTime;
-                    if (spottingTimer > .55f) {
+                    if (spottingTimer > .2f) {
                         monsterController.AddTarget(player, 1);
-                        spottingTimer = .45f;
+                        spottingTimer = .15f;
                     }
                 } else {
                     spottingTimer = 0f;
