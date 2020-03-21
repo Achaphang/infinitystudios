@@ -5,6 +5,9 @@ using Valve.VR;
 
 public class HeadColliderChecker : MonoBehaviour
 {
+    public GameObject camera;
+    public GameObject playerParent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,12 +20,15 @@ public class HeadColliderChecker : MonoBehaviour
         
     }
 
-    public void OnCollisionEnter(Collision collision) {
-        Debug.Log("I AMCOLLIDERAA");
-        SteamVR_Fade.Start(Color.black, 1f);
+    public void OnCollisionStay(Collision collision) {
+        SteamVR_Fade.Start(Color.black, .25f);
+        //transform.localScale = new Vector3(.1f, .1f, .1f);
     }
 
     public void OnCollisionExit(Collision collision) {
-        SteamVR_Fade.Start(Color.clear, 1f);
+        //camera.transform.position = new Vector3(playerParent.transform.position.x, camera.transform.position.y, playerParent.transform.position.z);
+        //Valve.VR.OpenVR.System.ResetSeatedZeroPose();
+        //transform.localScale = new Vector3(.04f, .04f, .04f);
+        SteamVR_Fade.Start(Color.clear, .25f);
     }
 }

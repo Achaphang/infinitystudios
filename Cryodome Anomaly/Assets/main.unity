@@ -14207,6 +14207,11 @@ PrefabInstance:
       propertyPath: m_Convex
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 64097099435715278, guid: 9c0a728fe9196e144854a651d5eb51ab,
+        type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c0a728fe9196e144854a651d5eb51ab, type: 3}
 --- !u!4 &587025388 stripped
@@ -52745,7 +52750,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 417e639b66cd3a24e9c5312be99ce3bd, type: 2}
+  - {fileID: 2100000, guid: 85924448553345143abd2787f7ae0470, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -54411,7 +54416,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.04
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &4847095356310624849
 CapsuleCollider:
@@ -54623,7 +54628,7 @@ Transform:
   m_GameObject: {fileID: 4847095356313711409}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
   m_Children: []
   m_Father: {fileID: 4847095356313396741}
   m_RootOrder: 0
@@ -54997,6 +55002,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73f4c44bca325394fb45a934c25360d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 4847095356313700299}
+  playerParent: {fileID: 4847095356313718381}
 --- !u!1 &4847095356313715109
 GameObject:
   m_ObjectHideFlags: 0
