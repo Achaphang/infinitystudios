@@ -67,7 +67,8 @@ public class Overlord : MonoBehaviour {
         deathSprite.color = new Color(255, 255, 255, dyingCounter);
 
         if(endDying && dyingCounter < -2.5f) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene(0);
         }
     }
 
