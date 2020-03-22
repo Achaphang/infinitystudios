@@ -3637,7 +3637,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 0.8
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -16118,7 +16118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &653335348
 Transform:
   m_ObjectHideFlags: 0
@@ -24168,7 +24168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d396b5cdac97346acf24df038f4117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
+  speed: 3
 --- !u!1001 &1003710308
 PrefabInstance:
   m_ObjectHideFlags: 0

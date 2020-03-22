@@ -24,6 +24,9 @@ public class DoorAnimation : MonoBehaviour
     bool open = false;
     bool monsterOpen = false;
 
+    bool isOpen = false;
+    MonsterController monster;
+
     Vector3 defaultDoor1Position;
     Vector3 defaultDoor2Position;
 
@@ -66,9 +69,22 @@ public class DoorAnimation : MonoBehaviour
         }
         else if (direction == OpenDirection.z)
         {
-            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 23 : 1)));
-            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 23 : 1)));
+            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
+            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
         }
+
+        if (doorBody1.transform.localPosition.z < -1) 
+            isOpen = true;
+         else
+            isOpen = false;
+
+        if(monster != null) {
+            monster.GetDoorData(isOpen);
+        }
+    }
+
+    public bool getIsOpen() {
+        return isOpen;
     }
 
     public void SetDoorUnlocked(bool tf) {
@@ -85,13 +101,13 @@ public class DoorAnimation : MonoBehaviour
             open = true;
             //monsterOpen = false;
         }else if (other.CompareTag("Monster")) {
-            //if (!open) {
-                monsterOpen = true;
-                if (!doorSource.isPlaying && unlocked) {
-                    doorSource.clip = doorBreakClip;
-                    doorSource.Play();
-                }
-            //}
+            monster = other.transform.parent.GetComponent<MonsterController>();
+            monster.GetDoorData(false);
+            monsterOpen = true;
+            if (!doorSource.isPlaying && unlocked) {
+                doorSource.clip = doorBreakClip;
+                doorSource.Play();
+            }
         }
     }
 
@@ -105,6 +121,7 @@ public class DoorAnimation : MonoBehaviour
 
         if (other.CompareTag("Monster")) {
             monsterOpen = false;
+            monster = null;
         }
     }
 }

@@ -26,6 +26,7 @@ public class MonsterController : MonoBehaviour
     // Used for boundry traversal
     float doorSpeed;
     bool isTraversing = false;
+    bool doorIsOpen = false;
 
     bool hasDied = false;
     MonsterNoiseController noiseController;
@@ -156,9 +157,18 @@ public class MonsterController : MonoBehaviour
     IEnumerator TraverseBoundry() {
         agent.speed = 0;
         isTraversing = true;
-        yield return new WaitForSeconds(6);
-        agent.speed = doorSpeed;
+        while(doorIsOpen == false) {
+            yield return new WaitForSeconds(.25f);
+        }
+        if (!running)
+            agent.speed = doorSpeed;
+        else
+            agent.speed = doorSpeed * 3.25f;
 
+    }
+
+    public void GetDoorData(bool tf) {
+        doorIsOpen = tf;
     }
 
     void ClearTargets() {
