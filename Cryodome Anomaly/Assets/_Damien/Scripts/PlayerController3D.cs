@@ -24,5 +24,20 @@ public class PlayerController3D : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        DetectClicks();
+    }
+
+    void DetectClicks() {
+        if (Input.GetMouseButtonDown(0)) {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if(Physics.Raycast(ray, out hit)) {
+                if(hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)") {
+                    transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+                    Destroy(hit.transform.gameObject);
+                }
+            }
+        }
     }
 }
