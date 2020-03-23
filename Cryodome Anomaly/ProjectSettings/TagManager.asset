@@ -11,6 +11,7 @@ TagManager:
   - Monster
   - ActualPlayer
   - UI
+  - ItemMarker
   layers:
   - Default
   - TransparentFX

@@ -17,6 +17,8 @@ public class Overlord : MonoBehaviour {
     GameObject deathObj;
     SpriteRenderer deathSprite;
     List<string> keypadNames;
+    GameObject[] itemSpawns;
+    public List<GameObject> items;
 
     void Awake(){
         keypadNames = new List<string>();
@@ -27,7 +29,9 @@ public class Overlord : MonoBehaviour {
         death = Resources.Load<AudioClip>("Sounds/Misc/death");
         deathObj = transform.GetChild(0).GetChild(0).gameObject;
         deathSprite = deathObj.GetComponent<SpriteRenderer>();
-        //soundAlarm();
+
+        itemSpawns = GameObject.FindGameObjectsWithTag("ItemMarker");
+        GenerateItemSpawns();
     }
 
     public void soundAlarm() {
@@ -95,5 +99,22 @@ public class Overlord : MonoBehaviour {
         }
 
         return (final);
+    }
+
+    void GenerateItemSpawns() {
+        for(int i = 0; i < itemSpawns.Length; i++) {
+            int chance = itemSpawns[i].GetComponent<ItemMarker>().GetOdds();
+            GameObject specificItem = itemSpawns[i].GetComponent<ItemMarker>().GetItem();
+            if(Random.Range((int)1, (int)101) <= chance) {
+                if(specificItem != null) {
+                    Instantiate(specificItem, itemSpawns[i].transform.position, Quaternion.identity);
+                } else {
+                    int j = Random.Range(0, items.Count);
+                    Instantiate(items[j], itemSpawns[i].transform.position, Quaternion.identity);
+                }
+                // TODO: do this always once you make sure item markers are working properly. Until then we can see the ones that do not spawn objects.
+                itemSpawns[i].SetActive(false);
+            }
+        }
     }
 }
