@@ -143,14 +143,12 @@ public class MonsterController : MonoBehaviour
         if (stamina < staminaMax)
             return;
         running = true;
-        //agent.speed = runSpeed;
     }
 
     void StopRunning() {
         if (isTraversing)
             return;
         running = false;
-        //agent.speed = walkSpeed;
     }
 
     // Used in conjunction with off mesh links to allow pathfinding through doors but while still keeping them as obstacles.
@@ -220,13 +218,14 @@ public class MonsterController : MonoBehaviour
         if(collision.gameObject.tag == "MonsterMarker") {
             if(priorityTarget == null && !running) {
                 forceIdleCounter = 3f + Random.Range(0, 5f);
-                StopRunning();
             }
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
             // TODO: Remove this?? why
-            if(targets.Count <= 0 && priorityTarget == null)
+            if(targets.Count <= 0 && priorityTarget == null) {
+                StopRunning();
                 GenerateRandomTarget();
+            }
         }
         if(collision.gameObject.tag == "ActualPlayer") {
             if (!hasDied) {
