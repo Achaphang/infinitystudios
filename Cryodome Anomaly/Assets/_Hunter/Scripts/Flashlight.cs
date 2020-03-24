@@ -5,10 +5,12 @@ using UnityEngine;
 public class Flashlight : MonoBehaviour
 {
     Light light;
-    float powerPercentage = 100;
+    Light pointLight;
+    float powerPercentage = 100f;
     float originalIntensity;
     float originalRange;
     float originalAngle;
+    int flickerChecker = 1;
 
     bool grabbed = false;
 
@@ -16,6 +18,7 @@ public class Flashlight : MonoBehaviour
     void Awake()
     {
         light = GetComponent<Light>();
+        pointLight = transform.parent.transform.parent.GetChild(1).GetComponent<Light>();
         originalIntensity = light.intensity;
         originalRange = light.range;
         originalAngle = light.spotAngle;
@@ -30,6 +33,7 @@ public class Flashlight : MonoBehaviour
 
     public void RestorePower() {
         powerPercentage = 100f;
+        flickerChecker = 1;
     }
 
     public void SetGrabbed(bool tf) {
@@ -42,9 +46,36 @@ public class Flashlight : MonoBehaviour
     void DecreasePower() {
         if (!grabbed)
             return;
-        // All flashlights are at least a little useful still.
-        if(powerPercentage > 40f)
-            powerPercentage -= .1f;
-        light.intensity = (originalIntensity * (powerPercentage / 100f));
+        if(powerPercentage > 0f)
+            powerPercentage -= .15f;
+        else if(flickerChecker != -1){
+            light.intensity = 0f;
+            pointLight.intensity = .2f;
+            flickerChecker = -1;
+            return;
+        }
+        // Once we hit below 30% battery, start to flicker the flashlight until it goes out.
+        if (powerPercentage > 30f) {
+            flickerChecker = 1;
+            light.intensity = (originalIntensity * (powerPercentage / 100f));
+            pointLight.intensity = (originalIntensity * (powerPercentage / 100f));
+        } else if(flickerChecker == 1){
+            flickerChecker = 0;
+            StartCoroutine(Flicker());
+        }
+    }
+
+
+    IEnumerator Flicker (){
+        while(flickerChecker == 0) {
+            int flickerDecider = (int)(100 / (powerPercentage * 3 + 1)) + Random.Range(0, 4);
+            for(int i = 0; i < flickerDecider; i++) {
+                light.enabled = false;
+                yield return new WaitForSeconds(Random.Range(0.02f, 0.065f + (1 - powerPercentage / 100) / 5f));
+                light.enabled = true;
+                yield return new WaitForSeconds(Random.Range(0.02f + powerPercentage / 200f, 0.065f + powerPercentage / 200f));
+            }
+            yield return new WaitForSeconds(Random.Range(.2f + (powerPercentage / 7f), 1f + (powerPercentage / 7f)));
+        }
     }
 }
