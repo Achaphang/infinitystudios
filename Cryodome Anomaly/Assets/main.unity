@@ -16442,7 +16442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &653335348
 Transform:
   m_ObjectHideFlags: 0
@@ -51023,6 +51023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 741254704088080571}
   - component: {fileID: 803518911589882197}
+  - component: {fileID: 746846538061310762}
   m_Layer: 0
   m_Name: WhiteLight
   m_TagString: Untagged
@@ -51030,6 +51031,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &746846538061310762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746846538061310761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f132c74a1eca5a469afc457c21566ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &795928118285016556
 Animator:
   serializedVersion: 3
@@ -51075,7 +51088,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746846538061310761}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
