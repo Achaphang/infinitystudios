@@ -43,7 +43,7 @@ public class Flashlight : MonoBehaviour
         if (!grabbed)
             return;
         // All flashlights are at least a little useful still.
-        if(powerPercentage > 10f)
+        if(powerPercentage > 40f)
             powerPercentage -= .1f;
         light.intensity = (originalIntensity * (powerPercentage / 100f));
     }
