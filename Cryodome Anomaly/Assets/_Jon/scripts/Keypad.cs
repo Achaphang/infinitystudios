@@ -34,8 +34,15 @@ public class Keypad : MonoBehaviour
         keypadLight = GetComponentInChildren<Light>();
         canvas = GetComponentInChildren<Canvas>();
         StartCoroutine(LateStart(1));
-        for (int i = 0; i < 4; i ++) {
-            passcode[i] = UnityEngine.Random.Range(0, 9);
+        if(Globals.Instance.difficulty != -1) {
+            for (int i = 0; i < 4; i++) {
+                passcode[i] = UnityEngine.Random.Range(0, 10);
+            }
+        } else {
+            passcode[0] = 0;
+            passcode[1] = 5;
+            passcode[2] = 1;
+            passcode[3] = 3;
         }
 
         txt = transform.Find("KeypadText").GetChild(0).GetComponent<Text>();
