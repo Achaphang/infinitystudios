@@ -53,23 +53,79 @@ public class Terminal : MonoBehaviour
             return;
         }
 
+        int problemDecider;
+
+        switch (difficulty)
+        {
+            // For easiest difficulty, always give an addition problem.
+            case 0:
+                adder1 = Random.Range(0, (int)keypadCode + 1);
+                adder2 = keypadCode - adder1;
+                // Example: looks like: 42 + 72 = ?114
+                txt.text = adder1 + " + " + adder2 + final + partialVal;
+                break;
+            case 1:
+                problemDecider = Random.Range(0, 2);
+                if(keypadCode >= (1000) && problemDecider == 0)
+                {
+                    int modulator = 1;
+                    divisor = modulator;
+                    while (modulator < keypadCode / 6)
+                    {
+                        if (keypadCode % modulator == 0)
+                            divisor = modulator;
+                        modulator++;
+                    }
+
+                    multiple = keypadCode / divisor;
+                    txt.text = divisor + " * " + multiple + final + partialVal;
+                }
+                else
+                {
+                    adder1 = Random.Range(0, (int)keypadCode + 1);
+                    adder2 = keypadCode - adder1;
+                    txt.text = adder1 + " + " + adder2 + final + partialVal;
+                }
+                break;
+            case 2:
+                problemDecider = Random.Range(0, 3);
+                if (keypadCode >= (1000) && problemDecider == 0)
+                {
+                    int modulator = 1;
+                    divisor = modulator;
+                    while (modulator < keypadCode / 6)
+                    {
+                        if (keypadCode % modulator == 0)
+                            divisor = modulator;
+                        modulator++;
+                    }
+
+                    multiple = keypadCode / divisor;
+                    txt.text = divisor + " * " + multiple + final + partialVal;
+                } 
+                else
+                {
+                    adder1 = Random.Range(0, (int)keypadCode + 1);
+                    adder2 = keypadCode - adder1;
+                    txt.text = adder1 + " + " + adder2 + final + partialVal;
+                }
+                break;
+            case 3:     //Temporary place holder is addition problem
+                adder1 = Random.Range(0, (int)keypadCode + 1);
+                adder2 = keypadCode - adder1;
+                txt.text = adder1 + " + " + adder2 + final + partialVal;
+                break;
+            case 4:     //Also placeholder of addition
+                adder1 = Random.Range(0, (int)keypadCode + 1);
+                adder2 = keypadCode - adder1;
+                txt.text = adder1 + " + " + adder2 + final + partialVal;
+                break;
+            default:
+                Debug.Log("Error in terminal math generation");
+                break;
+        }
+
         // Division problem, gives for example "14 * 621 = ?"
         // Tends to be kinda hard, easy doors should not have this problem.
-        if (keypadCode >= (1000) && difficulty >= 1) {
-            int modulator = 1;
-            divisor = modulator;
-            while(modulator < keypadCode / 6) {
-                if (keypadCode % modulator == 0)
-                    divisor = modulator;
-                modulator++;
-            }
-
-            multiple = keypadCode / divisor;
-            txt.text = divisor + " * " + multiple + final + partialVal;
-        } else {
-            adder1 = Random.Range(0, (int)keypadCode + 1);
-            adder2 = keypadCode - adder1;
-            txt.text = adder1 + " + " + adder2 + final + partialVal;
-        }
     }
 }
