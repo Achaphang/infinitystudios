@@ -47,6 +47,12 @@ public class Terminal : MonoBehaviour
             partialVal = "???" + codeArr[3];
         }
 
+        // BC's favorite number
+        if (keypadCode == 513) {
+            txt.text = "Dr BC's favorite number: 0???";
+            return;
+        }
+
         // Division problem, gives for example "14 * 621 = ?"
         // Tends to be kinda hard, easy doors should not have this problem.
         if (keypadCode >= (1000) && difficulty >= 1) {
