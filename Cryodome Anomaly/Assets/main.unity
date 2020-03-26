@@ -25202,6 +25202,7 @@ MonoBehaviour:
   source: {fileID: 971584797}
   items:
   - {fileID: 5892049689702092958, guid: 2e11e2833b1d76f469b0a098a47af3c9, type: 3}
+  - {fileID: 5892049689702092958, guid: 9b8d9535d0937da4eaed1db99d0125dd, type: 3}
 --- !u!4 &971584796
 Transform:
   m_ObjectHideFlags: 0
