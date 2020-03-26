@@ -8,7 +8,7 @@ public class JoeJeffFollow : MonoBehaviour
     public GameObject player;
     public float moveSpeed;
     NavMeshAgent joeJeff;
-    public Vector3 offset;
+    private Vector3 offset;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +17,11 @@ public class JoeJeffFollow : MonoBehaviour
             player = GameObject.Find("3dPlayerObjs");
         }
         joeJeff = GetComponent<NavMeshAgent>();
+        offset = new Vector3(UnityEngine.Random.Range(0.0f, 0.5f), 0, UnityEngine.Random.Range(0.0f, 0.5f));
     }
     private void FixedUpdate()
     {
-        joeJeff.destination = player.transform.position+offset;
+            
+            joeJeff.destination = player.transform.position + offset;
     }
 }
