@@ -49,7 +49,27 @@ public class Terminal : MonoBehaviour
 
         // BC's favorite number
         if (keypadCode == 513) {
-            txt.text = "Dr BC's favorite number: 0???";
+            txt.text = "Dr BC's favorite number: " + partialVal;
+            return;
+        }
+
+        if(keypadCode == 1969) {
+            txt.text = "The year we went to the moon: " + partialVal;
+            return;
+        }
+
+        if(keypadCode == 420) {
+            txt.text = "Famous illegal plant number: " + partialVal;
+            return;
+        }
+
+        if(keypadCode == 9001) {
+            txt.text = "High power level: " + partialVal;
+            return;
+        }
+
+        if(keypadCode == 42) {
+            txt.text = "The answer to the ultimate question: " + partialVal;
             return;
         }
 
