@@ -6833,6 +6833,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1189240398}
     m_Modifications:
+    - target: {fileID: 3724444724291700592, guid: 83ff739ca77aecc4db1c2177d4e171c6,
+        type: 3}
+      propertyPath: odds
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724444724291700592, guid: 83ff739ca77aecc4db1c2177d4e171c6,
+        type: 3}
+      propertyPath: specificItem
+      value: 
+      objectReference: {fileID: 5892049689702092958, guid: 9b8d9535d0937da4eaed1db99d0125dd,
+        type: 3}
     - target: {fileID: 4873471020539713794, guid: 83ff739ca77aecc4db1c2177d4e171c6,
         type: 3}
       propertyPath: m_LocalPosition.x

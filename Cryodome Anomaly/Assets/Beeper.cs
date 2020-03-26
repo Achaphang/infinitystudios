@@ -32,17 +32,17 @@ public class Beeper : MonoBehaviour
     IEnumerator Beep() {
         for(int i = 0; i < 5; i++) {
             audio.Play();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(.75f);
         }
 
-        Activate();
+        StartCoroutine(Activate());
     }
 
     IEnumerator Activate() {
         for(int i = 0; i < 15; i++) {
             audio.Play();
             monster.AddTarget(gameObject, 2);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(.75f);
         }
     }
 }
