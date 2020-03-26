@@ -14272,6 +14272,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1189240398}
     m_Modifications:
+    - target: {fileID: 3724444724291700592, guid: 83ff739ca77aecc4db1c2177d4e171c6,
+        type: 3}
+      propertyPath: specificItem
+      value: 
+      objectReference: {fileID: 5892049689702092958, guid: 46049dae03966274d908a86eeba45ad1,
+        type: 3}
+    - target: {fileID: 3724444724291700592, guid: 83ff739ca77aecc4db1c2177d4e171c6,
+        type: 3}
+      propertyPath: odds
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4873471020539713794, guid: 83ff739ca77aecc4db1c2177d4e171c6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17232,7 +17243,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 4847095356313711409}
   moveSpeed: 3
-  offset: {x: 0.5, y: 0, z: 0.5}
 --- !u!195 &637320778
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -25238,6 +25248,7 @@ MonoBehaviour:
   items:
   - {fileID: 5892049689702092958, guid: 2e11e2833b1d76f469b0a098a47af3c9, type: 3}
   - {fileID: 5892049689702092958, guid: 9b8d9535d0937da4eaed1db99d0125dd, type: 3}
+  - {fileID: 5892049689702092958, guid: 46049dae03966274d908a86eeba45ad1, type: 3}
 --- !u!4 &971584796
 Transform:
   m_ObjectHideFlags: 0
