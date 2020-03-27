@@ -28,7 +28,12 @@ public class Terminal : MonoBehaviour
 
     // Generates a moderately difficult math problem associated with a door's passcode.
     // Difficulty ranges from 0-4
-    void GenerateMathPuzzle(int difficulty) {
+    void GenerateMathPuzzle(int difficultyInitial) {
+        int difficulty = difficultyInitial;
+        if (Globals.Instance != null)
+            if (Globals.Instance.difficulty != -1)
+                difficulty = difficulty - (2 - Globals.Instance.difficulty);
+
         string final = " = ";
         string partialVal = "????";
         int[] codeArr = keypad.GetCodeArr();
@@ -39,7 +44,9 @@ public class Terminal : MonoBehaviour
         int adder1 = 0;
         int adder2 = 0;
 
-        if (difficulty <= 1) {
+        if(difficulty <= 0) {
+            partialVal = "" + codeArr[0] + codeArr[1] + codeArr[2] + codeArr[3];
+        } else if (difficulty == 1) {
             partialVal = "?" + codeArr[1] + codeArr[2] + codeArr[3];
         } else if (difficulty == 2) {
             partialVal = "??" + codeArr[2] + codeArr[3];
@@ -140,12 +147,14 @@ public class Terminal : MonoBehaviour
                 adder2 = keypadCode - adder1;
                 txt.text = adder1 + " + " + adder2 + final + partialVal;
                 break;
+            case 5: // This case should only appear on the hardest difficulty, make it pretty hard
+                adder1 = Random.Range(0, (int)keypadCode + 1);
+                adder2 = keypadCode - adder1;
+                txt.text = adder1 + " + " + adder2 + final + partialVal;
+                break;
             default:
                 Debug.Log("Error in terminal math generation");
                 break;
         }
-
-        // Division problem, gives for example "14 * 621 = ?"
-        // Tends to be kinda hard, easy doors should not have this problem.
     }
 }

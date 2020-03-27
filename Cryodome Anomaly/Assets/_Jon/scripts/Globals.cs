@@ -7,7 +7,8 @@ public class Globals : MonoBehaviour
     public static Globals Instance { get; private set; }
 
     // 1-3: easy through hard. -1 = dr bc mode
-    public int difficulty = 1;
+    // Default: 2
+    public int difficulty = 2;
 
     private void Awake() {
         if(Instance == null) {
