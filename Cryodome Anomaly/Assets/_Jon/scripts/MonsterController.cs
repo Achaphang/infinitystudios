@@ -127,6 +127,7 @@ public class MonsterController : MonoBehaviour
             noiseController.chasingPlayer();
     }
 
+    // Code taken from FlashlightSpawn
     Vector3 GetRandomLocation() {
         //Calculates and returns triangulation of navmesh containing vertices, triangle indices and navmesh layers
         NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
@@ -234,7 +235,6 @@ public class MonsterController : MonoBehaviour
             }
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
-            // TODO: Remove this?? why
             if(targets.Count <= 0 && priorityTarget == null) {
                 StopRunning();
                 GenerateRandomTarget();
@@ -242,6 +242,7 @@ public class MonsterController : MonoBehaviour
         }
         if(collision.gameObject.tag == "ActualPlayer") {
             if (!hasDied) {
+                collision.enabled = false;
                 noiseController.commitDie();
                 hasDied = true;
                 Camera temp = collision.transform.parent.GetComponentInChildren<Camera>();
