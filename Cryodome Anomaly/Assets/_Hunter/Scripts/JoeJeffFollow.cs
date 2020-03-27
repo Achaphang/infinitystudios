@@ -6,13 +6,9 @@ using UnityEngine.AI;
 public class JoeJeffFollow : MonoBehaviour
 {
     public GameObject player;
-    public LayerMask detectionLayer;
-    private Transform myTransform;
     private NavMeshAgent myNavMeshAgent;
-    private Collider[] hitColliders;
-    private float checkRate;
-    private float nextCheck;
-    private float detectionRadius=50;
+    public Vector3 offset;
+    public Animator animation;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,33 +18,22 @@ public class JoeJeffFollow : MonoBehaviour
             //Destroy(gameObject);
             player = GameObject.Find("3dPlayerObjs");
         }
-        setInitialReferences();
-        //joeJeff = GetComponent<NavMeshAgent>();
-        //offset = new Vector3(UnityEngine.Random.Range(0.0f, 0.5f), 0, UnityEngine.Random.Range(0.0f, 0.5f));
+        myNavMeshAgent = GetComponent<NavMeshAgent>();
+        animation = GetComponentInChildren<Animator>();
     }
 
     void Update()
     {
-        checkIfPlayerInRange();
-    }
-
-    void setInitialReferences()
-    {
-        myTransform = transform;
-        myNavMeshAgent = GetComponent<NavMeshAgent>();
-        checkRate = Random.Range(0.8f, 1.2f);   //how often to check for player
-    }
-    void checkIfPlayerInRange()
-    {
-        if(Time.deltaTime > nextCheck && myNavMeshAgent == true)
+        offset = new Vector3(1.0f, 0, 1.0f);
+        if (player.transform.hasChanged)
         {
-            nextCheck = Time.deltaTime + checkRate;
-            hitColliders = Physics.OverlapSphere(myTransform.position, detectionRadius, detectionLayer);
-            //found the player
-            if(hitColliders.Length >0)
-            {
-                myNavMeshAgent.SetDestination(hitColliders[0].transform.position);
-            }
+            animation.gameObject.SetActive(true);
+            myNavMeshAgent.SetDestination(player.transform.position + offset);
         }
+        else
+        {
+            animation.gameObject.SetActive(false);
+        }
+        
     }
 }
