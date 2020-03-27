@@ -10,7 +10,6 @@ public class teleportRadius : MonoBehaviour
     float zVal;
     int iteration;
     Vector3 defaultRad;
-    public GameObject temp;
     // Start is called before the first frame update
     void Start()
     {

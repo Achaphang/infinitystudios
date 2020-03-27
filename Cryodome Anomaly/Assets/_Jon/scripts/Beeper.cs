@@ -9,18 +9,23 @@ public class Beeper : MonoBehaviour
     AudioClip primeClip;
     AudioClip activateClip;
     AudioClip[] explosionClips;
-    MonsterController monster;
+    List<MonsterController> monsters;
 
     bool primed = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        monsters = new List<MonsterController>();
         audio = GetComponent<AudioSource>();
         primeClip = Resources.Load<AudioClip>("Sounds/Items/Beeper/prime");
         activateClip = Resources.Load<AudioClip>("Sounds/Items/Beeper/activate");
         explosionClips = Resources.LoadAll<AudioClip>("Sounds/Misc/Explosions");
-        monster = GameObject.Find("Monster").GetComponent<MonsterController>();
+        //monsters = GameObject.Find("Monster").GetComponent<MonsterController>();
+        foreach(GameObject m in GameObject.FindGameObjectsWithTag("Monster")) {
+            if (m.GetComponent<MonsterController>() != null)
+                monsters.Add(m.GetComponent<MonsterController>());
+        }
     }
 
     // Update is called once per frame
@@ -40,7 +45,8 @@ public class Beeper : MonoBehaviour
     IEnumerator Beep() {
         for(int i = 0; i < 5; i++) {
             audio.Play();
-            monster.AddTarget(gameObject, 3);
+            foreach(MonsterController m in monsters)
+                m.AddTarget(gameObject, 3);
             yield return new WaitForSeconds(.75f);
         }
         audio.clip = activateClip;
@@ -51,7 +57,8 @@ public class Beeper : MonoBehaviour
     IEnumerator Activate() {
         for(int i = 0; i < 30; i++) {
             audio.Play();
-            monster.AddTarget(gameObject, 2);
+            foreach (MonsterController m in monsters)
+                m.AddTarget(gameObject, 2);
             yield return new WaitForSeconds(.33f);
         }
 
