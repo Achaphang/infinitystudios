@@ -42,6 +42,7 @@ public class MonsterController : MonoBehaviour
         doorSpeed = agent.speed * .5f;
 
         GenerateRandomTarget();
+        InvokeRepeating("ChasePlayerNoises", 0f, 2f);
     }
 
     void Update() {
@@ -101,8 +102,6 @@ public class MonsterController : MonoBehaviour
         if (running && !isTraversing) {
             agent.speed = runSpeed;
             stamina -= Time.deltaTime;
-            if (Random.Range(0f, 9999f) > 9958f)
-                noiseController.chasingPlayer();
         }
 
         if (stamina < staminaMax && !running)
@@ -117,6 +116,15 @@ public class MonsterController : MonoBehaviour
         } else {
             chaseTimer -= Time.deltaTime;
         }
+    }
+
+    // Use InvokeRepeating
+    void ChasePlayerNoises() {
+        if (!running || isTraversing)
+            return;
+
+        if (Random.Range(0f, 100f) > 75f)
+            noiseController.chasingPlayer();
     }
 
     Vector3 GetRandomLocation() {
