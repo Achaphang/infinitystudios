@@ -25,7 +25,7 @@ public class DoorAnimation : MonoBehaviour
     bool monsterOpen = false;
 
     bool isOpen = false;
-    MonsterController monster;
+    List<MonsterController> monsters;
 
     Vector3 defaultDoor1Position;
     Vector3 defaultDoor2Position;
@@ -38,6 +38,7 @@ public class DoorAnimation : MonoBehaviour
 
     void Start()
     {
+        monsters = new List<MonsterController>();
         defaultDoor1Position = doorBody1.transform.localPosition;
         defaultDoor2Position = doorBody2.transform.localPosition;
 
@@ -78,9 +79,9 @@ public class DoorAnimation : MonoBehaviour
          else
             isOpen = false;
 
-        if(monster != null) {
-            monster.GetDoorData(isOpen);
-        }
+        foreach(MonsterController m in monsters) 
+            m.GetDoorData(isOpen);
+        
     }
 
     public bool getIsOpen() {
@@ -99,10 +100,9 @@ public class DoorAnimation : MonoBehaviour
         if (other.CompareTag("ActualPlayer"))
         {
             open = true;
-            //monsterOpen = false;
         }else if (other.CompareTag("Monster")) {
-            monster = other.transform.parent.GetComponent<MonsterController>();
-            monster.GetDoorData(false);
+            monsters.Add(other.transform.parent.GetComponent<MonsterController>());
+            monsters[monsters.Count - 1].GetDoorData(false);
             monsterOpen = true;
             if (!doorSource.isPlaying && unlocked) {
                 doorSource.clip = doorBreakClip;
@@ -120,8 +120,10 @@ public class DoorAnimation : MonoBehaviour
         }
 
         if (other.CompareTag("Monster")) {
+            monsters.Remove(other.transform.parent.GetComponent<MonsterController>());
+            if (monsters.Count > 0)
+                return;
             monsterOpen = false;
-            monster = null;
         }
     }
 }

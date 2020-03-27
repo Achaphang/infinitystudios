@@ -14,6 +14,8 @@ public class JoeJeffFollow : MonoBehaviour
     {
         if (player.active == false)
         {
+            // Disable joe jeff because he keeps running into the player. Fix this please
+            Destroy(gameObject);
             player = GameObject.Find("3dPlayerObjs");
         }
         joeJeff = GetComponent<NavMeshAgent>();

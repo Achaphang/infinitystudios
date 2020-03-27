@@ -189,6 +189,7 @@ public class MonsterController : MonoBehaviour
             return;
         }
         GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
+        temp.GetComponent<MarkerController>().SetMonster(gameObject);
         if(priority == 2) {
             // This is called when the monster loses sight of the player to go to the last known position.
             // Also should be called when an alarm goes off.
@@ -205,6 +206,7 @@ public class MonsterController : MonoBehaviour
 
     public void AddTarget(Vector3 targ) {
         GameObject temp = Instantiate(markerPrefab, targ, Quaternion.identity);
+        temp.GetComponent<MarkerController>().SetMonster(gameObject);
         targets.Add(temp);
     }
 
@@ -216,6 +218,9 @@ public class MonsterController : MonoBehaviour
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
+            if (collision.GetComponent<MarkerController>().GetMonster() != gameObject)
+                return;
+
             if(priorityTarget == null && !running) {
                 forceIdleCounter = 3f + Random.Range(0, 5f);
             }
