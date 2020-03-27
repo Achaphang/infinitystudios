@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterVisibilityController : MonoBehaviour
 {
-    public GameObject player;
+    GameObject player;
     MonsterController monsterController;
     float spottingTimer = 0f;
     RaycastHit hit;
@@ -17,6 +17,7 @@ public class MonsterVisibilityController : MonoBehaviour
     void Start()
     {
         //GameObject.Find("3dPlayerObjs").active == true
+        player = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;
         if (player.active == false) {
             player = GameObject.Find("3dPlayerObjs");
         } /*else {
