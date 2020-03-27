@@ -10,16 +10,12 @@ public class ItemMarker : MonoBehaviour
     // If this is NOT null, a specific item can potentially spawn here.
     public GameObject specificItem = null;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (odds != 100)
+            if (Globals.Instance != null)
+                if (Globals.Instance.difficulty != -1)
+                    odds += (30 - (Globals.Instance.difficulty * 15));
     }
 
     public int GetOdds() {

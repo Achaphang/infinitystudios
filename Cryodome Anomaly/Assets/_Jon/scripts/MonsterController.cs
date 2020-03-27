@@ -37,11 +37,17 @@ public class MonsterController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         agent.Warp(new Vector3(-26, 1, -16));
+        // Harder difficulties make the monster move slightly faster
+        if (Globals.Instance != null) 
+            if (Globals.Instance.difficulty != -1) 
+                agent.speed = agent.speed - ((2 - Globals.Instance.difficulty) * .125f);
+
         walkSpeed = agent.speed;
         runSpeed = walkSpeed * 3.25f;
         doorSpeed = agent.speed * .5f;
 
         GenerateRandomTarget();
+        InvokeRepeating("ChasePlayerNoises", 0f, 2f);
     }
 
     void Update() {
@@ -101,8 +107,6 @@ public class MonsterController : MonoBehaviour
         if (running && !isTraversing) {
             agent.speed = runSpeed;
             stamina -= Time.deltaTime;
-            if (Random.Range(0f, 9999f) > 9958f)
-                noiseController.chasingPlayer();
         }
 
         if (stamina < staminaMax && !running)
@@ -119,6 +123,16 @@ public class MonsterController : MonoBehaviour
         }
     }
 
+    // Use InvokeRepeating
+    void ChasePlayerNoises() {
+        if (!running || isTraversing)
+            return;
+
+        if (Random.Range(0f, 100f) > 75f)
+            noiseController.chasingPlayer();
+    }
+
+    // Code taken from FlashlightSpawn
     Vector3 GetRandomLocation() {
         //Calculates and returns triangulation of navmesh containing vertices, triangle indices and navmesh layers
         NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
@@ -226,7 +240,6 @@ public class MonsterController : MonoBehaviour
             }
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
-            // TODO: Remove this?? why
             if(targets.Count <= 0 && priorityTarget == null) {
                 StopRunning();
                 GenerateRandomTarget();
@@ -234,6 +247,7 @@ public class MonsterController : MonoBehaviour
         }
         if(collision.gameObject.tag == "ActualPlayer") {
             if (!hasDied) {
+                collision.enabled = false;
                 noiseController.commitDie();
                 hasDied = true;
                 Camera temp = collision.transform.parent.GetComponentInChildren<Camera>();
