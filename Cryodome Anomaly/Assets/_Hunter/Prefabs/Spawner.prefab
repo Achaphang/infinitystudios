@@ -43,4 +43,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47ce4cf59f06a845ae4b7ed489034aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battery: {fileID: 100000, guid: 00535fc2ee77d314e8bb9ff3e1f754a3, type: 3}
+  spider: {fileID: 0}

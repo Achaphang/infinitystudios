@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BatterySpawn : MonoBehaviour
+public class SpiderSpawn : MonoBehaviour
 {
-    public GameObject battery;
-    private float spawnTime = 12.0f;
+    public GameObject spider;
+    List<GameObject> spiders;
+    private float spawnTime = 5.0f;
     private float timer;
-    private float numOfBatt;
+    private float numOfSpider;
     private GameObject PlayerPos = null;
 
     private void Start()
@@ -18,8 +19,30 @@ public class BatterySpawn : MonoBehaviour
             PlayerPos = GameObject.Find("Player Variant");
         }
         timer = 1.0f;
+        spiders = new List<GameObject>();
+
+    
+    }
+    //Function used to spawn 3 batterys total, each one randomly and at 25 units of time 
+    private void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer >  spawnTime && numOfSpider !=3)
+        {
+            spawnSpider();
+            numOfSpider++;
+            timer = 0;
+        }
+        
+    }
+    //This function is used to spawn the spiders in random locations and add each spider into the list
+    public void spawnSpider()
+    {
+        Vector3 spawnLocation = GetRandomLocation();
+        spiders.Add( Instantiate(spider, spawnLocation, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f)) as GameObject);
     }
 
+    //This function is used to get a random location on the navmesh, it returns a 3d vector coordinate on the navmesh
     Vector3 GetRandomLocation()
     {
         //Calculates and returns triangulation of navmesh containing vertices, triangle indices and navmesh layers
@@ -36,24 +59,4 @@ public class BatterySpawn : MonoBehaviour
 
         return point;
     }
-    //Function used to spawn 3 batterys total, each one randomly and at 25 units of time 
-    private void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer >  spawnTime && numOfBatt !=3)
-        {
-            spawnBattery();
-            timer = 0;
-            numOfBatt++;
-        }
-        
-    }
-    //Actually spawn the battery
-    public void spawnBattery()
-    {
-        Vector3 spawnLocation = GetRandomLocation();
-        Vector3 finalSpawn = spawnLocation + new Vector3(0.0f, 0.41f, 0.0f);
-        Instantiate(battery, finalSpawn, Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f));
-    }
-
 }
