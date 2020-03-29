@@ -5,6 +5,10 @@ using UnityEngine;
 public class CountdownTimer : Timer
 {
     // Start is called before the first frame update
+    public CountdownTimer(float initialTime) {
+        seconds = initialTime;
+    }
+    
     void Start()
     {
     }
