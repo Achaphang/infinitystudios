@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     public Text timerText;
+    public PlayerController3D player;
     float seconds = 0.0f;
     int minutes = 0;
     // Start is called before the first frame update
@@ -16,6 +17,11 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(player.startTimer);
+        if (!player.startTimer) {
+            return;
+        }
+        Debug.Log(seconds);
         seconds += Time.deltaTime;
         if (seconds >= 60.0f) {
             minutes++;
