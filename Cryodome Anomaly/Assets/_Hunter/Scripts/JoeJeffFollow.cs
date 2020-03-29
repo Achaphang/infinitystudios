@@ -7,12 +7,12 @@ public class JoeJeffFollow : MonoBehaviour
 {
     GameObject player;
     private NavMeshAgent myNavMeshAgent;
-    public Vector3 offset;
+    private Vector3 offset;
     public Animator animation;
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;
+        player = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;    //Jon helped me with this line
         if (player.active == false)
         {
             // Disable joe jeff because he keeps running into the player. Fix this please
@@ -23,22 +23,18 @@ public class JoeJeffFollow : MonoBehaviour
         animation = GetComponentInChildren<Animator>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (myNavMeshAgent.velocity.magnitude > .2f)
-            animation.Play("HumanoidRun");
-        else
-            animation.Play("HumanoidIdle");
-
         offset = new Vector3(1.0f, 0, 1.0f);
-        if (player.transform.hasChanged)
+        if (myNavMeshAgent.velocity.magnitude > .2f)
         {
-            animation.gameObject.SetActive(true);
             myNavMeshAgent.SetDestination(player.transform.position + offset);
+            animation.Play("HumanoidRun");
+
         }
         else
         {
-            animation.gameObject.SetActive(false);
+            animation.Play("HumanoidIdle");
         }
         
     }
