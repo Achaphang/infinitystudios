@@ -18187,6 +18187,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 657637893}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &658795945 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7702462151894634139, guid: c099d24ec9843bd49af24c345297589c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5479394606895366115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &659431679
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26360,19 +26366,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5479394606895366115}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1003513340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003513336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c807b3b7c2bf4732a7d3d7eda8c2a97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerText: {fileID: 0}
 --- !u!1001 &1003710308
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44101,6 +44094,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b374301b9cd2b44afee2fc33bfc44c, type: 3}
+--- !u!4 &1759999479 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5479394608056982923, guid: c099d24ec9843bd49af24c345297589c,
+    type: 3}
+  m_PrefabInstance: {fileID: 5479394606895366115}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1761644956
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60617,6 +60616,7 @@ MonoBehaviour:
   trackingOriginTransform: {fileID: 4847095356313386517}
   hmdTransforms:
   - {fileID: 4847095356313396741}
+  - {fileID: 658795945}
   hands:
   - {fileID: 4847095356307627023}
   - {fileID: 4847095356307676305}
@@ -60624,7 +60624,7 @@ MonoBehaviour:
   headCollider: {fileID: 4847095356309728163}
   rigSteamVR: {fileID: 4847095356313720267}
   rig2DFallback: {fileID: 1003513336}
-  audioListener: {fileID: 4847095356313396741}
+  audioListener: {fileID: 1759999479}
   headsetOnHead:
     actionPath: /actions/default/in/HeadsetOnHead
     needsReinit: 0
