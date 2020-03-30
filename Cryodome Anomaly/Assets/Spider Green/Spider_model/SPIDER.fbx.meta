@@ -369,7 +369,15 @@ ModelImporter:
   - first:
       137: 13700000
     second: Mesh
-  externalObjects: {}
+  - first:
+      74: 1099495709079093668
+    second: Spider_walk
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RetopoGroup2_Default__texture_spider_jpg
+    second: {fileID: 2100000, guid: 78d88e566e5f7b14aaa719c52b23bd6c, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -398,16 +406,16 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Attack
-      takeName: Spider_Attak
+      name: Spider_walk
+      takeName: Spider_walk
       internalID: 0
       firstFrame: 0
-      lastFrame: 35
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
-      loop: 0
+      loop: 1
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
