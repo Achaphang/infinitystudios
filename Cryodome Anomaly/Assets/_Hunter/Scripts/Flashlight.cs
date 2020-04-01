@@ -47,7 +47,7 @@ public class Flashlight : MonoBehaviour
         if (!grabbed)
             return;
         if(powerPercentage > 0f)
-            powerPercentage -= .15f;
+            powerPercentage -= .25f;
         else if(flickerChecker != -1){
             light.intensity = 0f;
             pointLight.intensity = .2f;
