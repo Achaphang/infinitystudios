@@ -9,6 +9,7 @@ After cloning the repo, you may need to bake the navmesh in order for navigation
 ### Prerequisites
 
 Unity 2019.3.2f1
+
 VR System (Optional)
 
 ### Installing
