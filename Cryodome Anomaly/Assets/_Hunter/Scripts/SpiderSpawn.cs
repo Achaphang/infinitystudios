@@ -7,7 +7,7 @@ public class SpiderSpawn : MonoBehaviour
 {
     public GameObject spider;
     List<GameObject> spiders;
-    private float spawnTime = 5.0f;
+    private float spawnTime = 2.0f;
     private float timer;
     private float numOfSpider;
     private GameObject PlayerPos = null;
@@ -27,7 +27,7 @@ public class SpiderSpawn : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >  spawnTime && numOfSpider !=3)
+        if (timer >  spawnTime && numOfSpider !=50)
         {
             spawnSpider();
             numOfSpider++;
