@@ -15,7 +15,6 @@ public class SpiderMovement : MonoBehaviour
     {
         myNavMeshAgent = GetComponent<NavMeshAgent>();
         animation = GetComponentInChildren<Animator>();
-        //SpiderSpawn = GetComponentInParent<SpiderSpawn>();
     }
 
     //Need to get animation working
@@ -34,9 +33,9 @@ public class SpiderMovement : MonoBehaviour
     }
     public void FindMoveLocation()
     {
-        Vector3 moveLocation = RandomNavSphere(transform.position, wanderRadius, -1);
-        myNavMeshAgent.SetDestination(moveLocation);
-
+       Vector3 moveLocation = RandomNavSphere(transform.position, wanderRadius, -1);
+       myNavMeshAgent.SetDestination(moveLocation);
+           
     }
 
 
@@ -49,21 +48,4 @@ public class SpiderMovement : MonoBehaviour
         return navHit.position;
     }
 
-    /*Vector3 GetRandomLocation()
-    {
-        //Calculates and returns triangulation of navmesh containing vertices, triangle indices and navmesh layers
-        NavMeshTriangulation navMeshData = NavMesh.CalculateTriangulation();
-
-        // Pick the first instance of a random triangle in the nav mesh
-        int t = Random.Range(0, navMeshData.indices.Length - 3);
-
-        // Select a random point on the first instance of a random trangle on the nav mesh
-        //Set our point as a fraction inbetween indices[t] and indices[t+1] (Done using lerp)
-        Vector3 point = Vector3.Lerp(navMeshData.vertices[navMeshData.indices[t]], navMeshData.vertices[navMeshData.indices[t + 1]], Random.value);
-        //lerp our point again with 3rd indice of triangle
-        Vector3.Lerp(point, navMeshData.vertices[navMeshData.indices[t + 2]], Random.value);
-
-        return point;
-    }
-    */
 }

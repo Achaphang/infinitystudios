@@ -27,7 +27,7 @@ public class SpiderSpawn : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >  spawnTime && numOfSpider !=50)
+        if (timer >  spawnTime && numOfSpider !=20)
         {
             spawnSpider();
             numOfSpider++;

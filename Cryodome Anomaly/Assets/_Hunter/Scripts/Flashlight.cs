@@ -11,6 +11,9 @@ public class Flashlight : MonoBehaviour
     float originalRange;
     float originalAngle;
     int flickerChecker = 1;
+    public float duration = 1.0f;
+    Color color0 = Color.red;
+    Color color1 = Color.yellow;
 
     bool grabbed = false;
 
@@ -47,7 +50,7 @@ public class Flashlight : MonoBehaviour
         if (!grabbed)
             return;
         if(powerPercentage > 0f)
-            powerPercentage -= .25f;
+            powerPercentage -= 0.25f;
         else if(flickerChecker != -1){
             light.intensity = 0f;
             pointLight.intensity = .2f;
@@ -62,10 +65,14 @@ public class Flashlight : MonoBehaviour
         } else if(flickerChecker == 1){
             flickerChecker = 0;
             StartCoroutine(Flicker());
+            ChangeCol();
         }
     }
 
-
+    private void ChangeCol(){
+        float t = Mathf.PingPong(Time.time, duration) / duration;
+        light.color = Color.Lerp(color0, color1, t);
+    }
     IEnumerator Flicker (){
         while(flickerChecker == 0) {
             int flickerDecider = (int)(100 / (powerPercentage * 3 + 1)) + Random.Range(0, 4);
