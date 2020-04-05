@@ -16,6 +16,8 @@ public class MonsterNoiseController : MonoBehaviour
     public AudioSource tempSource;
     public AudioSource movementSource;
 
+    int monsterType;
+
     bool playerDead = false;
     
     void Start()
@@ -33,7 +35,7 @@ public class MonsterNoiseController : MonoBehaviour
         lostClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/lost");
         movementClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/movement");
 
-        StartCoroutine(breathe());
+        monsterType = GetComponent<MonsterController>().monsterType;
     }
 
     void Update() {
@@ -44,15 +46,6 @@ public class MonsterNoiseController : MonoBehaviour
 
         if (temp > .7f && temp < .77f && agent.velocity.magnitude > .3f) {
             move();
-        }
-    }
-
-    IEnumerator breathe() {
-        while(true){
-            //audioClips[0].Play();
-            yield return new WaitForSeconds((audioClips[0].clip.length * 1 / audioClips[0].pitch) + .25f);
-            //audioClips[1].Play();
-            yield return new WaitForSeconds((audioClips[1].clip.length * 1 / audioClips[1].pitch) + Random.Range(.25f, .26f));
         }
     }
 
@@ -67,7 +60,7 @@ public class MonsterNoiseController : MonoBehaviour
     public void locatedPlayer() {
         if (!tempSource.isPlaying && !playerDead) {
             tempSource.clip = spottedClips[Random.Range(0, spottedClips.Length)];
-            tempSource.pitch = Random.Range(.7f, .8f);
+            tempSource.pitch = Random.Range(.7f, .8f) + (monsterType / 3f);
             tempSource.Play();
         }
 
@@ -76,7 +69,7 @@ public class MonsterNoiseController : MonoBehaviour
     public void chasingPlayer() {
         if (!tempSource.isPlaying && !playerDead) {
             tempSource.clip = chasingClips[Random.Range(0, chasingClips.Length)];
-            tempSource.pitch = Random.Range(.7f, .8f);
+            tempSource.pitch = Random.Range(.7f, .8f) + (monsterType / 3f);
             tempSource.Play();
         }
     }
@@ -84,7 +77,7 @@ public class MonsterNoiseController : MonoBehaviour
     public void lostPlayer() {
         if (!tempSource.isPlaying && !playerDead) {
             tempSource.clip = lostClips[Random.Range(0, lostClips.Length)];
-            tempSource.pitch = Random.Range(.7f, .8f);
+            tempSource.pitch = Random.Range(.7f, .8f) + (monsterType / 3f);
             tempSource.Play();
         }
     }

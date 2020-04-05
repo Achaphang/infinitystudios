@@ -3144,6 +3144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc898caa4e832784494b33725f9a2960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterType: 0
   markerPrefab: {fileID: 729600214101141102, guid: 9a1283fff7e8a8a438aa6e1b217a337f,
     type: 3}
 --- !u!114 &6940937842335374832
@@ -3408,7 +3409,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.75
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3504,7 +3505,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.75
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3600,7 +3601,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.75
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3696,7 +3697,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0.8
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -3748,9 +3749,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c55e2fde2c3f2049b2230819d4d1e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   viewAngle: 35
   viewDistance: 20
+  closeViewDistance: 2
 --- !u!95 &6940937842335374837
 Animator:
   serializedVersion: 3

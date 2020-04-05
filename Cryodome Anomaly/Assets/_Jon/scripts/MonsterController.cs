@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class MonsterController : MonoBehaviour
 {
+    // 0 = basic. 1 = sprinter. >1 = who knows? Maybe BOB HIMSELF?
+    public int monsterType = 0;
     List<GameObject> targets;
     GameObject priorityTarget;
     // This object is a square box that acts as a target collider for the monster.
@@ -48,6 +50,11 @@ public class MonsterController : MonoBehaviour
 
         GenerateRandomTarget();
         InvokeRepeating("ChasePlayerNoises", 0f, 2f);
+        // Simple way to make the sprinters always sprint
+        if(monsterType == 1) {
+            running = true;
+            stamina = staminaMax;
+        }
     }
 
     void Update() {
@@ -106,7 +113,8 @@ public class MonsterController : MonoBehaviour
     public void FixedUpdate() {
         if (running && !isTraversing) {
             agent.speed = runSpeed;
-            stamina -= Time.deltaTime;
+            if(monsterType != 1)
+                stamina -= Time.deltaTime;
         }
 
         if (stamina < staminaMax && !running)
@@ -241,7 +249,8 @@ public class MonsterController : MonoBehaviour
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);
             if(targets.Count <= 0 && priorityTarget == null) {
-                StopRunning();
+                if(monsterType != 1)
+                    StopRunning();
                 GenerateRandomTarget();
             }
         }
