@@ -42,12 +42,16 @@ public class DoorAnimation : MonoBehaviour
         defaultDoor1Position = doorBody1.transform.localPosition;
         defaultDoor2Position = doorBody2.transform.localPosition;
 
-        doorLink1 = transform.GetChild(0).gameObject;
-        doorLink2 = transform.GetChild(1).gameObject;
+        if(transform.childCount > 0) {
+            doorLink1 = transform.GetChild(0).gameObject;
+            doorLink2 = transform.GetChild(1).gameObject;
+        }
 
         if (!unlocked) {
-            doorLink1.SetActive(false);
-            doorLink2.SetActive(false);
+            if(doorLink1 != null)
+                doorLink1.SetActive(false);
+            if(doorLink2 != null)
+                doorLink2.SetActive(false);
         }
 
         doorSource = GetComponent<AudioSource>();
@@ -90,8 +94,10 @@ public class DoorAnimation : MonoBehaviour
 
     public void SetDoorUnlocked(bool tf) {
         unlocked = tf;
-        doorLink1.SetActive(tf);
-        doorLink2.SetActive(tf);
+        if(doorLink1 != null)
+            doorLink1.SetActive(tf);
+        if(doorLink2 != null)
+            doorLink2.SetActive(tf);
     }
 
     // Activate the Main function when Player enter the trigger area

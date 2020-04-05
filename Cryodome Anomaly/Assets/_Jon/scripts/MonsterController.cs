@@ -38,7 +38,7 @@ public class MonsterController : MonoBehaviour
         noiseController = GetComponent<MonsterNoiseController>();
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
-        agent.Warp(new Vector3(-26, 1, -16));
+        agent.Warp(new Vector3(transform.position.x, 1, transform.position.z));
         // Harder difficulties make the monster move slightly faster
         if (Globals.Instance != null) 
             if (Globals.Instance.difficulty != -1) 
