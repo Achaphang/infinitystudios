@@ -65,7 +65,7 @@ public class Flashlight : MonoBehaviour
         } else if(flickerChecker == 1){
             flickerChecker = 0;
             StartCoroutine(Flicker());
-            ChangeCol();
+            //ChangeCol();
         }
     }
 

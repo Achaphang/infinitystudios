@@ -32,6 +32,7 @@ public class MonsterController : MonoBehaviour
 
     bool hasDied = false;
     MonsterNoiseController noiseController;
+    public Collider boundsController;
 
     void Start() {
         targets = new List<GameObject>();
@@ -91,7 +92,7 @@ public class MonsterController : MonoBehaviour
                 idleResetCounter = 5f;
             }
         } else {
-            idleResetCounter = 5f;
+            idleResetCounter = 2f;
         }
 
         forceIdleCounter -= Time.deltaTime;
@@ -102,7 +103,8 @@ public class MonsterController : MonoBehaviour
         if (priorityTarget != null)
             agent.destination = priorityTarget.transform.position;
         else if (forceIdleCounter <= 0f)
-            agent.destination = targets[0].transform.position;
+            if(agent.destination != targets[0].transform.position)
+                agent.destination = targets[0].transform.position;
 
         if (!running)
             agent.speed = walkSpeed;
@@ -158,7 +160,13 @@ public class MonsterController : MonoBehaviour
     }
 
     void GenerateRandomTarget() {
-        AddTarget(GetRandomLocation());
+        Vector3 newPath = GetRandomLocation();
+        if (boundsController.bounds.Contains(newPath)) {
+            Debug.Log("Found a path.");
+            AddTarget(newPath);
+        } else {
+            GenerateRandomTarget();
+        }
     }
 
     void StartRunning() {
