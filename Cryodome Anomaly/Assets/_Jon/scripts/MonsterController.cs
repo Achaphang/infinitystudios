@@ -49,7 +49,7 @@ public class MonsterController : MonoBehaviour
                 agent.speed = agent.speed - ((2 - Globals.Instance.difficulty) * .125f);
 
         walkSpeed = agent.speed;
-        runSpeed = walkSpeed * 3.25f;
+        runSpeed = walkSpeed * 3f;
         doorSpeed = agent.speed * .5f;
 
         GenerateRandomTarget();
@@ -164,9 +164,9 @@ public class MonsterController : MonoBehaviour
 
     void GenerateRandomTarget() {
         Vector3 newPath;
-        if (Random.Range(0f, 1f) > .85f && monsterType == 1) {
-            perchTimer = 20f;
-            newPath = new Vector3(13.54f, 3.43f, 115.65f);
+        if (Random.Range(0f, 1f + (monsterType / 3f)) > .95f && boundsController.name == "Level2Bounds") {
+            perchTimer = 20f + Random.Range(-10f, 10f + monsterType * 10);
+            newPath = new Vector3(Random.Range(11.32f, 13.54f), 3.43f, Random.Range(115.65f, 124.5f));
             AddTarget(newPath);
             return;
         }

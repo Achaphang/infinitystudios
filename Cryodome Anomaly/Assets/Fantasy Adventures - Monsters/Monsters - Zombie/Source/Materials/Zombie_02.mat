@@ -68,9 +68,9 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 0
     - _DstBlend: 0
-    - _EmissionIntensity: 2.8
+    - _EmissionIntensity: 4.11
     - _GlossMapScale: 1
-    - _Glossiness: 1
+    - _Glossiness: 2
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
@@ -91,6 +91,6 @@ Material:
     - __dirty: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 0.54137933, b: 0.125, a: 1}
+    - _EmissionColor: {r: 1, g: 0.12549019, b: 0.95443577, a: 1}
     - _SSS: {r: 0.22794116, g: 0.07709775, b: 0.07709775, a: 0}
     - _SkinHairColor: {r: 1, g: 1, b: 1, a: 0}
