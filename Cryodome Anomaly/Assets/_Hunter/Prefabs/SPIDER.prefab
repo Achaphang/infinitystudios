@@ -129,9 +129,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3675468640235541770}
-  - component: {fileID: 3675468640246599814}
   - component: {fileID: -5567971405436733660}
   - component: {fileID: 5797062862896145360}
+  - component: {fileID: 6925940490561136410}
   m_Layer: 0
   m_Name: SPIDER
   m_TagString: Untagged
@@ -155,29 +155,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &3675468640246599814
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3675468640235571434}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 1099495709079093668, guid: 130cac6b96af6214296215324b5da188,
-    type: 3}
-  m_Animations:
-  - {fileID: 1099495709079093668, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  - {fileID: 7400004, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  - {fileID: 7400006, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  - {fileID: 7400008, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  - {fileID: 7400010, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  - {fileID: 7400012, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  - {fileID: 7400014, guid: 130cac6b96af6214296215324b5da188, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 1
 --- !u!114 &-5567971405436733660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,10 +179,10 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
+  m_Speed: 1
+  m_Acceleration: 1
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 300000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -214,6 +191,28 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!111 &6925940490561136410
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3675468640235571434}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400012, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  m_Animations:
+  - {fileID: 7400014, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  - {fileID: 7400004, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  - {fileID: 7400006, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  - {fileID: 7400008, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  - {fileID: 7400010, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  - {fileID: 7400012, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  - {fileID: 7400014, guid: 130cac6b96af6214296215324b5da188, type: 3}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 1
 --- !u!1 &3675468640235571436
 GameObject:
   m_ObjectHideFlags: 0
