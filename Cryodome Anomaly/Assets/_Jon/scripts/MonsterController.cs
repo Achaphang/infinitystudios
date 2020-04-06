@@ -34,6 +34,9 @@ public class MonsterController : MonoBehaviour
     MonsterNoiseController noiseController;
     public Collider boundsController;
 
+    // Used for the sprinter types when they're hiding in a specific location, such as the roof of the big area.
+    float perchTimer = 0f;
+
     void Start() {
         targets = new List<GameObject>();
         noiseController = GetComponent<MonsterNoiseController>();
@@ -79,7 +82,7 @@ public class MonsterController : MonoBehaviour
         if (isTraversing)
             return;
 
-        if(agent.velocity.magnitude < .3f) {
+        if(agent.velocity.magnitude < .3f && forceIdleCounter < 0f) {
             idleResetCounter -= Time.deltaTime;
             if(idleResetCounter <= 0f) {
                 if(targets.Count > 0) {
@@ -135,7 +138,7 @@ public class MonsterController : MonoBehaviour
 
     // Use InvokeRepeating
     void ChasePlayerNoises() {
-        if (!running || isTraversing)
+        if (!running || isTraversing || forceIdleCounter > 0f)
             return;
 
         if (Random.Range(0f, 100f) > 75f)
@@ -160,9 +163,17 @@ public class MonsterController : MonoBehaviour
     }
 
     void GenerateRandomTarget() {
-        Vector3 newPath = GetRandomLocation();
+        Vector3 newPath;
+        if (Random.Range(0f, 1f) > .85f && monsterType == 1) {
+            perchTimer = 20f;
+            newPath = new Vector3(13.54f, 3.43f, 115.65f);
+            AddTarget(newPath);
+            return;
+        }
+        else
+            newPath = GetRandomLocation();
+
         if (boundsController.bounds.Contains(newPath)) {
-            Debug.Log("Found a path.");
             AddTarget(newPath);
         } else {
             GenerateRandomTarget();
@@ -185,7 +196,9 @@ public class MonsterController : MonoBehaviour
     IEnumerator TraverseBoundry() {
         agent.speed = 0;
         isTraversing = true;
-        while(doorIsOpen == false) {
+        float maxTimer = 5f;
+        while(doorIsOpen == false && maxTimer > 0f) {
+            maxTimer -= .25f;
             yield return new WaitForSeconds(.25f);
         }
         if (!running)
@@ -214,10 +227,13 @@ public class MonsterController : MonoBehaviour
             if (priorityTarget == null)
                 noiseController.locatedPlayer();
             priorityTarget = targ;
-            chaseTimer = 4f;
+            chaseTimer = 3.5f;
             StartRunning();
             return;
         }
+        Vector3 newPath = targ.transform.position;
+        if (!boundsController.bounds.Contains(newPath) && priority == 2) 
+            return;
         GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         temp.GetComponent<MarkerController>().SetMonster(gameObject);
         if(priority == 2) {
@@ -253,6 +269,9 @@ public class MonsterController : MonoBehaviour
 
             if(priorityTarget == null && !running) {
                 forceIdleCounter = 3f + Random.Range(0, 5f);
+            }else if(priorityTarget == null && monsterType == 1) {
+                forceIdleCounter = 1f + perchTimer;
+                perchTimer = 0f;
             }
             targets.Remove(collision.gameObject);
             Destroy(collision.gameObject);

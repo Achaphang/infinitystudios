@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Keypad : MonoBehaviour
 {
+    MonsterController[] monsters;
+
     Overlord overlord;
     Light keypadLight;
     Canvas canvas;
@@ -26,10 +28,7 @@ public class Keypad : MonoBehaviour
     AudioClip alarmClip;
     AudioClip successClip;
 
-    MonsterController monster;
-
-    void Start()
-    {
+    void Start(){
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
         keypadLight = GetComponentInChildren<Light>();
         canvas = GetComponentInChildren<Canvas>();
@@ -64,7 +63,7 @@ public class Keypad : MonoBehaviour
         alarmClip = Resources.Load<AudioClip>("Sounds/Misc/keypadAlarm");
         successClip = Resources.Load<AudioClip>("Sounds/Misc/keypadSuccess");
 
-        monster = GameObject.Find("Monster").GetComponent<MonsterController>();
+        monsters = GameObject.FindObjectsOfType<MonsterController>();
     }
 
     IEnumerator LateStart(float wait) {
@@ -163,7 +162,10 @@ public class Keypad : MonoBehaviour
         keypadLight.color = Color.red;
         keypadSource.clip = alarmClip;
         keypadSource.volume = .65f;
-        monster.AddTarget(gameObject, 2);
+
+        foreach(MonsterController monster in monsters)
+            monster.AddTarget(gameObject, 2);
+
         for (int i = 0; i < 15; i++) {
             keypadSource.Play();
             yield return new WaitForSeconds(1);
