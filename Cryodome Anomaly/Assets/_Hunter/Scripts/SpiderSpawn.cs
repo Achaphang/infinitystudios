@@ -6,13 +6,13 @@ using UnityEngine.AI;
 public class SpiderSpawn : MonoBehaviour
 {
     public GameObject spider;
-    List<GameObject> spiders;
+    public List<GameObject> spiders;
     private float spawnTime = 2.0f;
     private float timer;
-    private float numOfSpider;
+    public float numOfSpider;
     private GameObject PlayerPos = null;
 
-    private void Start()
+    public void Start()
     {
         if(PlayerPos == null)
         {
@@ -24,14 +24,14 @@ public class SpiderSpawn : MonoBehaviour
     
     }
     //Function used to spawn 3 batterys total, each one randomly and at 25 units of time 
-    private void Update()
+    public void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >  spawnTime && numOfSpider !=20)
+        //timer += Time.deltaTime;
+        if (numOfSpider !=20)
         {
             spawnSpider();
             numOfSpider++;
-            timer = 0;
+            //timer = 0;
         }
         
     }
