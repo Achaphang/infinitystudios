@@ -49,7 +49,7 @@ public class MonsterController : MonoBehaviour
                 agent.speed = agent.speed - ((2 - Globals.Instance.difficulty) * .125f);
 
         walkSpeed = agent.speed;
-        runSpeed = walkSpeed * 3f;
+        runSpeed = walkSpeed * 2.75f;
         doorSpeed = agent.speed * .5f;
 
         GenerateRandomTarget();
@@ -127,7 +127,7 @@ public class MonsterController : MonoBehaviour
 
         if(chaseTimer <= 0f && priorityTarget != null) {
             AddTarget(priorityTarget, 2);
-            StartCoroutine(AddTargetLater(priorityTarget, 4));
+            StartCoroutine(AddTargetLater(priorityTarget, .75f));
             priorityTarget = null;
 
             noiseController.lostPlayer();
@@ -227,7 +227,7 @@ public class MonsterController : MonoBehaviour
             if (priorityTarget == null)
                 noiseController.locatedPlayer();
             priorityTarget = targ;
-            chaseTimer = 3.5f;
+            chaseTimer = 1.75f;
             StartRunning();
             return;
         }
