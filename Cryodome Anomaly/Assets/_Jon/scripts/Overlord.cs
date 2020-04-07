@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class Overlord : MonoBehaviour { 
     List<AudioSource> audioClips;
     public AudioSource source;
     AudioClip death;
 
+    public bool demoMode = false;
+    public GameObject demoPlayer;
 
     bool dying = false;
     bool endDying = false;
@@ -19,6 +22,8 @@ public class Overlord : MonoBehaviour {
     List<string> keypadNames;
     GameObject[] itemSpawns;
     public List<GameObject> items;
+
+    GameObject[] monsters;
 
     void Awake(){
         keypadNames = new List<string>();
@@ -32,6 +37,37 @@ public class Overlord : MonoBehaviour {
 
         itemSpawns = GameObject.FindGameObjectsWithTag("ItemMarker");
         GenerateItemSpawns();
+
+        monsters = GameObject.FindGameObjectsWithTag("Monster");
+    }
+
+    public void Start() {
+        StartCoroutine(StartDemo());
+    }
+
+    IEnumerator StartDemo() {
+        if (demoMode) {
+
+            foreach (DoorAnimation door in GameObject.FindObjectsOfType<DoorAnimation>()) {
+                door.SetDoorUnlocked(true);
+                door.SetForceOpen(true);
+            }
+
+            GameObject temp = Instantiate(demoPlayer, new Vector3(21.26f, 0.88f, 2.119206f), Quaternion.identity);
+            yield return new WaitForSeconds(1);
+
+            if (Globals.Instance != null)
+                if (Globals.Instance.demoFlip == 1) {
+                    GameObject.Find("Monsters").SetActive(false);
+                    temp.GetComponent<NavMeshAgent>().speed = 7f;
+                    temp.GetComponent<NavMeshAgent>().SetDestination(transform.GetChild(1).transform.position);
+                } else {
+                    temp.GetComponent<NavMeshAgent>().SetDestination(new Vector3(0,0,0));
+                }
+        } else {
+            if (Globals.Instance != null)
+                Globals.Instance.demoFlip = 1;
+        }
     }
 
     public void soundAlarm() {
@@ -72,8 +108,49 @@ public class Overlord : MonoBehaviour {
 
         if(endDying && dyingCounter < -2.5f) {
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            SceneManager.LoadScene(0);
+            if (Globals.Instance != null)
+                if(Globals.Instance.demoFlip == -1) {
+                    Globals.Instance.demoFlip = 1;
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+            else
+                SceneManager.LoadScene(0);
         }
+    }
+
+    public void youWonnered() {
+        Debug.Log("YOU DIED jk lol");
+        StartCoroutine(beVictorious());
+    }
+
+    public void youWonneredDemo() {
+        StartCoroutine(beVictoriousDemo());
+    }
+
+    IEnumerator beVictorious() {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        foreach (GameObject m in monsters)
+            m.SetActive(false);
+
+        yield return new WaitForSeconds(7.5f);
+
+
+        SceneManager.LoadScene(0);
+    }
+
+    IEnumerator beVictoriousDemo() {
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        foreach (GameObject m in monsters)
+            m.SetActive(false);
+
+        yield return new WaitForSeconds(2.5f);
+
+        if (Globals.Instance != null)
+            Globals.Instance.demoFlip = -1;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // For now, just generate random values with specific colors.
@@ -112,9 +189,9 @@ public class Overlord : MonoBehaviour {
                     int j = Random.Range(0, items.Count);
                     Instantiate(items[j], itemSpawns[i].transform.position, Quaternion.identity);
                 }
-                // TODO: do this always once you make sure item markers are working properly. Until then we can see the ones that do not spawn objects.
-                itemSpawns[i].SetActive(false);
             }
+
+            itemSpawns[i].SetActive(false);
         }
     }
 }

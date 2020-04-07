@@ -281,7 +281,7 @@ public class MonsterController : MonoBehaviour
                 GenerateRandomTarget();
             }
         }
-        if(collision.gameObject.tag == "ActualPlayer") {
+        if(collision.gameObject.tag == "ActualPlayer" || collision.gameObject.tag == "NpcPlayer") {
             if (!hasDied) {
                 collision.enabled = false;
                 noiseController.commitDie();
@@ -294,6 +294,12 @@ public class MonsterController : MonoBehaviour
             }
             chaseTimer = 0f;
             priorityTarget = null;
+        }
+    }
+
+    public void OnCollisionEnter(Collision collision) {
+        if(collision.gameObject.tag == "NpcPlayer") {
+            Debug.Log("AAAAA");
         }
     }
 

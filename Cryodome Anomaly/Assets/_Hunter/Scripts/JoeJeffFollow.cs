@@ -12,6 +12,12 @@ public class JoeJeffFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        myNavMeshAgent = GetComponent<NavMeshAgent>();
+        animation = GetComponentInChildren<Animator>();
+
+        if (GameObject.Find("Player Variant") == null)
+            return;
+
         player = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;    //Jon helped me with this line
         if (player.active == false)
         {
@@ -19,12 +25,15 @@ public class JoeJeffFollow : MonoBehaviour
             //Destroy(gameObject);
             player = GameObject.Find("3dPlayerObjs");
         }
-        myNavMeshAgent = GetComponent<NavMeshAgent>();
-        animation = GetComponentInChildren<Animator>();
     }
 
     void FixedUpdate()
     {
+        if (player == null) {
+            player = GameObject.Find("DemoPlayer(Clone)");
+            return;
+        }
+
         offset = new Vector3(1.0f, 0, 1.0f);
         if (myNavMeshAgent.velocity.magnitude > .2f)
         {

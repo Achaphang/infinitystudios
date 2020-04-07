@@ -17,24 +17,29 @@ public class MonsterVisibilityController : MonoBehaviour
     void Start()
     {
         //GameObject.Find("3dPlayerObjs").active == true
+
+        monsterController = GetComponentInParent<MonsterController>();
+        if (GameObject.Find("Player Variant") == null)
+            return;
+
         player = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;
         if (player.active == false) {
             player = GameObject.Find("3dPlayerObjs");
-        } /*else {
-            player = GameObject.Find("Player Variant").transform.GetChild(0).FindChild("FollowHead").GetChild(0).gameObject;
-        }*/
-
-        monsterController = GetComponentInParent<MonsterController>();
+        } 
     }
 
     // Update is called once per frame
     void FixedUpdate(){
+        if (player == null) {
+            player = GameObject.Find("DemoPlayer(Clone)");
+            return;
+        }
         Vector3 direction = player.transform.position - transform.position;
 
         if(direction.magnitude <= viewDistance) {
             if (Vector3.Angle(direction, transform.forward) < viewAngle) {
                 Physics.Raycast(transform.position, (player.transform.position - transform.position), out hit);
-                if (hit.transform.tag == "ActualPlayer") {
+                if (hit.transform.tag == "ActualPlayer" || hit.transform.tag == "NpcPlayer") {
                     spottingTimer += Time.deltaTime;
                     if (spottingTimer > .2f) {
                         monsterController.AddTarget(player, 1);
@@ -45,7 +50,7 @@ public class MonsterVisibilityController : MonoBehaviour
                 }
             }else if(direction.magnitude < closeViewDistance) {
                 Physics.Raycast(transform.position, (player.transform.position - transform.position), out hit);
-                if (hit.transform.tag == "ActualPlayer") {
+                if (hit.transform.tag == "ActualPlayer" || hit.transform.tag == "NpcPlayer") {
                     spottingTimer += Time.deltaTime;
                     if (spottingTimer > 1f) {
                         monsterController.AddTarget(player, 1);

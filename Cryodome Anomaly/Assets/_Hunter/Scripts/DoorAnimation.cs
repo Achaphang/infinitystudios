@@ -23,6 +23,7 @@ public class DoorAnimation : MonoBehaviour
 
     bool open = false;
     bool monsterOpen = false;
+    bool forceOpen = false;
 
     bool isOpen = false;
     List<MonsterController> monsters;
@@ -74,8 +75,8 @@ public class DoorAnimation : MonoBehaviour
         }
         else if (direction == OpenDirection.z)
         {
-            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
-            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
+            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (forceOpen || open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
+            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (forceOpen || open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
         }
 
         if (doorBody1.transform.localPosition.z < -1) 
@@ -98,6 +99,10 @@ public class DoorAnimation : MonoBehaviour
             doorLink1.SetActive(tf);
         if(doorLink2 != null)
             doorLink2.SetActive(tf);
+    }
+
+    public void SetForceOpen(bool tf) {
+        forceOpen = tf;
     }
 
     // Activate the Main function when Player enter the trigger area

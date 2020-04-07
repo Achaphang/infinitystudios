@@ -9,6 +9,7 @@ public class Globals : MonoBehaviour
     // 1-3: easy through hard. -1 = dr bc mode
     // Default: 2
     public int difficulty = 2;
+    public int demoFlip = 1;
 
     private void Awake() {
         if(Instance == null) {

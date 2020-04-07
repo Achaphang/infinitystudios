@@ -12,6 +12,7 @@ TagManager:
   - ActualPlayer
   - UI
   - ItemMarker
+  - NpcPlayer
   layers:
   - Default
   - TransparentFX
