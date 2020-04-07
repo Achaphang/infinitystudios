@@ -113,7 +113,7 @@ public class Overlord : MonoBehaviour {
                     Globals.Instance.demoFlip = 1;
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
-            else
+            if(demoMode == false)
                 SceneManager.LoadScene(0);
         }
     }
