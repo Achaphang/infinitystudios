@@ -17,6 +17,7 @@ public class DoorAnimation : MonoBehaviour
     public float openSpeed = 2.0f; //Increasing this value will make the door open faster
     public GameObject doorBody1; //Door body Transform
     public GameObject doorBody2;
+    public GameObject doorBodyElevator;
 
     AudioSource doorSource;
     AudioClip doorBreakClip;
@@ -30,6 +31,7 @@ public class DoorAnimation : MonoBehaviour
 
     Vector3 defaultDoor1Position;
     Vector3 defaultDoor2Position;
+    Vector3 defaultDoorElevatorPosition;
 
     // Used to enable and disable the doors for both the player and the monster.
     GameObject doorLink1;
@@ -40,10 +42,14 @@ public class DoorAnimation : MonoBehaviour
     void Start()
     {
         monsters = new List<MonsterController>();
-        defaultDoor1Position = doorBody1.transform.localPosition;
-        defaultDoor2Position = doorBody2.transform.localPosition;
+        if(doorBody1 != null)
+            defaultDoor1Position = doorBody1.transform.localPosition;
+        if(doorBody2 != null)
+            defaultDoor2Position = doorBody2.transform.localPosition;
+        if(doorBodyElevator != null)
+            defaultDoorElevatorPosition = doorBodyElevator.transform.localPosition;
 
-        if(transform.childCount > 0) {
+        if (transform.childCount > 0) {
             doorLink1 = transform.GetChild(0).gameObject;
             doorLink2 = transform.GetChild(1).gameObject;
         }
@@ -65,24 +71,26 @@ public class DoorAnimation : MonoBehaviour
         if (!unlocked)
             return;
 
-        if (direction == OpenDirection.x)
-        {
-            doorBody1.transform.localPosition = new Vector3(Mathf.Lerp(doorBody1.transform.localPosition.x, defaultDoor1Position.x + (open ? openDistance : 0), Time.deltaTime * openSpeed), doorBody1.transform.localPosition.y, doorBody1.transform.localPosition.z);
-        }
-        else if (direction == OpenDirection.y)
-        {
-            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, Mathf.Lerp(doorBody1.transform.localPosition.y, defaultDoor1Position.y + (open ? openDistance : 0), Time.deltaTime * openSpeed), doorBody1.transform.localPosition.z);
-        }
-        else if (direction == OpenDirection.z)
-        {
-            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (forceOpen || open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
-            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (forceOpen || open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
+        if(doorBodyElevator != null) {
+            doorBodyElevator.transform.localPosition = new Vector3(doorBodyElevator.transform.localPosition.x, Mathf.Lerp(doorBodyElevator.transform.localPosition.y, defaultDoorElevatorPosition.y + (forceOpen || open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)), doorBodyElevator.transform.localPosition.z);
+
+            if (doorBodyElevator.transform.localPosition.y > 4)
+                isOpen = true;
+            else
+                isOpen = false;
         }
 
-        if (doorBody1.transform.localPosition.z < -1) 
-            isOpen = true;
-         else
-            isOpen = false;
+        if (doorBody1 != null) {
+            doorBody1.transform.localPosition = new Vector3(doorBody1.transform.localPosition.x, doorBody1.transform.localPosition.y, Mathf.Lerp(doorBody1.transform.localPosition.z, defaultDoor1Position.z + (forceOpen || open || monsterOpen ? -openDistance - (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
+
+            if (doorBody1.transform.localPosition.z < -1)
+                isOpen = true;
+            else
+                isOpen = false;
+        }
+
+        if(doorBody2 != null)
+            doorBody2.transform.localPosition = new Vector3(doorBody2.transform.localPosition.x, doorBody2.transform.localPosition.y, Mathf.Lerp(doorBody2.transform.localPosition.z, defaultDoor2Position.z + (forceOpen || open || monsterOpen ? openDistance + (monsterOpen ? Random.Range(-4.02f, 4.4f) : 0) : 0), Time.deltaTime * openSpeed / (monsterOpen ? 13 : 1)));
 
         foreach(MonsterController m in monsters) 
             m.GetDoorData(isOpen);

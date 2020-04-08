@@ -105,6 +105,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Single SqueezeTrigger
+        {
+            get
+            {
+                return SteamVR_Actions.default_SqueezeTrigger;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

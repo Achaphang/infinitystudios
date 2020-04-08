@@ -50,6 +50,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/SqueezeTrigger",
+      "type": "vector1"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
