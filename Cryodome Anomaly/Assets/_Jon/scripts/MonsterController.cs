@@ -164,7 +164,7 @@ public class MonsterController : MonoBehaviour
 
     void GenerateRandomTarget() {
         Vector3 newPath;
-        if (Random.Range(0f, 1f + (monsterType / 5f)) > .97f && boundsController.name == "Level2Bounds") {
+        if (Random.Range(0f, 1f + (monsterType / 10f)) > .97f && boundsController.name == "Level2Bounds") {
             perchTimer = 20f + Random.Range(-10f, 10f + monsterType * 10);
             newPath = new Vector3(Random.Range(13f, 13.54f), 3.43f, Random.Range(115.65f, 124.5f));
             AddTarget(newPath);
