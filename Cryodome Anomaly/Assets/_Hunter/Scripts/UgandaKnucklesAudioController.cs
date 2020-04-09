@@ -28,9 +28,15 @@ public class UgandaKnucklesAudioController : MonoBehaviour
     {
         if (other.CompareTag("ActualPlayer") || other.CompareTag("Monster"))
         {
-            //StartPlayingSounds();
-            myAudioSource1.Play();
-            myAudioSource2.Play();
+            StartPlayingSounds();
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ActualPlayer") || other.CompareTag("Monster"))
+        {
+            StopPlayingSounds();
         }
     }
     void StartPlayingSounds()
@@ -39,5 +45,13 @@ public class UgandaKnucklesAudioController : MonoBehaviour
         myAudioSource1.Play();
         myAudioSource2.clip = audioClip2;
         myAudioSource2.Play();
+    }
+
+    void StopPlayingSounds()
+    {
+        myAudioSource1.clip = audioClip1;
+        myAudioSource1.Stop();
+        myAudioSource2.clip = audioClip2;
+        myAudioSource2.Stop();
     }
 }
