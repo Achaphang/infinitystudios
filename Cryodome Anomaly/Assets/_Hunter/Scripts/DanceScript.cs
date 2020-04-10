@@ -8,6 +8,7 @@ public class DanceScript : MonoBehaviour
     public float timer = 0.0f;
     public int seconds;
     public bool keepTiming = true;
+    public int randNum;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,18 +19,22 @@ public class DanceScript : MonoBehaviour
     void Update()
     {
         Timer();
-        if (timer > 10.0f)
+        //If timer is greater than 10 generate a new random number
+        if (timer >= 10)
         {
-            anim.SetBool("NewDance", true);
+            randNum = Random.Range(0, 2);
             ResetTimer();
+        }
 
-            
-        }
-        else
+        if (randNum == 0)
         {
-            anim.SetBool("NewDance", false);
+            anim.SetInteger("DanceTransitions", 0);
         }
-        
+        else if (randNum == 1)
+        {
+            anim.SetInteger("DanceTransitions", 1);
+        }
+  
     }
 
     public void Timer()
