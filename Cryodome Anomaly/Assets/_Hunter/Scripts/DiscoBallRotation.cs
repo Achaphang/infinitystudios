@@ -12,6 +12,6 @@ public class DiscoBallRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(Vector2.left * speed * Time.deltaTime);
+        transform.Rotate(Vector2.up * speed * Time.deltaTime, Space.World);
     }
 }
