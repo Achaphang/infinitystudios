@@ -32,10 +32,12 @@ public class Elevator : MonoBehaviour
                 upperLevel = true;
                 Debug.Log("Registered Up Click");
 
-                while (transform.position != new Vector3(-0.052f, 3, 0))
+                transform.position = new Vector3(-0.052f, 3.25f, 0);
+
+                /*while (transform.position != new Vector3(-0.052f, 3, 0))
                 {
                     transform.Translate(new Vector3(0, 0.02f, 0));
-                }
+                }*/
 
             }
 
