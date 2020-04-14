@@ -10,6 +10,8 @@ public class PlayerController3D : MonoBehaviour
     float gravity = -9.81f;
     Vector3 velocity;
 
+    int beepers = 0;
+
     void Start() {
         controller = GetComponent<CharacterController>();
     }
@@ -33,10 +35,14 @@ public class PlayerController3D : MonoBehaviour
             RaycastHit hit;
 
             if(Physics.Raycast(ray, out hit)) {
-                if(hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)") {
+                if(hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight" || hit.transform.name == "BatteryFlashlight(Clone)") {
                     transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
+                    Destroy(hit.transform.gameObject);
+                }
+                if(hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)") {
+                    beepers++;
                     Destroy(hit.transform.gameObject);
                 }
             }

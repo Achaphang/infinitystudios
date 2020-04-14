@@ -28,12 +28,6 @@ public class Beeper : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void Prime() {
         if (primed)
             return;

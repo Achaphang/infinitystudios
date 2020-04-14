@@ -28,12 +28,6 @@ public class Flashlight : MonoBehaviour
         InvokeRepeating("DecreasePower", 0, 1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void RestorePower() {
         powerPercentage = 100f;
         flickerChecker = 1;

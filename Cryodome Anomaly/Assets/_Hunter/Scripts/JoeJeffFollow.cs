@@ -12,6 +12,7 @@ public class JoeJeffFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        offset = new Vector3(1.0f, 0, 1.0f);
         myNavMeshAgent = GetComponent<NavMeshAgent>();
         animation = GetComponentInChildren<Animator>();
 
@@ -27,14 +28,13 @@ public class JoeJeffFollow : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (player == null) {
             player = GameObject.Find("DemoPlayer(Clone)");
             return;
         }
 
-        offset = new Vector3(1.0f, 0, 1.0f);
         if (myNavMeshAgent.velocity.magnitude > .2f)
         {
             myNavMeshAgent.SetDestination(player.transform.position + offset);

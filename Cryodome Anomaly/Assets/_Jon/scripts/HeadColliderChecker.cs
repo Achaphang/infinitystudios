@@ -8,18 +8,6 @@ public class HeadColliderChecker : MonoBehaviour
     public GameObject camera;
     public GameObject playerParent;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnCollisionStay(Collision collision) {
         SteamVR_Fade.Start(Color.black, .25f);
         //transform.localScale = new Vector3(.1f, .1f, .1f);

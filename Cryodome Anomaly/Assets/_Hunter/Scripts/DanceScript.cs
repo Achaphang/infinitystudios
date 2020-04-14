@@ -13,10 +13,12 @@ public class DanceScript : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        InvokeRepeating("TimerOptimized", 0f, 10f);
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         Timer();
         //If timer is greater than 10 generate a new random number
@@ -35,6 +37,16 @@ public class DanceScript : MonoBehaviour
             anim.SetInteger("DanceTransitions", 1);
         }
   
+    }*/
+
+    void TimerOptimized() {
+        randNum = Random.Range(0, 2);
+
+        if (randNum == 0) {
+            anim.SetInteger("DanceTransitions", 0);
+        } else if (randNum == 1) {
+            anim.SetInteger("DanceTransitions", 1);
+        }
     }
 
     public void Timer()

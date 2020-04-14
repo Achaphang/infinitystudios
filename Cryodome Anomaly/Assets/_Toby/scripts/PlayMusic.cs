@@ -13,10 +13,4 @@ public class PlayMusic : MonoBehaviour
         scaryMusic.playOnAwake = true;
         scaryMusic.volume = 1;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
