@@ -1,6 +1,7 @@
 # Infinity Studios - Cryodome Anomaly
+![Infinity_Studios_Logo](https://user-images.githubusercontent.com/32747775/79263465-bb65a500-7e47-11ea-98f4-ebdc5d444b29.jpg)
 
-Virtual Reality (VR) horror game based in unity built for CS 395.
+Cryodome Anomaly is a Virtual Reality (VR) horror game built for CS 383 at the University of Idaho during the spring 2020 semester. It was developed using the Unity game engine, and is optimized for VR but has the capability to be played on a typical PC. 
 
 ## Getting Started
 
