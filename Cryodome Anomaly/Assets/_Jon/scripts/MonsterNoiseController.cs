@@ -12,6 +12,7 @@ public class MonsterNoiseController : MonoBehaviour
     AudioClip[] spottedClips;
     AudioClip[] lostClips;
     AudioClip[] movementClips;
+    AudioClip willhelm;
 
     public AudioSource tempSource;
     public AudioSource movementSource;
@@ -34,6 +35,7 @@ public class MonsterNoiseController : MonoBehaviour
         spottedClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/spotted");
         lostClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/lost");
         movementClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/movement");
+        willhelm = Resources.Load<AudioClip>("Sounds/Monster Noises/unsorted/willhelm");
 
         monsterType = GetComponent<MonsterController>().monsterType;
     }
@@ -84,6 +86,8 @@ public class MonsterNoiseController : MonoBehaviour
 
     public void commitDie() {
         playerDead = true;
-        audioClips[3].Play();
+        tempSource.clip = willhelm;
+        tempSource.pitch = 1;
+        tempSource.Play();
     }
 }

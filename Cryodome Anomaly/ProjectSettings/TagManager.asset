@@ -13,6 +13,7 @@ TagManager:
   - UI
   - ItemMarker
   - NpcPlayer
+  - Keycard
   layers:
   - Default
   - TransparentFX

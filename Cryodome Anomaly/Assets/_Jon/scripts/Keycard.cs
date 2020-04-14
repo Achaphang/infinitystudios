@@ -16,4 +16,18 @@ public class Keycard : MonoBehaviour
                 collision.transform.parent.GetComponent<Keypad>().EnterPasscode(true);
         }
     }*/
+
+    public void OnTriggerEnter(Collider other) {
+        if (other.name == "Keypad")
+            if (other.GetComponent<Keypad>().accessLevel <= accessLevel)
+                other.GetComponent<Keypad>().KeycardEnter();
+            else
+                other.GetComponent<Keypad>().EnterPasscode(true);
+    }
+
+    public void OnTriggerExit(Collider other) {
+        if (other.name == "Keypad")
+            if (other.GetComponent<Keypad>().accessLevel <= accessLevel)
+                other.GetComponent<Keypad>().KeycardExit();
+    }
 }

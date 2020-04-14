@@ -27,8 +27,10 @@ public class Keypad : MonoBehaviour
     AudioClip beepClip;
     AudioClip alarmClip;
     AudioClip successClip;
+    AudioClip scanningClip;
 
     bool keycardScanning = false;
+    float keycardScanningDur = 0f;
 
     void Start(){
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
@@ -64,13 +66,20 @@ public class Keypad : MonoBehaviour
         beepClip = Resources.Load<AudioClip>("Sounds/Misc/button");
         alarmClip = Resources.Load<AudioClip>("Sounds/Misc/keypadAlarm");
         successClip = Resources.Load<AudioClip>("Sounds/Misc/keypadSuccess");
+        scanningClip = Resources.Load<AudioClip>("Sounds/Misc/scanning");
 
         monsters = GameObject.FindObjectsOfType<MonsterController>();
     }
 
     public void Update() {
+        if (correctPasscode)
+            return;
         if (keycardScanning) {
-            Debug.Log("Currently scanning a keycard! Nice.");
+            keycardScanningDur += Time.deltaTime;
+            if (keycardScanningDur >= 3)
+                UnlockDoor();
+        } else {
+            keycardScanningDur = 0f;
         }
     }
 
@@ -116,11 +125,13 @@ public class Keypad : MonoBehaviour
     }
 
     public bool UnlockDoor(bool keycard = false) {
-        if (correctPasscode || lockedOut)
+        if (correctPasscode)
             return false;
+        correctPasscode = true;
         if (keycard)
             txt.text = "OVERRIDE";
-        correctPasscode = true;
+        keycardScanning = false;
+        keypadSource.Stop();
         txt.text = "<color=lime>" + txt.text + "</color>";
         keypadLight.color = Color.green;
         canPress = false;
@@ -198,16 +209,23 @@ public class Keypad : MonoBehaviour
         ResetPress();
     }
 
-    public void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "Keycard") {
-            if(other.GetComponent<Keycard>().accessLevel >= accessLevel)
-                keycardScanning = true;
-        }
+    public void KeycardEnter() {
+        if (correctPasscode)
+            return;
+        lockedOut = true;
+        keypadSource.clip = scanningClip;
+        keypadSource.volume = 1;
+        keypadSource.pitch = 1.75f;
+        keypadSource.Play();
+        keycardScanning = true;
+
     }
 
-    public void OnTriggerExit(Collider other) {
-        if (other.gameObject.tag == "Keycard")
-            if (other.GetComponent<Keycard>().accessLevel >= accessLevel)
-                keycardScanning = false;
+    public void KeycardExit() {
+        if (correctPasscode)
+            return;
+        lockedOut = false;
+        keypadSource.Stop();
+        keycardScanning = false;
     }
 }

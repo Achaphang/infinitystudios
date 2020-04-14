@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3724546707551474092}
   - component: {fileID: 5524084643280216886}
   - component: {fileID: 6256024085716528774}
+  - component: {fileID: 7002351931887101072}
   m_Layer: 0
   m_Name: Level1Keycard
   m_TagString: Untagged
@@ -117,9 +118,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activateActionSetOnAttach:
     actionSetPath: 
-  hideHandOnAttach: 1
+  hideHandOnAttach: 0
   hideSkeletonOnAttach: 0
-  hideControllerOnAttach: 0
+  hideControllerOnAttach: 1
   handAnimationOnPickup: 0
   setRangeOfMotionOnPickup: -1
   useHandObjectAttachmentPoint: 1
@@ -263,6 +264,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dada5bb2c74eda24884b0f75cfaa9058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  accessLevel: 0
+  overrideCard: 0
+--- !u!114 &7002351931887101072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2391536346108134773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4cc6cf300b3e4bb1411c4e041030c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportAllowed: 1
+  overrideHoverLock: 1
 --- !u!1 &3156687210250095548
 GameObject:
   m_ObjectHideFlags: 0
