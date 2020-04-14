@@ -18,7 +18,8 @@ Install via Unity Hub
 
 ## Running
 
-Once the executable is fetched/ downloaded all the user will need to do is double click the file for the game to launch.
+The executable and supporting files will be accessible via google drive with the following link: https://drive.google.com/open?id=1IYAfpubsx-b95GajfVfFMKD239Fo_-6Z . You will then need to download the folder, unzip it, and locate the executable. Once located you can double click the executable in order to launch the game.
+
 
 Following launching the game you will be prompted with the option of selecting Virtual Reality or 3D, choose according to your current systems setup. 
 
