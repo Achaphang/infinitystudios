@@ -28,6 +28,8 @@ public class Keypad : MonoBehaviour
     AudioClip alarmClip;
     AudioClip successClip;
 
+    bool keycardScanning = false;
+
     void Start(){
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
         keypadLight = GetComponentInChildren<Light>();
@@ -64,6 +66,12 @@ public class Keypad : MonoBehaviour
         successClip = Resources.Load<AudioClip>("Sounds/Misc/keypadSuccess");
 
         monsters = GameObject.FindObjectsOfType<MonsterController>();
+    }
+
+    public void Update() {
+        if (keycardScanning) {
+            Debug.Log("Currently scanning a keycard! Nice.");
+        }
     }
 
     IEnumerator LateStart(float wait) {
@@ -188,5 +196,18 @@ public class Keypad : MonoBehaviour
         lockedOut = false;
         ClearPasscode();
         ResetPress();
+    }
+
+    public void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "Keycard") {
+            if(other.GetComponent<Keycard>().accessLevel >= accessLevel)
+                keycardScanning = true;
+        }
+    }
+
+    public void OnTriggerExit(Collider other) {
+        if (other.gameObject.tag == "Keycard")
+            if (other.GetComponent<Keycard>().accessLevel >= accessLevel)
+                keycardScanning = false;
     }
 }
