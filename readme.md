@@ -24,6 +24,11 @@ The executable and supporting files will be accessible via google drive with the
 
 Following launching the game you will be prompted with the option of selecting Virtual Reality or 3D, choose according to your current systems setup. 
 
+## Controls
+
+![Controls](https://user-images.githubusercontent.com/32747775/79264440-6fb3fb00-7e49-11ea-98ef-56d6072622c9.PNG)
+
+
 ## Testing
 
 The first step in order to be able to run tests is to launch the unity application, and make sure you have an idea of what tests you would like to run.
