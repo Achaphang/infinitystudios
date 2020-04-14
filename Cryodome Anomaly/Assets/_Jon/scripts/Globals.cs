@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Globals : MonoBehaviour
 {
-    public static Globals Instance { get; private set; }
+    //public static Globals Instance { get; private set; }
+    private static Globals _instance;
+
+    public static Globals Instance {  get { return _instance; } }
 
     // 1-3: easy through hard. -1 = dr bc mode
     // Default: 2
@@ -12,11 +15,11 @@ public class Globals : MonoBehaviour
     public int demoFlip = 1;
 
     private void Awake() {
-        if(Instance == null) {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+        if(_instance != null && _instance != this) {
+            Destroy(this.gameObject);
         } else {
-            Destroy(gameObject);
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 }

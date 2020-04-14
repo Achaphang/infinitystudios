@@ -9,6 +9,7 @@ public class PlayMusic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        scaryMusic = GetComponent<AudioSource>();
         scaryMusic.playOnAwake = true;
         scaryMusic.volume = 1;
     }
