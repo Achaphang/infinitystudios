@@ -7,7 +7,6 @@ public class MonsterNoiseController : MonoBehaviour
 {
     NavMeshAgent agent;
     Animator anim;
-    List<AudioSource> audioClips;
     AudioClip[] chasingClips;
     AudioClip[] spottedClips;
     AudioClip[] lostClips;
@@ -25,11 +24,6 @@ public class MonsterNoiseController : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        audioClips = new List<AudioSource>();
-
-        foreach(AudioSource a in GetComponents<AudioSource>()) {
-            audioClips.Add(a);
-        }
 
         chasingClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/chasing");
         spottedClips = Resources.LoadAll<AudioClip>("Sounds/Monster Noises/spotted");

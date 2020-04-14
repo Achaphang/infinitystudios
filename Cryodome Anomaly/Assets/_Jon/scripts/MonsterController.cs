@@ -71,6 +71,25 @@ public class MonsterController : MonoBehaviour
             anim.Play("run");
         }
 
+        if (running && !isTraversing) {
+            agent.speed = runSpeed;
+            if (monsterType != 1)
+                stamina -= Time.deltaTime;
+        }
+
+        if (stamina < staminaMax && !running)
+            stamina += Time.deltaTime * 5;
+
+        if (chaseTimer <= 0f && priorityTarget != null) {
+            AddTarget(priorityTarget, 2);
+            StartCoroutine(AddTargetLater(priorityTarget, .75f));
+            priorityTarget = null;
+
+            noiseController.lostPlayer();
+        } else {
+            chaseTimer -= Time.deltaTime;
+        }
+
         if (agent.isOnOffMeshLink && !isTraversing)
             StartCoroutine(TraverseBoundry());
         else if (!agent.isOnOffMeshLink && isTraversing) {
@@ -113,27 +132,6 @@ public class MonsterController : MonoBehaviour
             agent.speed = walkSpeed;
         if (stamina <= 0f)
             StopRunning();
-    }
-
-    public void FixedUpdate() {
-        if (running && !isTraversing) {
-            agent.speed = runSpeed;
-            if(monsterType != 1)
-                stamina -= Time.deltaTime;
-        }
-
-        if (stamina < staminaMax && !running)
-            stamina += Time.deltaTime * 5;
-
-        if(chaseTimer <= 0f && priorityTarget != null) {
-            AddTarget(priorityTarget, 2);
-            StartCoroutine(AddTargetLater(priorityTarget, .75f));
-            priorityTarget = null;
-
-            noiseController.lostPlayer();
-        } else {
-            chaseTimer -= Time.deltaTime;
-        }
     }
 
     // Use InvokeRepeating

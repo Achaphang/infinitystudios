@@ -29,7 +29,7 @@ public class MonsterVisibilityController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate(){
+    void Update(){
         if (player == null) {
             player = GameObject.Find("DemoPlayer(Clone)");
             return;
@@ -42,9 +42,9 @@ public class MonsterVisibilityController : MonoBehaviour
                 Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), (player.transform.position - transform.position));
                 if (hit.transform.tag == "ActualPlayer" || hit.transform.tag == "NpcPlayer") {
                     spottingTimer += Time.deltaTime;
-                    if (spottingTimer > .2f) {
+                    if (spottingTimer > .1f) {
                         monsterController.AddTarget(player, 1);
-                        spottingTimer = .15f;
+                        spottingTimer = .05f;
                     }
                 } else {
                     spottingTimer = 0f;
