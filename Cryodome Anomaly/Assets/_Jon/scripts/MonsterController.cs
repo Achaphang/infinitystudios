@@ -54,6 +54,7 @@ public class MonsterController : MonoBehaviour
 
         GenerateRandomTarget();
         InvokeRepeating("ChasePlayerNoises", 0f, 2f);
+        InvokeRepeating("UpdateStamina", 0f, 1f);
         // Simple way to make the sprinters always sprint
         if(monsterType == 1) {
             running = true;
@@ -71,14 +72,8 @@ public class MonsterController : MonoBehaviour
             anim.Play("run");
         }
 
-        if (running && !isTraversing) {
+        if (running && !isTraversing) 
             agent.speed = runSpeed;
-            if (monsterType != 1)
-                stamina -= Time.deltaTime;
-        }
-
-        if (stamina < staminaMax && !running)
-            stamina += Time.deltaTime * 5;
 
         if (chaseTimer <= 0f && priorityTarget != null) {
             AddTarget(priorityTarget, 2);
@@ -132,6 +127,14 @@ public class MonsterController : MonoBehaviour
             agent.speed = walkSpeed;
         if (stamina <= 0f)
             StopRunning();
+    }
+
+    void UpdateStamina() {
+        if (monsterType != 1)
+            stamina -= 1f;
+
+        if (stamina < staminaMax && !running)
+            stamina += 5;
     }
 
     // Use InvokeRepeating
