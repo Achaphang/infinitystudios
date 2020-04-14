@@ -87,13 +87,15 @@ public class Keypad : MonoBehaviour
         }
     }
 
-    public void EnterPasscode() {
+    public void EnterPasscode(bool keycard = false) {
         if (correctPasscode || lockedOut)
             return;
 
         for (int i = 0; i < 4; i++) {
-            if (passcodeEntered[i] != passcode[i]) {
+            if (passcodeEntered[i] != passcode[i] || keycard) {
                 // Make a really dang loud noise cause you messed up
+                if (keycard)
+                    txt.text = "INVALID ACCESS";
                 txt.text = "<color=red>" + txt.text + "</color>";
                 passcodeCounter = 0;
                 canPress = false;
@@ -102,6 +104,14 @@ public class Keypad : MonoBehaviour
             }
         }
         // Do something cool
+        UnlockDoor();
+    }
+
+    public bool UnlockDoor(bool keycard = false) {
+        if (correctPasscode || lockedOut)
+            return false;
+        if (keycard)
+            txt.text = "OVERRIDE";
         correctPasscode = true;
         txt.text = "<color=lime>" + txt.text + "</color>";
         keypadLight.color = Color.green;
@@ -112,7 +122,10 @@ public class Keypad : MonoBehaviour
         keypadSource.Play();
         foreach (DoorAnimation d in doors) {
             d.SetDoorUnlocked(true);
+            if (keycard)
+                d.SetForceOpen(true);
         }
+        return true;
     }
 
     public void ClearPasscode() {

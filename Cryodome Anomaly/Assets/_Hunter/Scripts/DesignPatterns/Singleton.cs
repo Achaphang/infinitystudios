@@ -33,6 +33,6 @@ public class Singleton : MonoBehaviour
     // Instance method, this method can be accesed through the singleton instance
     public void DoSomeAwesomeStuff()
     {
-        Debug.Log("Hunter Googled how to do a singlton pattern, Woohoo!");
+        //Debug.Log("Hunter Googled how to do a singlton pattern, Woohoo!");
     }
 }

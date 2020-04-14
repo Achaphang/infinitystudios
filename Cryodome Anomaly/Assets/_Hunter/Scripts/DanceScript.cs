@@ -53,7 +53,6 @@ public class DanceScript : MonoBehaviour
         timer += Time.deltaTime;
         // turn float seonds to int
         seconds = (int)(timer % 60);
-        print(seconds);
 
         if (seconds > 4)
         {
