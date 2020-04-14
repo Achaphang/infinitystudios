@@ -38,7 +38,8 @@ public class MonsterVisibilityController : MonoBehaviour
 
         if(direction.magnitude <= viewDistance) {
             if (Vector3.Angle(direction, transform.forward) < viewAngle) {
-                Physics.Raycast(new Vector3(transform.position.x, transform.position.y + .25f, transform.position.z), (player.transform.position - transform.position), out hit);
+                Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), (player.transform.position - transform.position), out hit);
+                Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), (player.transform.position - transform.position));
                 if (hit.transform.tag == "ActualPlayer" || hit.transform.tag == "NpcPlayer") {
                     spottingTimer += Time.deltaTime;
                     if (spottingTimer > .2f) {
