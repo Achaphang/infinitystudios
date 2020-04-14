@@ -172,7 +172,7 @@ public class Overlord : MonoBehaviour {
         }else if(keypadAccessLevel == 3) {
             final = "<b><color=red>" + c + "-" + i + "</color></b>"; // Secret
         }else if(keypadAccessLevel == 4) {
-            final = "<b><color=black>" + c + "-" + i + "</color></b>"; // Top Secret
+            final = "<b><color=#777777FF>" + c + "-" + i + "</color></b>"; // Top Secret
         }
 
         return (final);
