@@ -13,10 +13,11 @@ public class ChangeFloorColor : MonoBehaviour
     void Start()
     {
         startTime = Time.time;
+        InvokeRepeating("floorChange", 2.0f, .5f);
     }
 
     // Update is called once per frame
-    void Update()
+    void floorChange()
     {
         if (!repeatable)
         {
