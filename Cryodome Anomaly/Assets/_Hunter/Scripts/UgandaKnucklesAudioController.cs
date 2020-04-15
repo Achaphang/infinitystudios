@@ -26,7 +26,7 @@ public class UgandaKnucklesAudioController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ActualPlayer") || other.CompareTag("Monster"))
+        if (other.CompareTag("ActualPlayer"))
         {
             StartPlayingSounds();
         }
@@ -34,7 +34,7 @@ public class UgandaKnucklesAudioController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("ActualPlayer") || other.CompareTag("Monster"))
+        if (other.CompareTag("ActualPlayer"))
         {
             StopPlayingSounds();
         }
