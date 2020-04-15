@@ -25,7 +25,7 @@ public class PartyRoomAudio : MonoBehaviour
     
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("ActualPlayer") || other.CompareTag("Monster"))
+        if (other.CompareTag("ActualPlayer"))
         {
             StartPlayingSounds();
         }
@@ -33,7 +33,7 @@ public class PartyRoomAudio : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("ActualPlayer") || other.CompareTag("Monster"))
+        if (other.CompareTag("ActualPlayer"))
         {
             StopPlayingSounds();
         }
