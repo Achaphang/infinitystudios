@@ -17,7 +17,7 @@ public class DanceScript : MonoBehaviour
         InvokeRepeating("TimerOptimized", 0f, 10f);
     }
 
-    // Update is called once per frame
+    // changed functionality in order to make more effecient
     /*void Update()
     {
         Timer();
