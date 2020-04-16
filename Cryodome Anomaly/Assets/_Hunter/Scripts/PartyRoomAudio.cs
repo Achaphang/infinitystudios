@@ -7,6 +7,7 @@ public class PartyRoomAudio : MonoBehaviour
 
     public AudioClip audioClip1;
     AudioSource myAudioSource1;
+    public GameObject disco;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +29,7 @@ public class PartyRoomAudio : MonoBehaviour
         if (other.CompareTag("ActualPlayer"))
         {
             StartPlayingSounds();
+            disco.active = true;
         }
     }
 
@@ -36,6 +38,7 @@ public class PartyRoomAudio : MonoBehaviour
         if (other.CompareTag("ActualPlayer"))
         {
             StopPlayingSounds();
+            disco.active = false;
         }
     }
     void StartPlayingSounds()
