@@ -22,6 +22,8 @@ public class Overlord : MonoBehaviour {
     List<string> keypadNames;
     GameObject[] itemSpawns;
     public List<GameObject> items;
+    
+    public Timer timer;
 
     GameObject[] monsters;
 
@@ -75,6 +77,7 @@ public class Overlord : MonoBehaviour {
     }
 
     public void youDied() {
+        timer.stopTimer();
         Debug.Log("YOU DIED");
         dying = true;
         source.clip = death;

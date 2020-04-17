@@ -8,11 +8,18 @@ public class Timer : MonoBehaviour
     public Text timerText;
     protected float seconds = 0.0f;
     int minutes = 0;
-    string time;
+    string time = "";
+    string finalTime = "";
 
     // Update is called once per frame
     void Update()
     {
+        if (finalTime == "") {
+            updateTime();
+        }
+    }
+    
+    void updateTime() {
         time = "";
         seconds += Time.deltaTime;
         if (seconds >= 60.0f) {
@@ -28,5 +35,15 @@ public class Timer : MonoBehaviour
         }
         time += seconds.ToString("F2");
         timerText.text = time;
+    }
+    
+    public void stopTimer() {
+        updateTime();
+        finalTime = time;
+    }
+    
+    public void resetTimer() {
+        finalTime = "";
+        time = "";
     }
 }
