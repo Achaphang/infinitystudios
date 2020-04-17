@@ -7,9 +7,19 @@ public class PlayerController3D : MonoBehaviour
     CharacterController controller;
 
     public float speed = 3f;
+    public float sprintForMod = 1.45f;
+    public float sprintForLateralMod = 1.25f;
+    bool forwardCheck = false;
+    bool lateralCheck = false;
+    bool backwardCheck = false;
+    public float stamPool = 100f;
+    public float currentStam = 100f;
+    public float consumeStam = 4f;
+    public float regenRateTime = 5f;
+    public float regenRateAmount = 1f;
+    float lastRegen;
     float gravity = -9.81f;
     Vector3 velocity;
-
     int beepers = 0;
 
     void Start() {
@@ -17,6 +27,42 @@ public class PlayerController3D : MonoBehaviour
     }
 
     void Update() {
+        forwardCheck = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
+        lateralCheck = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
+        backwardCheck = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow));
+        if (Input.GetKey(KeyCode.LeftShift) && forwardCheck && lateralCheck && !backwardCheck && currentStam > 0)
+        {
+            speed = speed * sprintForLateralMod;
+            MovePlayer();
+            speed = speed / sprintForLateralMod;
+            currentStam -= consumeStam * Time.deltaTime;
+            if (currentStam < 0)
+                currentStam = 0f;
+        }
+        else if(Input.GetKey(KeyCode.LeftShift) && forwardCheck && !backwardCheck && currentStam > 0)
+        {
+            speed = speed * sprintForMod;
+            MovePlayer();
+            speed = speed / sprintForMod;
+            currentStam = currentStam - Time.deltaTime;
+            if (currentStam < 0)
+                currentStam = 0f;
+        }
+        else if(!Input.GetKey(KeyCode.LeftShift) || (!forwardCheck && !lateralCheck && !backwardCheck))
+        {
+            MovePlayer();
+            if (currentStam < stamPool)
+                RegenStamina();
+        }
+        else
+        {
+            MovePlayer();
+        }
+        DetectClicks();
+    }
+
+    void MovePlayer()
+    {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -26,9 +72,7 @@ public class PlayerController3D : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        DetectClicks();
     }
-
     void DetectClicks() {
         if (Input.GetMouseButtonDown(0)) {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -46,6 +90,17 @@ public class PlayerController3D : MonoBehaviour
                     Destroy(hit.transform.gameObject);
                 }
             }
+        }
+    }
+
+    void RegenStamina()
+    {
+        if(Time.time - lastRegen > regenRateTime)
+        {
+            currentStam += regenRateAmount;
+            if (currentStam > stamPool)
+                currentStam = stamPool;
+            lastRegen = Time.time;
         }
     }
 }
