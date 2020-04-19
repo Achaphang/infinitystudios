@@ -165,14 +165,15 @@ public class MonsterController : MonoBehaviour
 
     void GenerateRandomTarget() {
         Vector3 newPath;
-        if (Random.Range(0f, 1f + (monsterType / 10f)) > .97f && boundsController.name == "Level2Bounds") {
+        // TODO: Fix this, weird navmesh issues decided to disable for now.
+        /*if (Random.Range(0f, 1f + (monsterType / 10f)) > .97f && boundsController.name == "Level2Bounds") {
             perchTimer = 20f + Random.Range(-10f, 10f + monsterType * 10);
             newPath = new Vector3(Random.Range(13f, 13.54f), 3.43f, Random.Range(115.65f, 124.5f));
             AddTarget(newPath);
             return;
         }
-        else
-            newPath = GetRandomLocation();
+        else*/
+        newPath = GetRandomLocation();
 
         if (boundsController.bounds.Contains(newPath)) {
             AddTarget(newPath);
@@ -269,7 +270,7 @@ public class MonsterController : MonoBehaviour
                 return;
 
             if(priorityTarget == null && !running) {
-                forceIdleCounter = 3f + Random.Range(0, 5f);
+                forceIdleCounter = 1f + Random.Range(4f, 14f);
             }else if(priorityTarget == null && monsterType == 1) {
                 forceIdleCounter = 1f + perchTimer;
                 perchTimer = 0f;
