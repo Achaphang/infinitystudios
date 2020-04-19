@@ -13,11 +13,11 @@ public class PlayerController3D : MonoBehaviour
     bool forwardCheck = false;
     bool lateralCheck = false;
     bool backwardCheck = false;
-    public float stamPool = 100f;
-    public float currentStam = 100f;
+    public float stamPool = 12f;
+    public float currentStam = 12f;
     public float consumeStam = 4f;
-    public float regenRateTime = 5f;
-    public float regenRateAmount = 1f;
+    public float regenRateTime = 3f;
+    public float regenRateAmount = 0.5f;
     float lastRegen;
     float gravity = -9.81f;
     Vector3 velocity;
