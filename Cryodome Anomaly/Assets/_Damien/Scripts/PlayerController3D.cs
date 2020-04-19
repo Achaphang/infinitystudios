@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController3D : MonoBehaviour
 {
     CharacterController controller;
-
+    public Slider staminaController;
     public float speed = 3f;
     public float sprintForMod = 1.45f;
     public float sprintForLateralMod = 1.25f;
@@ -22,11 +23,14 @@ public class PlayerController3D : MonoBehaviour
     Vector3 velocity;
     int beepers = 0;
 
-    void Start() {
+    void Start()
+    {
         controller = GetComponent<CharacterController>();
+        SetMaxStamina(stamPool);
     }
 
-    void Update() {
+    void Update()
+    {
         forwardCheck = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
         lateralCheck = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
         backwardCheck = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow));
@@ -39,7 +43,7 @@ public class PlayerController3D : MonoBehaviour
             if (currentStam < 0)
                 currentStam = 0f;
         }
-        else if(Input.GetKey(KeyCode.LeftShift) && forwardCheck && !backwardCheck && currentStam > 0)
+        else if (Input.GetKey(KeyCode.LeftShift) && forwardCheck && !backwardCheck && currentStam > 0)
         {
             speed = speed * sprintForMod;
             MovePlayer();
@@ -48,7 +52,7 @@ public class PlayerController3D : MonoBehaviour
             if (currentStam < 0)
                 currentStam = 0f;
         }
-        else if(!Input.GetKey(KeyCode.LeftShift) || (!forwardCheck && !lateralCheck && !backwardCheck))
+        else if (!Input.GetKey(KeyCode.LeftShift) || (!forwardCheck && !lateralCheck && !backwardCheck))
         {
             MovePlayer();
             if (currentStam < stamPool)
@@ -58,6 +62,7 @@ public class PlayerController3D : MonoBehaviour
         {
             MovePlayer();
         }
+        SetCurrentStam(currentStam);
         DetectClicks();
     }
 
@@ -73,19 +78,24 @@ public class PlayerController3D : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
-    void DetectClicks() {
-        if (Input.GetMouseButtonDown(0)) {
+    void DetectClicks()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if(Physics.Raycast(ray, out hit)) {
-                if(hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight" || hit.transform.name == "BatteryFlashlight(Clone)") {
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight" || hit.transform.name == "BatteryFlashlight(Clone)")
+                {
                     transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
                     Destroy(hit.transform.gameObject);
                 }
-                if(hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)") {
+                if (hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)")
+                {
                     beepers++;
                     Destroy(hit.transform.gameObject);
                 }
@@ -95,12 +105,23 @@ public class PlayerController3D : MonoBehaviour
 
     void RegenStamina()
     {
-        if(Time.time - lastRegen > regenRateTime)
+        if (Time.time - lastRegen > regenRateTime)
         {
             currentStam += regenRateAmount;
             if (currentStam > stamPool)
                 currentStam = stamPool;
             lastRegen = Time.time;
         }
+    }
+
+    public void SetMaxStamina(float stamina)
+    {
+        staminaController.maxValue = stamina;
+        staminaController.value = stamina;
+    }
+
+    public void SetCurrentStam(float stamina)
+    {
+        staminaController.value = stamina;
     }
 }
