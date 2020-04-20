@@ -22,6 +22,7 @@ public class PlayerController3D : MonoBehaviour
     float gravity = -9.81f;
     Vector3 velocity;
     int beepers = 0;
+    int frameUpdateCounter = 0;
 
     void Start()
     {
@@ -34,6 +35,7 @@ public class PlayerController3D : MonoBehaviour
         forwardCheck = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
         lateralCheck = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
         backwardCheck = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow));
+        
         if (Input.GetKey(KeyCode.LeftShift) && forwardCheck && lateralCheck && !backwardCheck && currentStam > 0)
         {
             speed = speed * sprintForLateralMod;
@@ -42,6 +44,7 @@ public class PlayerController3D : MonoBehaviour
             currentStam -= consumeStam * Time.deltaTime;
             if (currentStam < 0)
                 currentStam = 0f;
+            lastRegen = Time.time;
         }
         else if (Input.GetKey(KeyCode.LeftShift) && forwardCheck && !backwardCheck && currentStam > 0)
         {
@@ -51,6 +54,7 @@ public class PlayerController3D : MonoBehaviour
             currentStam = currentStam - Time.deltaTime;
             if (currentStam < 0)
                 currentStam = 0f;
+            lastRegen = Time.time;
         }
         else if (!Input.GetKey(KeyCode.LeftShift) || (!forwardCheck && !lateralCheck && !backwardCheck))
         {
@@ -62,7 +66,38 @@ public class PlayerController3D : MonoBehaviour
         {
             MovePlayer();
         }
-        SetCurrentStam(currentStam);
+
+        if (Time.deltaTime > 1/45)
+        {
+            if(frameUpdateCounter == 4)
+            {
+                SetCurrentStam(currentStam);
+                frameUpdateCounter = 0;
+            }
+            frameUpdateCounter++;
+        }
+        else if(Time.deltaTime > 1/30)
+        {
+            if(frameUpdateCounter == 3)
+            {
+                SetCurrentStam(currentStam);
+                frameUpdateCounter = 0;
+            }
+            frameUpdateCounter++;
+        }
+        else if(Time.deltaTime > 1/15)
+        {
+            if(frameUpdateCounter == 2)
+            {
+                SetCurrentStam(currentStam);
+                frameUpdateCounter = 0;
+            }
+            frameUpdateCounter++;
+        }
+        else{
+            SetCurrentStam(currentStam);
+            frameUpdateCounter = 0;
+        }
         DetectClicks();
     }
 
