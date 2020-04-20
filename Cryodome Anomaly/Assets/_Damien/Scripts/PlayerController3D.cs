@@ -82,7 +82,6 @@ public class PlayerController3D : MonoBehaviour
             frameUpdateCounter = 0;
         }
 
-        Debug.Log(lastStamChunk);
         frameUpdateCounter++;
         DetectClicks();
     }
