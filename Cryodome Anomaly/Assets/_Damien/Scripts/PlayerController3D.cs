@@ -13,21 +13,26 @@ public class PlayerController3D : MonoBehaviour
     bool forwardCheck = false;
     bool lateralCheck = false;
     bool backwardCheck = false;
-    public float stamPool = 12f;
-    public float currentStam = 12f;
-    public float consumeStam = 4f;
+    public float stamPool = 24f;
+    public float currentStam = 24f;
+    public float consumeStam = 8f;
     public float regenRateTime = 3f;
-    public float regenRateAmount = 0.5f;
+    public float regenRateAmount = 2.5f;
     float lastRegen;
     float gravity = -9.81f;
     Vector3 velocity;
     int beepers = 0;
     int frameUpdateCounter = 0;
+    float frameCounterCeiling = 0f;
+
+    float lastStamChunk = 0f;
+    float lastStamValue = 0f;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         SetMaxStamina(stamPool);
+        lastStamValue = stamPool;
     }
 
     void Update()
@@ -67,37 +72,18 @@ public class PlayerController3D : MonoBehaviour
             MovePlayer();
         }
 
-        if (Time.deltaTime > 1/45)
+        frameCounterCeiling = (1 / Time.deltaTime) / 15;
+
+        if(frameUpdateCounter >= frameCounterCeiling || lastStamChunk < lastStamValue - currentStam)
         {
-            if(frameUpdateCounter == 4)
-            {
-                SetCurrentStam(currentStam);
-                frameUpdateCounter = 0;
-            }
-            frameUpdateCounter++;
-        }
-        else if(Time.deltaTime > 1/30)
-        {
-            if(frameUpdateCounter == 3)
-            {
-                SetCurrentStam(currentStam);
-                frameUpdateCounter = 0;
-            }
-            frameUpdateCounter++;
-        }
-        else if(Time.deltaTime > 1/15)
-        {
-            if(frameUpdateCounter == 2)
-            {
-                SetCurrentStam(currentStam);
-                frameUpdateCounter = 0;
-            }
-            frameUpdateCounter++;
-        }
-        else{
             SetCurrentStam(currentStam);
+            lastStamChunk = lastStamValue - currentStam;
+            lastStamValue = currentStam;
             frameUpdateCounter = 0;
         }
+
+        Debug.Log(lastStamChunk);
+        frameUpdateCounter++;
         DetectClicks();
     }
 

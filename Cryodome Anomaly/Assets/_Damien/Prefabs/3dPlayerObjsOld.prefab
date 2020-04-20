@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8033000865201593388}
   - component: {fileID: 50417847269192364}
   - component: {fileID: 9029044184504155346}
+  - component: {fileID: -901550172350967523}
   m_Layer: 0
   m_Name: 3dPlayerObjsOld
   m_TagString: ActualPlayer
@@ -145,3 +146,24 @@ MonoBehaviour:
   minimumY: -60
   maximumY: 60
   frameCounter: 20
+--- !u!114 &-901550172350967523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2910121005355767870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56d396b5cdac97346acf24df038f4117, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staminaController: {fileID: 0}
+  speed: 3
+  sprintForMod: 1.45
+  sprintForLateralMod: 1.25
+  stamPool: 24
+  currentStam: 24
+  consumeStam: 8
+  regenRateTime: 3
+  regenRateAmount: 2.5
