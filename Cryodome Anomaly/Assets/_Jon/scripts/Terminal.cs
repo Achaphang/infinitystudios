@@ -30,7 +30,6 @@ public class Terminal : MonoBehaviour
     // Difficulty ranges from 0-4
     void GenerateMathPuzzle(int difficultyInitial) {
         int difficulty = difficultyInitial;
-        difficulty = 5;
         if (Globals.Instance != null)
             if (Globals.Instance.difficulty != -1)
                 difficulty = difficulty - (2 - Globals.Instance.difficulty);
