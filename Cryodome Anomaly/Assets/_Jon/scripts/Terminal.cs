@@ -30,6 +30,7 @@ public class Terminal : MonoBehaviour
     // Difficulty ranges from 0-4
     void GenerateMathPuzzle(int difficultyInitial) {
         int difficulty = difficultyInitial;
+        difficulty = 5;
         if (Globals.Instance != null)
             if (Globals.Instance.difficulty != -1)
                 difficulty = difficulty - (2 - Globals.Instance.difficulty);
@@ -137,20 +138,25 @@ public class Terminal : MonoBehaviour
                     txt.text = adder1 + " + " + adder2 + final + partialVal;
                 }
                 break;
-            case 3:     //Temporary place holder is addition problem
-                adder1 = Random.Range(0, (int)keypadCode + 1);
-                adder2 = keypadCode - adder1;
-                txt.text = adder1 + " + " + adder2 + final + partialVal;
+            case 3:
+                string bin = "0b" + System.Convert.ToString(keypadCode, 2);
+                txt.text = bin + final + partialVal;
                 break;
-            case 4:     //Also placeholder of addition
+            case 4:
                 adder1 = Random.Range(0, (int)keypadCode + 1);
+                string hex1 = "0x" + System.Convert.ToString(adder1, 16);
                 adder2 = keypadCode - adder1;
-                txt.text = adder1 + " + " + adder2 + final + partialVal;
+                string hex2 = "0x" + System.Convert.ToString(adder2, 16);
+                txt.text = hex1 + " + " + hex2 + final + partialVal;
                 break;
             case 5: // This case should only appear on the hardest difficulty, make it pretty hard
-                adder1 = Random.Range(0, (int)keypadCode + 1);
-                adder2 = keypadCode - adder1;
-                txt.text = adder1 + " + " + adder2 + final + partialVal;
+                int[] primes1 = {7, 9, 13, 17, 19, 23, 29, 31};
+                int[] primes2 = {37, 41, 43, 47, 53, 59, 61, 67};
+                adder1 = primes1[Random.Range(0, 7)] * keypadCode;
+                adder2 = primes2[Random.Range(0, 7)] * keypadCode;
+                hex1 = "0x" + System.Convert.ToString(adder1, 16);
+                hex2 = "0x" + System.Convert.ToString(adder2, 16);
+                txt.text = "gcd(" + hex1 + ", " + hex2 + ")" + final + partialVal;
                 break;
             default:
                 Debug.Log("Error in terminal math generation");
