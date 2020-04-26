@@ -11,7 +11,7 @@ public class ActivateBubbles : MonoBehaviour
        bubbles = GameObject.FindGameObjectWithTag("Bubbles");
     }
 
-    void isThrown()
+    public void isThrown()
     {
         bubbles.SetActive(true);
     }
