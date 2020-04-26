@@ -115,7 +115,7 @@ public class PlayerController3D : MonoBehaviour
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
                     Destroy(hit.transform.gameObject);
                 }
-                if ((hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)") && !Input.GetKeyUp(KeyCode.G))
+                if ((hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)") && !Input.GetKeyUp(KeyCode.G) && beepers < 1)
                 {
                     beepers++;
                     Destroy(hit.transform.gameObject);
