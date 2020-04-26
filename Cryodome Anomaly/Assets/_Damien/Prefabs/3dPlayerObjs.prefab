@@ -554,13 +554,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   staminaController: {fileID: 0}
   speed: 3
-  sprintForMod: 1.45
-  sprintForLateralMod: 1.25
+  sprintForMod: 1.25
+  sprintForLateralMod: 1.15
   stamPool: 24
   currentStam: 24
   consumeStam: 8
   regenRateTime: 3
   regenRateAmount: 2.5
+  throwForce: 4
+  beeperPrefab: {fileID: 5892049689702092958, guid: 9b8d9535d0937da4eaed1db99d0125dd,
+    type: 3}
 --- !u!1 &5479394608056982916
 GameObject:
   m_ObjectHideFlags: 0

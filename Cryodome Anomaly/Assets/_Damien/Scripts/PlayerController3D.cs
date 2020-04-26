@@ -8,20 +8,20 @@ public class PlayerController3D : MonoBehaviour
     CharacterController controller;
     public Slider staminaController;
     public float speed = 3f;
-    public float sprintForMod = 1.45f;
-    public float sprintForLateralMod = 1.25f;
+    public float sprintForMod = 1.25f;
+    public float sprintForLateralMod = 1.15f;
     bool forwardCheck = false;
     bool lateralCheck = false;
     bool backwardCheck = false;
     public float stamPool = 24f;
     public float currentStam = 24f;
-    public float consumeStam = 8f;
+    public float consumeStam = 6f;
     public float regenRateTime = 3f;
     public float regenRateAmount = 2.5f;
     float lastRegen;
     float gravity = -9.81f;
     Vector3 velocity;
-    int beepers = 0;
+    public int beepers = 0;
     int frameUpdateCounter = 0;
     float frameCounterCeiling = 0f;
 
@@ -56,7 +56,7 @@ public class PlayerController3D : MonoBehaviour
             speed = speed * sprintForMod;
             MovePlayer();
             speed = speed / sprintForMod;
-            currentStam = currentStam - Time.deltaTime;
+            currentStam -= consumeStam * Time.deltaTime;
             if (currentStam < 0)
                 currentStam = 0f;
             lastRegen = Time.time;
@@ -98,6 +98,7 @@ public class PlayerController3D : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
     void DetectClicks()
     {
         if (Input.GetMouseButtonDown(0))
@@ -114,7 +115,7 @@ public class PlayerController3D : MonoBehaviour
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
                     Destroy(hit.transform.gameObject);
                 }
-                if (hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)")
+                if ((hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)") && !Input.GetKeyUp(KeyCode.G))
                 {
                     beepers++;
                     Destroy(hit.transform.gameObject);
@@ -144,4 +145,5 @@ public class PlayerController3D : MonoBehaviour
     {
         staminaController.value = stamina;
     }
+
 }
