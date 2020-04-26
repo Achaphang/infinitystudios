@@ -34,7 +34,7 @@ public class BeeperThrow3D : MonoBehaviour
     IEnumerator BeeperBrake(Rigidbody beeperRB)
     {
         yield return new WaitForSeconds(3);
-        beeperRB.isKinematic = true;
         beeperRB.collisionDetectionMode = CollisionDetectionMode.Discrete;
+        beeperRB.isKinematic = true;
     }
 }
