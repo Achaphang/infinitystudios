@@ -14,7 +14,7 @@ public class Beeper : MonoBehaviour
     bool primed = false;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         monsters = new List<MonsterController>();
         audio = GetComponent<AudioSource>();

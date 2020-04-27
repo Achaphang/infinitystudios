@@ -29,6 +29,7 @@ public class BeeperThrow3D : MonoBehaviour
         Rigidbody beeperRB = beeper.GetComponent<Rigidbody>();
         beeperRB.AddForce(transform.forward * throwForce, ForceMode.VelocityChange);
         StartCoroutine(BeeperBrake(beeperRB));
+        beeper.GetComponent<Beeper>().Prime();
     }
 
     IEnumerator BeeperBrake(Rigidbody beeperRB)
