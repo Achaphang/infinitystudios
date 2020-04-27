@@ -108,13 +108,29 @@ public class PlayerController3D : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit))
             {
-                if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight" || hit.transform.name == "BatteryFlashlight(Clone)")
+                if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)")
                 {
                     transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
                     transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
                     Destroy(hit.transform.gameObject);
                 }
+
+                if(hit.transform.name == "BatteryFlashlight" || hit.transform.name == "BatteryFlashlight(Clone)" || hit.transform.name == "BatteryFlashlight2" || hit.transform.name == "BatteryFlashlight2(Clone)") {
+                    if(hit.transform.GetComponent<FlashlightBatteryAdvanced>() != null) {
+                        transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
+                        transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().UpgradeFlashlight();
+                        transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
+                        Destroy(hit.transform.gameObject);
+                    } else {
+                        transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
+                        transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
+                        transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower(75f);
+                        Destroy(hit.transform.gameObject);
+                    }
+                }
+
                 if ((hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)") && !Input.GetKeyUp(KeyCode.G) && beepers < 1)
                 {
                     beepers++;

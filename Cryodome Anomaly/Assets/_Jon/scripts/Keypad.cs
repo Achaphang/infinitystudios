@@ -11,8 +11,12 @@ public class Keypad : MonoBehaviour
     Overlord overlord;
     Light keypadLight;
     Canvas canvas;
+
+    // The actual passcode
     int[] passcode = new int[4];
+    // The passcode as entered by the player.
     int[] passcodeEntered = new int[4];
+
     string visiblePasscode;
     int passcodeCounter = 0;
     public bool correctPasscode = false;
@@ -20,6 +24,7 @@ public class Keypad : MonoBehaviour
     bool canPress = true;
     Text txt;
     Text title;
+    // Used to control doors that this keypad is attached to.
     public List<DoorAnimation> doors;
     bool lockedOut = false;
 
@@ -36,8 +41,12 @@ public class Keypad : MonoBehaviour
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
         keypadLight = GetComponentInChildren<Light>();
         canvas = GetComponentInChildren<Canvas>();
+
+        // Update the camera at a later point in execution to account for VR or 3D
         StartCoroutine(LateStart(1));
-        if(Globals.Instance != null) {
+        
+        // Check for the difficulty/BC mode and adjust keypad accordingly.
+        if (Globals.Instance != null) {
             if (Globals.Instance.difficulty != -1) {
                 for (int i = 0; i < 4; i++) {
                     passcode[i] = UnityEngine.Random.Range(0, 10);
@@ -85,10 +94,12 @@ public class Keypad : MonoBehaviour
 
     IEnumerator LateStart(float wait) {
         yield return new WaitForSeconds(wait);
+        // Fixes the canvas scaling depending on the viewpoint.
         canvas.worldCamera = Camera.current;
     }
 
     public void EnterValue(int val) {
+        // canPress is false whenever a button is pressed down but not released. If the passcode has already been entered, we stop the keypad's functionality beyond that.
         if (!canPress || correctPasscode)
             return;
 
@@ -99,7 +110,6 @@ public class Keypad : MonoBehaviour
             passcodeEntered[passcodeCounter] = val;
             visiblePasscode = visiblePasscode.Insert(passcodeCounter, val.ToString());
             passcodeCounter++;
-            //txt.text = string.Join("", passcodeEntered);
             txt.text = visiblePasscode;
         }
     }
@@ -151,6 +161,7 @@ public class Keypad : MonoBehaviour
         if (correctPasscode || lockedOut)
             return;
 
+        // Wipes the passcode array entirely
         Array.Clear(passcodeEntered, 0, passcodeEntered.Length);
         visiblePasscode = "";
         txt.text = "";
@@ -158,6 +169,7 @@ public class Keypad : MonoBehaviour
         canPress = false;
     }
 
+    // Necessary to avoid constant noise spam.
     public void ResetPress() {
         if (correctPasscode || lockedOut)
             return;
@@ -178,6 +190,7 @@ public class Keypad : MonoBehaviour
     public int GetCode() {
         int code = 0;
 
+        // Puts each array index at the correct location via math.
         for(int i = 0; i < 4; i++) {
             code = code + passcode[i] * (int)Mathf.Pow(10, 3 - i);
         }
@@ -189,6 +202,7 @@ public class Keypad : MonoBehaviour
         return passcode;
     }
 
+    // On failure, beep for 15 seconds, lock out the keypad, and alert nearby monsters.
     IEnumerator KeypadFailure() {
         lockedOut = true;
         keypadLight.color = Color.red;

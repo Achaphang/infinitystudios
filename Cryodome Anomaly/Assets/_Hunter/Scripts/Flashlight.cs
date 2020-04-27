@@ -28,9 +28,18 @@ public class Flashlight : MonoBehaviour
         InvokeRepeating("DecreasePower", 0, 1);
     }
 
-    public void RestorePower() {
-        powerPercentage = 100f;
+    public void RestorePower(float percentage = 100f) {
+        powerPercentage = powerPercentage + percentage;
+        if (powerPercentage > 100f)
+            powerPercentage = 100f;
         flickerChecker = 1;
+    }
+
+    public void UpgradeFlashlight() {
+        originalIntensity = originalIntensity * 1.15f;
+        originalRange = originalRange * 1.15f;
+        originalAngle = originalAngle * 1.15f;
+        light.color = Color.white;
     }
 
     public void SetGrabbed(bool tf) {

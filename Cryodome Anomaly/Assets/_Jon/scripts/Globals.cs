@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Globals : MonoBehaviour
 {
-    //public static Globals Instance { get; private set; }
     private static Globals _instance;
 
     public static Globals Instance {  get { return _instance; } }
