@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stimpack2 : Stimpack
+public class SuperStimpack : Stimpack
 {
     public float GetStimpackValue() {
-        return 20.0F;
+        return 60.0F;
     }
 }

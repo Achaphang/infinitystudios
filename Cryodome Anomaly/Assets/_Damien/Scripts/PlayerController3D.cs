@@ -14,6 +14,7 @@ public class PlayerController3D : MonoBehaviour
     bool lateralCheck = false;
     bool backwardCheck = false;
     public float stamPool = 24f;
+    public float stimpackInUse = 0;
     public float currentStam = 24f;
     public float consumeStam = 6f;
     public float regenRateTime = 3f;
@@ -138,7 +139,11 @@ public class PlayerController3D : MonoBehaviour
                 }
 
                 if(hit.transform.name == "Stimpack" || hit.transform.name == "Stimpack(Clone)") {
-
+                    stimpackInUse = hit.transform.GetComponent<Stimpack>().GetStimpackValue();
+                    Destroy(hit.transform.gameObject);
+                } else if (hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)") {
+                    stimpackInUse = hit.transform.GetComponent<SuperStimpack>().GetStimpackValue();
+                    Destroy(hit.transform.gameObject);
                 }
             }
         }
@@ -148,6 +153,10 @@ public class PlayerController3D : MonoBehaviour
     {
         if (Time.time - lastRegen > regenRateTime)
         {
+            if (stimpackInUse > 0) {
+                currentStam += regenRateAmount;
+                stimpackInUse -= Time.deltaTime;
+            }
             currentStam += regenRateAmount;
             if (currentStam > stamPool)
                 currentStam = stamPool;

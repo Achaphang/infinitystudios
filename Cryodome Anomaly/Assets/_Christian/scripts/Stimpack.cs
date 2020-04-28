@@ -7,6 +7,6 @@ public class Stimpack : MonoBehaviour
     public float stimpackValue;
     
     public virtual float GetStimpackValue() {
-        return 10.0F;
+        return 20.0F;
     }
 }
