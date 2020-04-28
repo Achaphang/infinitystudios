@@ -115,14 +115,15 @@ namespace Tests
             GameObject invalidMarker = MonoBehaviour.Instantiate(Resources.Load<GameObject>("MarkerTesting"));
             GameObject monster = MonoBehaviour.Instantiate(Resources.Load<GameObject>("MonsterSpeedTesting"));
 
-            tempMarker.transform.position = new Vector3(-26, 1, -16);
+            tempMarker.transform.position = new Vector3(-8, 1, 5);
             invalidMarker.transform.position = new Vector3(-26, -10, -16);
             invalidMarker.transform.localScale = new Vector3(100, 1, 100);
 
-            yield return new WaitForSeconds(25);
+            yield return new WaitForSeconds(15);
             if (tempMarker != null || invalidMarker == null)
                 Assert.Fail();
 
+            Assert.Pass();
             yield return null;
         }
 
