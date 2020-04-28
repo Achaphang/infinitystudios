@@ -26,7 +26,6 @@ public class SavingSystem : MonoBehaviour
             }
         } else {
             FileStream stream = new FileStream(path, FileMode.Create);
-            Debug.LogError("Save file not found at: " + path);
             return null;
         }
     }
