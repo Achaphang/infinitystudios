@@ -30,6 +30,7 @@ public class Overlord : MonoBehaviour {
     GameObject[] monsters;
 
     void Awake(){
+        // Load best score, if existent, at start of game
         ScoreData data = SavingSystem.LoadData();
         if (data != null) {
             Debug.Log("here.");
@@ -186,6 +187,8 @@ public class Overlord : MonoBehaviour {
             final = "<b><color=red>" + c + "-" + i + "</color></b>"; // Secret
         }else if(keypadAccessLevel == 4) {
             final = "<b><color=#777777FF>" + c + "-" + i + "</color></b>"; // Top Secret
+        } else {
+            final = "";
         }
 
         return (final);

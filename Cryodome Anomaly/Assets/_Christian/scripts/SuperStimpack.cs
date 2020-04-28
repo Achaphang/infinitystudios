@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* A SuperStimpack, inherited from Stimpack
+ */
 public class SuperStimpack : Stimpack
 {
     public float GetStimpackValue() {
