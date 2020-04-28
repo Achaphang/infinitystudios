@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Timer : MonoBehaviour
 {
@@ -10,6 +11,11 @@ public class Timer : MonoBehaviour
     int minutes = 0;
     string time = "";
     public string finalTime = "";
+    BestTime bestTime;
+    
+    public void Start() {
+        bestTime = GameObject.Find("BestTime").GetComponent<BestTime>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,10 +43,14 @@ public class Timer : MonoBehaviour
         timerText.text = time;
     }
     
-    public void stopTimer(bool setScore) {
+    public void stopTimer(bool won) {
         updateTime();
         finalTime = time;
-        if (setScore) {
+        if (won) {
+            if (String.Compare(finalTime, bestTime.best) < 0 || bestTime.best == "") {
+                bestTime.best = finalTime;
+                bestTime.bestTime.text = bestTime.best;
+            }
             SavingSystem.SaveScore(this);
         }
     }

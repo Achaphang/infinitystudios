@@ -11,12 +11,8 @@ public class BestTimeTest : MonoBehaviour
     }
 
     public void OnTriggerEnter(Collider other) {
-        if(other.gameObject.tag == "ActualPlayer") {
+        if (other.gameObject.tag == "ActualPlayer") {
             overlord.youWonnered();
-        }else if(other.gameObject.tag == "NpcPlayer") {
-            overlord.youWonneredDemo();
-        } else {
-            Debug.Log("A monster escaped the station! Good job, IDIOT.");
         }
     }
 }
