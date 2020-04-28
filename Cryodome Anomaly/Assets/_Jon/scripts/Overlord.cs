@@ -77,7 +77,7 @@ public class Overlord : MonoBehaviour {
     }
 
     public void youDied() {
-        timer.stopTimer();
+        timer.stopTimer(false);
         Debug.Log("YOU DIED");
         dying = true;
         source.clip = death;
@@ -123,7 +123,7 @@ public class Overlord : MonoBehaviour {
 
     public void youWonnered() {
         Debug.Log("YOU DIED jk lol");
-        timer.stopTimer();
+        timer.stopTimer(true);
         StartCoroutine(beVictorious());
     }
 

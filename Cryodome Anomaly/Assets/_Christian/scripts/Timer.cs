@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
     protected float seconds = 0.0f;
     int minutes = 0;
     string time = "";
-    string finalTime = "";
+    public string finalTime = "";
 
     // Update is called once per frame
     void Update()
@@ -37,9 +37,12 @@ public class Timer : MonoBehaviour
         timerText.text = time;
     }
     
-    public void stopTimer() {
+    public void stopTimer(bool setScore) {
         updateTime();
         finalTime = time;
+        if (setScore) {
+            SavingSystem.SaveScore(this);
+        }
     }
     
     public void resetTimer() {
