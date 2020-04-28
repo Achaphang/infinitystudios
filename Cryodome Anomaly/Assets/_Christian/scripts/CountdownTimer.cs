@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class CountdownTimer : Timer
 {
+    public Overlord overlord;
     // Start is called before the first frame update
     public CountdownTimer(float initialTime) {
         seconds = initialTime;
-    }
-    
-    void Start()
-    {
     }
 
     // Update is called once per frame
@@ -23,6 +20,6 @@ public class CountdownTimer : Timer
     }
     
     void SelfDestruct() {
-        //
+        overlord.youDied();
     }
 }
