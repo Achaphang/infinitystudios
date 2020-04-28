@@ -11,11 +11,7 @@ public class Timer : MonoBehaviour
     int minutes = 0;
     string time = "";
     public string finalTime = "";
-    BestTime bestTime;
-    
-    public void Start() {
-        bestTime = GameObject.Find("BestTime").GetComponent<BestTime>();
-    }
+    public BestTime bestTime;
 
     // Update is called once per frame
     void Update()
@@ -44,14 +40,17 @@ public class Timer : MonoBehaviour
     }
     
     public void stopTimer(bool won) {
-        updateTime();
-        finalTime = time;
-        if (won) {
-            if (String.Compare(finalTime, bestTime.best) < 0 || bestTime.best == "") {
-                bestTime.best = finalTime;
-                bestTime.bestTime.text = bestTime.best;
+        if (finalTime == "") {
+            updateTime();
+            finalTime = time;
+            if (won) {
+                if (String.Compare(finalTime, bestTime.best) < 0 || bestTime.best == "") {
+                    Debug.Log("in the won conditional");
+                    bestTime.best = finalTime;
+                    bestTime.bestTime.text = bestTime.best;
+                }
+                SavingSystem.SaveScore(this);
             }
-            SavingSystem.SaveScore(this);
         }
     }
     

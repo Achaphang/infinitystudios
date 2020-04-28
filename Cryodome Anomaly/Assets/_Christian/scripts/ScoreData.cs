@@ -6,6 +6,7 @@ using UnityEngine;
 public class ScoreData : MonoBehaviour
 {
     public string time;
+    
     public ScoreData(Timer timer) {
         time = timer.finalTime;
     }
