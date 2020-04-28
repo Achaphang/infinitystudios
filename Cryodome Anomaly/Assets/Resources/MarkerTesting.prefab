@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 3336107008479524307}
   - component: {fileID: 1702318733266940096}
   - component: {fileID: 2685821439552209575}
+  - component: {fileID: -2855664502331896243}
   m_Layer: 10
-  m_Name: MarkerPrefab
+  m_Name: MarkerTesting
   m_TagString: MonsterMarker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,3 +111,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &-2855664502331896243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729600214101141102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda9dcfce7a09484082d5e679afaf1f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

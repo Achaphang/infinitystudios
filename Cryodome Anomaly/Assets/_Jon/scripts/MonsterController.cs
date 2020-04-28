@@ -175,11 +175,14 @@ public class MonsterController : MonoBehaviour
         else*/
         newPath = GetRandomLocation();
 
-        if (boundsController.bounds.Contains(newPath)) {
+        if (boundsController != null)
+            if (boundsController.bounds.Contains(newPath))
+                AddTarget(newPath);
+            else
+                GenerateRandomTarget();
+        else
             AddTarget(newPath);
-        } else {
-            GenerateRandomTarget();
-        }
+            
     }
 
     void StartRunning() {
@@ -234,8 +237,9 @@ public class MonsterController : MonoBehaviour
             return;
         }
         Vector3 newPath = targ.transform.position;
-        if (!boundsController.bounds.Contains(newPath) && priority == 2) 
-            return;
+        if(boundsController != null)
+            if (!boundsController.bounds.Contains(newPath) && priority == 2) 
+                return;
         GameObject temp = Instantiate(markerPrefab, targ.transform.position, Quaternion.identity);
         temp.GetComponent<MarkerController>().SetMonster(gameObject);
         if(priority == 2) {
@@ -266,8 +270,9 @@ public class MonsterController : MonoBehaviour
     public void OnTriggerEnter(Collider collision) {
         // Checks if the monster has reached its primary destination. If so, remove it from the list, remove target marker.
         if(collision.gameObject.tag == "MonsterMarker") {
-            if (collision.GetComponent<MarkerController>().GetMonster() != gameObject)
-                return;
+            if(collision.GetComponent<MarkerController>().GetMonster() != null)
+                if (collision.GetComponent<MarkerController>().GetMonster() != gameObject)
+                    return;
 
             if(priorityTarget == null && !running) {
                 forceIdleCounter = 1f + Random.Range(4f, 14f);
