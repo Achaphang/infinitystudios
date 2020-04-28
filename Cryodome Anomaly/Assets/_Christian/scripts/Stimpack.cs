@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Stimpack : MonoBehaviour
 {
-    public Transform stimpackPrefab;
+    public float stimpackValue;
     
-    void OnCollisionEnter(Collision col) {
-        if (col.collider.name == "3dPlayerObjs") {
-            Debug.Log("Collided! now 2");
-        }
+    public virtual float GetStimpackValue() {
+        return 10.0F;
     }
 }
