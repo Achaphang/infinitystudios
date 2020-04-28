@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Overlord : MonoBehaviour { 
     List<AudioSource> audioClips;
@@ -24,14 +25,17 @@ public class Overlord : MonoBehaviour {
     public List<GameObject> items;
     
     public Timer timer;
-    public BestTime best;
+    public Text bestTime;
 
     GameObject[] monsters;
 
     void Awake(){
         ScoreData data = SavingSystem.LoadData();
         if (data != null) {
-            best.best = data.time;
+            Debug.Log("here.");
+            Debug.Log(data.time);
+            timer.best = data.time;
+            bestTime.text = "[BEST: " + timer.best + "]";
         }
         keypadNames = new List<string>();
         audioClips = new List<AudioSource>();

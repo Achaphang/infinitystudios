@@ -11,7 +11,8 @@ public class Timer : MonoBehaviour
     int minutes = 0;
     string time = "";
     public string finalTime = "";
-    public BestTime bestTime;
+    public Text bestTime;
+    public string best = "";
 
     // Update is called once per frame
     void Update()
@@ -44,12 +45,11 @@ public class Timer : MonoBehaviour
             updateTime();
             finalTime = time;
             if (won) {
-                if (String.Compare(finalTime, bestTime.best) < 0 || bestTime.best == "") {
-                    Debug.Log("in the won conditional");
-                    bestTime.best = finalTime;
-                    bestTime.bestTime.text = bestTime.best;
+                if (String.Compare(finalTime, best) < 0 || best == "") {
+                    best = finalTime;
+                    bestTime.text = "NEW BEST: " + best;
+                    SavingSystem.SaveScore(this);
                 }
-                SavingSystem.SaveScore(this);
             }
         }
     }
