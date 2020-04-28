@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* The green test block will trigger the event when the player collides with it.
+ * This is to test best score mechanism.
+ */
+
 public class BestTimeTest : MonoBehaviour
 {
     Overlord overlord;

@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+/* Timer class. Stores time.
+ */
 public class Timer : MonoBehaviour
 {
     public Text timerText;
