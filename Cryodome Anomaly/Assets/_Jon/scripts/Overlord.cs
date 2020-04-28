@@ -123,6 +123,7 @@ public class Overlord : MonoBehaviour {
 
     public void youWonnered() {
         Debug.Log("YOU DIED jk lol");
+        timer.stopTimer();
         StartCoroutine(beVictorious());
     }
 
