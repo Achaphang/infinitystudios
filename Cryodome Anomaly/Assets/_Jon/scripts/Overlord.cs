@@ -24,13 +24,14 @@ public class Overlord : MonoBehaviour {
     public List<GameObject> items;
     
     public Timer timer;
+    public BestTime best;
 
     GameObject[] monsters;
 
     void Awake(){
         ScoreData data = SavingSystem.LoadData();
         if (data != null) {
-            timer.bestTime = data.time;
+            best.best = data.time;
         }
         keypadNames = new List<string>();
         audioClips = new List<AudioSource>();
