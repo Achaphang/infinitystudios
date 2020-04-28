@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class CountdownTimer : Timer
 {
-    public Overlord overlord;
+    Overlord overlord;
     // Start is called before the first frame update
+    public void Start() {
+        overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
+    }
+    
     public CountdownTimer(float initialTime) {
         seconds = initialTime;
     }
