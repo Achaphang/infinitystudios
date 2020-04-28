@@ -136,6 +136,10 @@ public class PlayerController3D : MonoBehaviour
                     beepers++;
                     Destroy(hit.transform.gameObject);
                 }
+
+                if(hit.transform.name == "Stimpack" || hit.transform.name == "Stimpack(Clone)") {
+
+                }
             }
         }
     }
