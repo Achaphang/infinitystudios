@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     int minutes = 0;
     string time = "";
     public string finalTime = "";
+    public string bestTime = "";
 
     // Update is called once per frame
     void Update()
