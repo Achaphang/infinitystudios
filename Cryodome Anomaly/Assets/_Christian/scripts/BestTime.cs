@@ -7,5 +7,5 @@ using UnityEngine.UI;
  */
 public class BestTime : MonoBehaviour
 {
-    public Text bestTime;
+    public static Text bestTime;
 }
