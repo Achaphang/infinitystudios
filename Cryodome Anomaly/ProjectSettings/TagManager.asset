@@ -15,6 +15,7 @@ TagManager:
   - NpcPlayer
   - Keycard
   - Bubbles
+  - Stimpack
   layers:
   - Default
   - TransparentFX
