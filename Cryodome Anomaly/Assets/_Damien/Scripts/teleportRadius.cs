@@ -4,11 +4,11 @@ using UnityEngine;
 using Valve.VR;
 using Valve.VR.InteractionSystem;
 
-public class teleportRadius : MonoBehaviour
+public class TeleportRadius : MonoBehaviour
 {
     float xVal;
     float zVal;
-    int iteration;
+    int iteration = 0;
     Vector3 defaultRad;
     // Start is called before the first frame update
     void Start()
