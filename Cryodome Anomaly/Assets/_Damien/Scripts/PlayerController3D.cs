@@ -154,8 +154,8 @@ public class PlayerController3D : MonoBehaviour
         if (Time.time - lastRegen > regenRateTime)
         {
             if (stimpackInUse > 0) {
-                currentStam += regenRateAmount;
-                stimpackInUse -= Time.deltaTime;
+                currentStam += regenRateAmount * 3;
+                stimpackInUse -= regenRateTime;
             }
             currentStam += regenRateAmount;
             if (currentStam > stamPool)
