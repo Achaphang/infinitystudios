@@ -896,7 +896,7 @@ MonoBehaviour:
   consumeStam: 6
   regenRateTime: 3
   regenRateAmount: 2.5
-  beepers: 0
+  beepers: 1
 --- !u!1 &5479394608056982916
 GameObject:
   m_ObjectHideFlags: 0
