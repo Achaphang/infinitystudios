@@ -7,6 +7,8 @@ namespace ObserverPattern
     public class MakeKnucklesJump : MonoBehaviour
     {
         // https://www.habrador.com/tutorials/programming-patterns/3-observer-pattern/
+        //I changed this script by making it on collison have knucles jump
+        //For some reason I could only get it to work in VR
 
         public GameObject sphereObj;
         //The boxes that will jump

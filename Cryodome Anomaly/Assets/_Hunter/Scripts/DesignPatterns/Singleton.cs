@@ -5,6 +5,7 @@ using UnityEngine;
 public class Singleton : MonoBehaviour
 {
     //http://clearcutgames.net/home/?p=437 
+    //I changed this by changing the Debug.Log statement to print out something different
 
     // Start is called before the first frame update
     void Start()
