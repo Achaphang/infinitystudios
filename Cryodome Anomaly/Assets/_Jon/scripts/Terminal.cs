@@ -22,14 +22,18 @@ public class Terminal : MonoBehaviour
         if (keypad != null) {
             keypadCode = keypad.GetCode();
             title.text = keypad.GetTitle();
+            keypad.SetTerminal(this);
             GenerateMathPuzzle(keypad.accessLevel);
         }
     }
 
     // Generates a moderately difficult math problem associated with a door's passcode.
     // Difficulty ranges from 0-4
-    void GenerateMathPuzzle(int difficultyInitial) {
+    // Updated so that each failure reduces the difficulty by 1 to a minimum of 0.
+    public void GenerateMathPuzzle(int difficultyInitial) {
         int difficulty = difficultyInitial;
+        if (difficulty < 0)
+            difficulty = 0;
         if (Globals.Instance != null)
             if (Globals.Instance.difficulty != -1)
                 difficulty = difficulty - (2 - Globals.Instance.difficulty);

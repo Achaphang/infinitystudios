@@ -11,6 +11,8 @@ public class Keypad : MonoBehaviour
     Overlord overlord;
     Light keypadLight;
     Canvas canvas;
+    Terminal terminal;
+    int failureCounter = 0;
 
     // The actual passcode
     int[] passcode = new int[4];
@@ -202,8 +204,15 @@ public class Keypad : MonoBehaviour
         return passcode;
     }
 
+    public void SetTerminal(Terminal t) {
+        terminal = t;
+    }
+
     // On failure, beep for 15 seconds, lock out the keypad, and alert nearby monsters.
     IEnumerator KeypadFailure() {
+        failureCounter++;
+        if(terminal != null)
+            terminal.GenerateMathPuzzle(accessLevel - failureCounter);
         lockedOut = true;
         keypadLight.color = Color.red;
         keypadSource.clip = alarmClip;
