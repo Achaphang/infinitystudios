@@ -10,7 +10,7 @@ public class PlayMusic : MonoBehaviour
     void Start()
     {
         scaryMusic = GetComponent<AudioSource>();
-        scaryMusic.playOnAwake = true;
+        scaryMusic.Play();
         scaryMusic.volume = 1;
     }
 }
