@@ -14,31 +14,25 @@ namespace Tests
         /** Damien's Tests
          * */
         [UnityTest]
-        public IEnumerator BeeperFallMapCheck()
+        public IEnumerator PlayerFallCheck()
         {
             SetupScene();
-            float xSpeed = 40f;
-            yield return new WaitForSecondsRealtime(12);
-            GameObject beeper = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Beeper3D"));
-
-            beeper.GetComponent<Rigidbody>().velocity = new Vector3(xSpeed, 0, 0);
-            for (int i = 1; i < 10; i++)
+            GameObject playerLoc = MonoBehaviour.Instantiate(Resources.Load<GameObject>("PlayerTesting"));
+            float initPosY = playerLoc.transform.position.y;
+            yield return new WaitForSecondsRealtime(8);
+            if(playerLoc.transform.position.y != initPosY)
             {
-                yield return new WaitForSecondsRealtime(4);
-                if (beeper.transform.position.y < 0)
-                {
-                    Debug.Log("The test failed");
-                    Assert.Fail();
-                    yield break;
-                }
-                else
-                {
-                    Debug.Log("Test hasn't failed yet");
-                }
-
+                Debug.Log("The test failed");
+                Assert.Fail();
             }
+            else
+            {
+                Debug.Log("The test didn't fail");
+            }
+            yield return new WaitForSecondsRealtime(4);
 
             UnloadPrevScene();
+            yield return null;
         }
 
         [UnityTest]
@@ -47,7 +41,7 @@ namespace Tests
             SetupScene();
             float xSpeed = 2f;
             yield return new WaitForSecondsRealtime(12);
-            GameObject playerLoc = MonoBehaviour.Instantiate(Resources.Load<GameObject>("defaultAstronaut"));
+            GameObject playerLoc = MonoBehaviour.Instantiate(Resources.Load<GameObject>("PlayerTesting"));
             playerLoc.GetComponent<Rigidbody>().velocity = new Vector3(xSpeed, 0, 0);
             for (int i = 1; i < 10; i++)
             {
@@ -81,7 +75,7 @@ namespace Tests
                 fps = 1 / Time.deltaTime;
                 for (int j = 0; j < 10; j++)
                 {
-                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("defaultAstronaut"));
+                    MonoBehaviour.Instantiate(Resources.Load<GameObject>("PlayerTesting"));
                 }
                 Debug.Log(fps);
                 yield return new WaitForSeconds(3);

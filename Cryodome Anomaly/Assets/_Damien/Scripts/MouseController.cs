@@ -8,6 +8,10 @@ public class MouseController : MonoBehaviour
     public float sensitivity = 100f;
     float x = 0f;
 
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
 
     // Update is called once per frame
     void Update()

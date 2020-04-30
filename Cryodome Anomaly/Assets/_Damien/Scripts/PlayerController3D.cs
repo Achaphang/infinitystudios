@@ -29,8 +29,6 @@ public class PlayerController3D : MonoBehaviour
     float lastStamChunk = 0f;
     float lastStamValue = 0f;
 
-    public bool lvlOneAccess = false;
-
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -146,16 +144,6 @@ public class PlayerController3D : MonoBehaviour
                 } else if (hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)") {
                     stimpackInUse = hit.transform.GetComponent<SuperStimpack>().GetStimpackValue();
                     Destroy(hit.transform.gameObject);
-                }
-                
-                if(hit.transform.name == "Level1Keycard" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)(Clone)")
-                {
-                    Destroy(hit.transform.gameObject);
-                    lvlOneAccess = true;
-                }
-                else if(true)
-                {
-
                 }
             }
         }
