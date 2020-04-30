@@ -22,14 +22,18 @@ public class Terminal : MonoBehaviour
         if (keypad != null) {
             keypadCode = keypad.GetCode();
             title.text = keypad.GetTitle();
+            keypad.SetTerminal(this);
             GenerateMathPuzzle(keypad.accessLevel);
         }
     }
 
     // Generates a moderately difficult math problem associated with a door's passcode.
     // Difficulty ranges from 0-4
-    void GenerateMathPuzzle(int difficultyInitial) {
+    // Updated so that each failure reduces the difficulty by 1 to a minimum of 0.
+    public void GenerateMathPuzzle(int difficultyInitial) {
         int difficulty = difficultyInitial;
+        if (difficulty < 0)
+            difficulty = 0;
         if (Globals.Instance != null)
             if (Globals.Instance.difficulty != -1)
                 difficulty = difficulty - (2 - Globals.Instance.difficulty);
@@ -138,10 +142,14 @@ public class Terminal : MonoBehaviour
                 }
                 break;
             case 3:
+                /* Binary converstion puzzle
+                 */
                 string bin = "0b" + System.Convert.ToString(keypadCode, 2);
                 txt.text = bin + final + partialVal;
                 break;
             case 4:
+                /* Hex addition puzzle
+                 */
                 adder1 = Random.Range(0, (int)keypadCode + 1);
                 string hex1 = "0x" + System.Convert.ToString(adder1, 16);
                 adder2 = keypadCode - adder1;
@@ -149,6 +157,8 @@ public class Terminal : MonoBehaviour
                 txt.text = hex1 + " + " + hex2 + final + partialVal;
                 break;
             case 5: // This case should only appear on the hardest difficulty, make it pretty hard
+                /* GCD of two hexs, puzzle
+                 */
                 int[] primes1 = {7, 9, 13, 17, 19, 23, 29, 31};
                 int[] primes2 = {37, 41, 43, 47, 53, 59, 61, 67};
                 adder1 = primes1[Random.Range(0, 7)] * keypadCode;

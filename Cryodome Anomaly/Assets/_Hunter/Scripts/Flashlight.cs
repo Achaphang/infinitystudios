@@ -27,21 +27,21 @@ public class Flashlight : MonoBehaviour
         originalAngle = light.spotAngle;
         InvokeRepeating("DecreasePower", 0, 1);
     }
-
+    //player found a battery so restore the power back to 100%
     public void RestorePower(float percentage = 100f) {
         powerPercentage = powerPercentage + percentage;
         if (powerPercentage > 100f)
             powerPercentage = 100f;
         flickerChecker = 1;
     }
-
+    //upgrade the light of the flashlight to increase the intensity
     public void UpgradeFlashlight() {
         originalIntensity = originalIntensity * 1.15f;
         originalRange = originalRange * 1.15f;
         originalAngle = originalAngle * 1.15f;
         light.color = Color.white;
     }
-
+    //used to activate light if its grabbed
     public void SetGrabbed(bool tf) {
         grabbed = tf;
         if(light == null)
@@ -49,6 +49,7 @@ public class Flashlight : MonoBehaviour
         light.enabled = tf;
     }
 
+    //gradually decrease the power of the flashlight
     void DecreasePower() {
         if (!grabbed)
             return;
@@ -72,10 +73,13 @@ public class Flashlight : MonoBehaviour
         }
     }
 
+    //Change color of the flashlight, currently dont use as it was voted against using by the team. 
     private void ChangeCol(){
         float t = Mathf.PingPong(Time.time, duration) / duration;
         light.color = Color.Lerp(color0, color1, t);
     }
+
+    //Flicker the lighting on and off for a random amount of time to add a horror effect
     IEnumerator Flicker (){
         while(flickerChecker == 0) {
             int flickerDecider = (int)(100 / (powerPercentage * 3 + 1)) + Random.Range(0, 4);

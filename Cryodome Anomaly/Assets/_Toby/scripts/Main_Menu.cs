@@ -16,6 +16,17 @@ public class Main_Menu : MonoBehaviour
     public AudioSource musicVolume;
     public AudioSource buttonSound;
 
+    private void Start()
+    {
+        //Unlock cursor (for transition between scenes)
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        //Remember PlayerPrefs for Volume
+        masterSlider.value = PlayerPrefs.GetFloat("Master Volume");
+        musicSlider.value = PlayerPrefs.GetFloat("Music Volume");
+    }
+
     public void OnPlayGameClick()
     {
         mainMenu.SetActive(true);

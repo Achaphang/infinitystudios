@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Class for serealizing the json data
+ */
 [System.Serializable]
 public class ScoreData
 {

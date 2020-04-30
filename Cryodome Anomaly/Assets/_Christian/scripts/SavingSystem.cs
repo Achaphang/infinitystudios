@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+/* System for saving the highest score.
+ * The score is saved to a local file
+ * where it can be retrieved for a later time.
+ * The data is stored as a json string.
+ */
 public class SavingSystem : MonoBehaviour
 {
+    // Save best score as json string to local file
     public static void SaveScore(Timer timer) {
         string path = Application.persistentDataPath + "/score.dat";
         FileStream stream = new FileStream(path, FileMode.Create);
@@ -16,6 +22,7 @@ public class SavingSystem : MonoBehaviour
         }
     }
     
+    // Load best score, null if non existent
     public static ScoreData LoadData() {
         string path = Application.persistentDataPath + "/score.dat";
         if (File.Exists(path)) {
@@ -25,7 +32,7 @@ public class SavingSystem : MonoBehaviour
                 return data;
             }
         } else {
-            Debug.LogError("Save file not found at: " + path);
+            FileStream stream = new FileStream(path, FileMode.Create);
             return null;
         }
     }

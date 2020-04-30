@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+/* Timer class for tracking time (i.e. current score)
+ */
 public class Timer : MonoBehaviour
 {
     public Text timerText;
@@ -22,6 +24,7 @@ public class Timer : MonoBehaviour
         }
     }
     
+    // Tick the time forward
     void updateTime() {
         time = "";
         seconds += Time.deltaTime;
@@ -36,10 +39,12 @@ public class Timer : MonoBehaviour
         if (seconds < 10) {
             time += "0";
         }
+        // Format the time to 2 decimal places
         time += seconds.ToString("F2");
         timerText.text = time;
     }
     
+    // Stop timer if timer has not yet been stopped
     public void stopTimer(bool won) {
         if (finalTime == "") {
             updateTime();
@@ -54,6 +59,7 @@ public class Timer : MonoBehaviour
         }
     }
     
+    // Reset the timer
     public void resetTimer() {
         finalTime = "";
         time = "";

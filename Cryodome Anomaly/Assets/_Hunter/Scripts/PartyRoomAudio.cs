@@ -8,6 +8,9 @@ public class PartyRoomAudio : MonoBehaviour
     public AudioClip audioClip1;
     AudioSource myAudioSource1;
     public GameObject disco;
+
+    public AudioSource musicVolume;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,11 +48,15 @@ public class PartyRoomAudio : MonoBehaviour
     {
         myAudioSource1.clip = audioClip1;
         myAudioSource1.Play();
+
+        musicVolume.volume = 0;
     }
 
     void StopPlayingSounds()
     {
         myAudioSource1.clip = audioClip1;
         myAudioSource1.Stop();
+
+        musicVolume.volume = PlayerPrefs.GetFloat("Music Volume");
     }
 }
