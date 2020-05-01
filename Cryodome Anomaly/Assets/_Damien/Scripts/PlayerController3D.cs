@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerController3D : MonoBehaviour
 {
     CharacterController controller;
+    public Image crosshair;
     public Slider staminaController;
     public float speed = 3f;
     public float sprintForMod = 1.25f;
@@ -86,6 +87,11 @@ public class PlayerController3D : MonoBehaviour
         }
 
         frameUpdateCounter++;
+        if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+            crosshair.enabled = false;
+        else
+            crosshair.enabled = true;
+
         DetectClicks();
     }
 
@@ -104,12 +110,26 @@ public class PlayerController3D : MonoBehaviour
 
     void DetectClicks()
     {
-        if (Input.GetMouseButtonDown(0))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight"
+                || hit.transform.name == "BatteryFlashlight(Clone)" || hit.transform.name == "BatteryFlashlight2" || hit.transform.name == "BatteryFlashlight2(Clone)"
+                || hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)" || hit.transform.name == "Stimpack" || hit.transform.name == "Stimpack(Clone)"
+                || hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)" || hit.transform.name == "Level1Keycard" 
+                || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard (1)(Clone)"
+                || hit.transform.name == "Level2Keycard" || hit.transform.name == "Level2Keycard(Clone)" || hit.transform.name == "Level3Keycard" || hit.transform.name == "Level3Keycard(Clone)"
+                || hit.transform.name == "Level4Keycard" || hit.transform.name == "Level4Keycard(Clone)" || hit.transform.name == "Level5Keycard" || hit.transform.name == "Level5Keycard(Clone)")
+            {
+                crosshair.color = new Color32(0, 188, 54, 255);
+            }
+            else
+            {
+                crosshair.color = new Color32(255, 66, 60, 255);
+            }
 
-            if (Physics.Raycast(ray, out hit))
+            if (Input.GetMouseButtonDown(0))
             {
                 if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)")
                 {
