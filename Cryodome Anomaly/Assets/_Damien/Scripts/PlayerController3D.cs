@@ -29,6 +29,8 @@ public class PlayerController3D : MonoBehaviour
     float lastStamChunk = 0f;
     float lastStamValue = 0f;
 
+    int accessLevel = 0;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -118,13 +120,16 @@ public class PlayerController3D : MonoBehaviour
                 }
 
                 if(hit.transform.name == "BatteryFlashlight" || hit.transform.name == "BatteryFlashlight(Clone)" || hit.transform.name == "BatteryFlashlight2" || hit.transform.name == "BatteryFlashlight2(Clone)") {
-                    if(hit.transform.GetComponent<FlashlightBatteryAdvanced>() != null) {
+                    if(hit.transform.GetComponent<FlashlightBatteryAdvanced>() != null)
+                    {
                         transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                         transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
                         transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().UpgradeFlashlight();
                         transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower();
                         Destroy(hit.transform.gameObject);
-                    } else {
+                    }
+                    else
+                    {
                         transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
                         transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().SetGrabbed(true);
                         transform.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetComponent<Flashlight>().RestorePower(75f);
@@ -138,12 +143,46 @@ public class PlayerController3D : MonoBehaviour
                     Destroy(hit.transform.gameObject);
                 }
 
-                if(hit.transform.name == "Stimpack" || hit.transform.name == "Stimpack(Clone)") {
+                if(hit.transform.name == "Stimpack" || hit.transform.name == "Stimpack(Clone)")
+                {
                     stimpackInUse = hit.transform.GetComponent<Stimpack>().GetStimpackValue();
                     Destroy(hit.transform.gameObject);
-                } else if (hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)") {
+                }
+                else if(hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)")
+                {
                     stimpackInUse = hit.transform.GetComponent<SuperStimpack>().GetStimpackValue();
                     Destroy(hit.transform.gameObject);
+                }
+
+                if(hit.transform.name == "Level1Keycard" || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard (1)(Clone)")
+                {
+                    Destroy(hit.transform.gameObject);
+                    if (accessLevel < 1)
+                        accessLevel = 1;
+                }
+                else if(hit.transform.name == "Level2Keycard" || hit.transform.name == "Level2Keycard(Clone)")
+                {
+                    Destroy(hit.transform.gameObject);
+                    if (accessLevel < 2)
+                        accessLevel = 2;
+                }
+                else if(hit.transform.name == "Level3Keycard" || hit.transform.name == "Level3Keycard(Clone)")
+                {
+                    Destroy(hit.transform.gameObject);
+                    if (accessLevel < 3)
+                        accessLevel = 3;
+                }
+                else if (hit.transform.name == "Level4Keycard" || hit.transform.name == "Level4Keycard(Clone)")
+                {
+                    Destroy(hit.transform.gameObject);
+                    if (accessLevel < 4)
+                        accessLevel = 4;
+                }
+                else if (hit.transform.name == "Level5Keycard" || hit.transform.name == "Level5Keycard(Clone)")
+                {
+                    Destroy(hit.transform.gameObject);
+                    if (accessLevel < 5)
+                        accessLevel = 5;
                 }
             }
         }
@@ -153,13 +192,15 @@ public class PlayerController3D : MonoBehaviour
     {
         if (Time.time - lastRegen > regenRateTime)
         {
-            if (stimpackInUse > 0) {
+            if (stimpackInUse > 0)
+            {
                 currentStam += regenRateAmount * 3;
                 stimpackInUse -= regenRateTime;
             }
             currentStam += regenRateAmount;
             if (currentStam > stamPool)
                 currentStam = stamPool;
+
             lastRegen = Time.time;
         }
     }
