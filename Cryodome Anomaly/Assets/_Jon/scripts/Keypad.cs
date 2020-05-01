@@ -88,7 +88,7 @@ public class Keypad : MonoBehaviour
         if (keycardScanning) {
             keycardScanningDur += Time.deltaTime;
             if (keycardScanningDur >= 3)
-                UnlockDoor();
+                UnlockDoor(true);
         } else {
             keycardScanningDur = 0f;
         }

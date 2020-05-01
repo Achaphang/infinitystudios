@@ -109,7 +109,7 @@ public class MonsterController : MonoBehaviour
                 idleResetCounter = 5f;
             }
         } else {
-            idleResetCounter = 2f;
+            idleResetCounter = .1f;
         }
 
         forceIdleCounter -= Time.deltaTime;
@@ -275,7 +275,7 @@ public class MonsterController : MonoBehaviour
                     return;
 
             if(priorityTarget == null && !running) {
-                forceIdleCounter = 1f + Random.Range(4f, 14f);
+                forceIdleCounter = 1f + Random.Range(4f, 18f);
             }else if(priorityTarget == null && monsterType == 1) {
                 forceIdleCounter = 1f + perchTimer;
                 perchTimer = 0f;
