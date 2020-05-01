@@ -703,10 +703,10 @@ namespace Valve.VR.InteractionSystem
 				}
 				onActivateObjectTransform.gameObject.SetActive( true );
 
-				loopingAudioSource.clip = pointerLoopSound;
-				loopingAudioSource.loop = true;
-				loopingAudioSource.Play();
-				loopingAudioSource.volume = 0.0f;
+				//loopingAudioSource.clip = pointerLoopSound;
+				//loopingAudioSource.loop = true;
+				//loopingAudioSource.Play();
+				//loopingAudioSource.volume = 0.0f;
 			}
 
 

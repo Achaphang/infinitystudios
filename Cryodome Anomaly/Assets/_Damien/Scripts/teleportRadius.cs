@@ -6,29 +6,31 @@ using Valve.VR.InteractionSystem;
 
 public class TeleportRadius : MonoBehaviour
 {
-    float xVal;
-    float zVal;
-    int iteration = 0;
+    float timeHeld = 0.08f;
     Vector3 defaultRad;
-    // Start is called before the first frame update
+    public Transform targetPosition;
+
     void Start()
     {
-        xVal = 0.08f;
-        zVal = 0.08f;
         defaultRad = new Vector3(.2f, 0.01f, .2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if ((SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport").GetState(SteamVR_Input_Sources.Any)) && iteration <= 100) {
-            gameObject.transform.localScale = new Vector3(.2f + xVal, 1, .2f + zVal);
-            xVal += .08f;
-            zVal += .08f;
-        }else if(!(SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport").GetState(SteamVR_Input_Sources.Any))) {
+
+        if ((SteamVR_Input.GetAction<SteamVR_Action_Boolean>("Teleport").GetState(SteamVR_Input_Sources.Any))) {
+            transform.position = new Vector3(targetPosition.position.x, 0, targetPosition.position.z);
+            timeHeld += Time.deltaTime;
+            if(timeHeld <= 3)
+                UpdateRadius();
+        }else {
             gameObject.transform.localScale = defaultRad;
-            xVal = .08f;
-            zVal = .08f;
+            timeHeld = .08f;
         }
+    }
+
+    void UpdateRadius() {
+        gameObject.transform.localScale = new Vector3(.2f + (timeHeld * 1.25f), 1, .2f + (timeHeld * 1.25f));
     }
 }

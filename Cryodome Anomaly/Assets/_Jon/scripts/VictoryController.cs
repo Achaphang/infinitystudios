@@ -14,8 +14,6 @@ public class VictoryController : MonoBehaviour {
             overlord.youWonnered();
         }else if(other.gameObject.tag == "NpcPlayer") {
             overlord.youWonneredDemo();
-        } else {
-            Debug.Log("A monster escaped the station! Good job, IDIOT.");
         }
     }
 }
