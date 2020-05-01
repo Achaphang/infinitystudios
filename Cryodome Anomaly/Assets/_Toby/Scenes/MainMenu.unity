@@ -664,15 +664,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2c0c03f302f7a24abb54becd1d5f83f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainMenu: {fileID: 1878524065}
-  chooseInput: {fileID: 670570245}
-  settingsMenu: {fileID: 1932518846}
-  startButton: {fileID: 1314353802194125285}
-  loadingScreen: {fileID: 1467178601}
+  mainPanel: {fileID: 1878524065}
+  settingsPanel: {fileID: 1932518846}
   masterSlider: {fileID: 1318919606}
   musicSlider: {fileID: 1447837128}
   musicVolume: {fileID: 151665888}
   buttonSound: {fileID: 784287428}
+  sceneToLoad: main
+  chooseInput: {fileID: 670570245}
+  startButton: {fileID: 1314353802194125285}
+  loadingScreen: {fileID: 1467178601}
 --- !u!1 &314007002
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,6 +2623,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 313967636}
+    - target: {fileID: 6384003463628883428, guid: 134ebfac874c7c94fbf6f16ecfc6220d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnExitClick
+      objectReference: {fileID: 0}
     - target: {fileID: 6384003464323659603, guid: 134ebfac874c7c94fbf6f16ecfc6220d,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

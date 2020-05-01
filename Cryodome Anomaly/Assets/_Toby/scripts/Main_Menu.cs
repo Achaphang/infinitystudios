@@ -4,32 +4,24 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Main_Menu : MonoBehaviour
+public class Main_Menu : Menu
 {
-    public GameObject mainMenu;
     public GameObject chooseInput;
-    public GameObject settingsMenu;
     public GameObject startButton;
     public GameObject loadingScreen;
-    public Slider masterSlider;
-    public Slider musicSlider;
-    public AudioSource musicVolume;
-    public AudioSource buttonSound;
 
-    private void Start()
+    private new void Start()
     {
         //Unlock cursor (for transition between scenes)
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        //Remember PlayerPrefs for Volume
-        masterSlider.value = PlayerPrefs.GetFloat("Master Volume");
-        musicSlider.value = PlayerPrefs.GetFloat("Music Volume");
+        base.Start();
     }
 
     public void OnPlayGameClick()
     {
-        mainMenu.SetActive(true);
+        mainPanel.SetActive(true);
         startButton.SetActive(false);
         buttonSound.Play();
     }
@@ -41,7 +33,7 @@ public class Main_Menu : MonoBehaviour
         PlayerPrefs.SetInt("Mode", 1);   //Remember PlayerPref for Scene Change
 
         //Hide mainMenu Menu and Activate chooseInput Menu
-        mainMenu.SetActive(false);
+        mainPanel.SetActive(false);
         chooseInput.SetActive(true);
     }
 
@@ -52,17 +44,8 @@ public class Main_Menu : MonoBehaviour
         PlayerPrefs.SetInt("Mode", 2);   //Remember PlayerPref for Scene Change
 
         //Hide mainMenu Menu and Activate chooseInput Menu
-        mainMenu.SetActive(false);
+        mainPanel.SetActive(false);
         chooseInput.SetActive(true);
-    }
-
-    public void OnSettingsClick()
-    {
-        buttonSound.Play();
-
-        //Hide mainMenu Menu and Activate settingsMenu Menu
-        mainMenu.SetActive(false);
-        settingsMenu.SetActive(true);
     }
 
     public void OnLeaderboardClick()
@@ -71,13 +54,7 @@ public class Main_Menu : MonoBehaviour
 
         //Waiting for database to exist
     }
-
-    public void OnExitGameClick()
-    {
-        buttonSound.Play();
-
-        Application.Quit();   //Quit Application
-    }
+    
 
     public void OnVirtualRealityClick()
     {
@@ -88,7 +65,7 @@ public class Main_Menu : MonoBehaviour
         PlayerPrefs.SetInt("Input", 1);   //Remember PlayerPref for Scene Change
 
         //Open Game Scene
-        StartCoroutine(LoadYourAsyncScene());
+        StartCoroutine("LoadYourAsyncScene");
     }
 
     public void OnKeyboardClick()
@@ -100,43 +77,23 @@ public class Main_Menu : MonoBehaviour
         PlayerPrefs.SetInt("Input", 2);   //Remember PlayerPref for Scene Change
 
         //Open Game Scene
-        StartCoroutine(LoadYourAsyncScene());
+        StartCoroutine("LoadYourAsyncScene");
     }
 
-    public void OnBackClick()
+    public override void OnExitClick()
+    {
+        buttonSound.Play();
+
+        Application.Quit();   //Quit Application
+    }
+
+    public override void OnBackClick()
     {
         buttonSound.Play();
 
         //Hide chooseInput Menu and Reactivate mainMenu
-        mainMenu.SetActive(true);
+        mainPanel.SetActive(true);
         chooseInput.SetActive(false);
-        settingsMenu.SetActive(false);
-    }
-
-    public void MasterVolumeSlider()
-    {
-        PlayerPrefs.SetFloat("Master Volume", masterSlider.value);
-
-        AudioListener.volume = masterSlider.value;
-    }
-
-    public void MusicVolumeSlider()
-    {
-        PlayerPrefs.SetFloat("Music Volume", musicSlider.value);
-
-        musicVolume.volume = musicSlider.value;
-    }
-
-    IEnumerator LoadYourAsyncScene()
-    {
-        yield return new WaitForSeconds(1);
-
-        AsyncOperation load = SceneManager.LoadSceneAsync("main");
-
-        // Wait until the asynchronous scene fully loads
-        while (!load.isDone)
-        {
-            yield return null;
-        }
+        settingsPanel.SetActive(false);
     }
 }
