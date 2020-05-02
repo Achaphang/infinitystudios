@@ -7,6 +7,7 @@ public class PlayerController3D : MonoBehaviour
 {
     CharacterController controller;
     public Image crosshair;
+    public Image beeperUI;
     public Slider staminaController;
     public float speed = 3f;
     public float sprintForMod = 1.25f;
@@ -41,6 +42,11 @@ public class PlayerController3D : MonoBehaviour
 
     void Update()
     {
+        if (beepers >= 1)
+            beeperUI.color = new Color32(0, 188, 54, 255);
+        else
+            beeperUI.color = new Color32(255, 66, 60, 255);
+
         forwardCheck = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
         lateralCheck = (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow));
         backwardCheck = (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow));
