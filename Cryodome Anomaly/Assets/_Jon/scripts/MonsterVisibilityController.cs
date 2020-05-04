@@ -14,6 +14,8 @@ public class MonsterVisibilityController : MonoBehaviour
     public float viewDistance = 45f;
     public float closeViewDistance = 2f;
 
+    bool bcMode = false;
+
     void Start()
     {
         //GameObject.Find("3dPlayerObjs").active == true
@@ -25,7 +27,11 @@ public class MonsterVisibilityController : MonoBehaviour
         player = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;
         if (player.active == false) {
             player = GameObject.Find("3dPlayerObjs");
-        } 
+        }
+
+        if (Globals.Instance != null)
+            if (Globals.Instance.difficulty == -1)
+                bcMode = true;
     }
 
     // Update is called once per frame
@@ -35,6 +41,9 @@ public class MonsterVisibilityController : MonoBehaviour
             return;
         }
         Vector3 direction = player.transform.position - transform.position;
+
+        if (bcMode)
+            return;
 
         if(direction.magnitude <= viewDistance) {
             if (Vector3.Angle(direction, transform.forward) < viewAngle) {

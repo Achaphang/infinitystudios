@@ -302,6 +302,9 @@ public class MonsterController : MonoBehaviour
             }
         }
         if(collision.gameObject.tag == "ActualPlayer" || collision.gameObject.tag == "NpcPlayer") {
+            if (Globals.Instance != null)
+                if (Globals.Instance.difficulty == -1)
+                    return;
             if (!hasDied) {
                 collision.enabled = false;
                 noiseController.commitDie();
