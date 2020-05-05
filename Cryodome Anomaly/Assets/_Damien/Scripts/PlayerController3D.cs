@@ -8,7 +8,6 @@ public class PlayerController3D : MonoBehaviour
     CharacterController controller;
     public Image crosshair;
     public Image beeperUI;
-    public Text accessLevelUI;
     public Slider staminaController;
     public float speed = 3f;
     public float sprintForMod = 1.25f;
@@ -181,57 +180,36 @@ public class PlayerController3D : MonoBehaviour
                     Destroy(hit.transform.gameObject);
                 }
 
-                if (hit.transform.name == "Level1Keycard" || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard (1)(Clone)")
+                if(hit.transform.name == "Level1Keycard" || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard (1)(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
                     if (accessLevel < 1)
-                    {
                         accessLevel = 1;
-                        accessLevelUI.color = Color.green;
-                        accessLevelUI.text = accessLevel.ToString();
-                    }
                 }
-                else if (hit.transform.name == "Level2Keycard" || hit.transform.name == "Level2Keycard(Clone)")
+                else if(hit.transform.name == "Level2Keycard" || hit.transform.name == "Level2Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
                     if (accessLevel < 2)
-                    {
                         accessLevel = 2;
-                        accessLevelUI.color = Color.yellow;
-                        accessLevelUI.text = accessLevel.ToString();
-                    }
                 }
-                else if (hit.transform.name == "Level3Keycard" || hit.transform.name == "Level3Keycard(Clone)")
+                else if(hit.transform.name == "Level3Keycard" || hit.transform.name == "Level3Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
                     if (accessLevel < 3)
-                    {
                         accessLevel = 3;
-                        accessLevelUI.color = Color.yellow;
-                        accessLevelUI.text = accessLevel.ToString();
-                    }
                 }
                 else if (hit.transform.name == "Level4Keycard" || hit.transform.name == "Level4Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
                     if (accessLevel < 4)
-                    {
                         accessLevel = 4;
-                        accessLevelUI.color = Color.yellow;
-                        accessLevelUI.text = accessLevel.ToString();
-                    }
                 }
                 else if (hit.transform.name == "Level5Keycard" || hit.transform.name == "Level5Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
                     if (accessLevel < 5)
-                    {
                         accessLevel = 5;
-                        accessLevelUI.color = Color.magenta;
-                        accessLevelUI.text = accessLevel.ToString();
-                    }
-
-                 }
+                }
             }
         }
         else
