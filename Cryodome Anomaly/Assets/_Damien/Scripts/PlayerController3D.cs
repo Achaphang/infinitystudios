@@ -233,12 +233,13 @@ public class PlayerController3D : MonoBehaviour
 
                  }
             }
-        }else
+        }
+        else
         {
             crosshair.color = new Color32(255, 66, 60, 255);
         }
     }
-
+ 
     void RegenStamina()
     {
         if (Time.time - lastRegen > regenRateTime)
