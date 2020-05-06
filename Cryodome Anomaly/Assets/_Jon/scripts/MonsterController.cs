@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour
 {
     // 0 = basic. 1 = sprinter. >1 = who knows? Maybe BOB HIMSELF?
+    // 2 = stalker type, really quiet but slow
     public int monsterType = 0;
     List<GameObject> targets;
     GameObject priorityTarget;
@@ -37,6 +38,8 @@ public class MonsterController : MonoBehaviour
     // Used for the sprinter types when they're hiding in a specific location, such as the roof of the big area.
     float perchTimer = 0f;
 
+    int randomWalk = 1;
+
     void Start() {
         targets = new List<GameObject>();
         noiseController = GetComponent<MonsterNoiseController>();
@@ -60,6 +63,9 @@ public class MonsterController : MonoBehaviour
             running = true;
             stamina = staminaMax;
         }
+
+        if (monsterType != 2)
+            randomWalk = Random.Range(1, 4);
     }
 
     void Update() {
@@ -67,7 +73,12 @@ public class MonsterController : MonoBehaviour
         if(agent.speed == 0 || agent.velocity.magnitude < .3f || (targets.Count == 0 && priorityTarget == null) || forceIdleCounter > 0f) {
             anim.Play("idle");
         }else if(agent.speed <= walkSpeed) {
-            anim.Play("walk");
+            if(randomWalk == 1)
+                anim.Play("walk");
+            if (randomWalk == 2)
+                anim.Play("walk2");
+            if (randomWalk == 3)
+                anim.Play("walk3");
         } else{
             anim.Play("run");
         }
@@ -186,7 +197,7 @@ public class MonsterController : MonoBehaviour
     }
 
     void StartRunning() {
-        if (stamina < staminaMax)
+        if (stamina < staminaMax || monsterType == 2)
             return;
         running = true;
     }
@@ -276,6 +287,8 @@ public class MonsterController : MonoBehaviour
 
             if(priorityTarget == null && !running) {
                 forceIdleCounter = 1f + Random.Range(4f, 18f);
+                if (monsterType == 2)
+                    forceIdleCounter += Random.Range(0f, 20f);
             }else if(priorityTarget == null && monsterType == 1) {
                 forceIdleCounter = 1f + perchTimer;
                 perchTimer = 0f;
@@ -289,6 +302,9 @@ public class MonsterController : MonoBehaviour
             }
         }
         if(collision.gameObject.tag == "ActualPlayer" || collision.gameObject.tag == "NpcPlayer") {
+            if (Globals.Instance != null)
+                if (Globals.Instance.difficulty == -1)
+                    return;
             if (!hasDied) {
                 collision.enabled = false;
                 noiseController.commitDie();

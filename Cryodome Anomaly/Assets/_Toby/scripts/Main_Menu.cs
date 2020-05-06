@@ -46,6 +46,8 @@ public class Main_Menu : Menu
         buttonSound.Play();  //Play the fun clicky button sound
 
         PlayerPrefs.SetInt("Mode", 2);   //Remember PlayerPref for Scene Change
+        if (Globals.Instance != null)
+            Globals.Instance.difficulty = -1;
 
         //Hide mainMenu Menu and Activate chooseInput Menu
         mainPanel.SetActive(false);

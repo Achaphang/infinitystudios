@@ -48,13 +48,15 @@ public class MonsterNoiseController : MonoBehaviour
     void move() {
         if(!movementSource.isPlaying && !playerDead) {
             movementSource.clip = movementClips[Random.Range(0, movementClips.Length)];
+            if (monsterType == 2)
+                movementSource.volume = .25f;
             movementSource.pitch = 1f + agent.speed / 2f;
             movementSource.Play();
         }
     }
 
     public void locatedPlayer() {
-        if (!tempSource.isPlaying && !playerDead) {
+        if (!tempSource.isPlaying && !playerDead && monsterType != 2) {
             tempSource.clip = spottedClips[Random.Range(0, spottedClips.Length)];
             tempSource.pitch = Random.Range(.7f, .8f) + (monsterType / 3f);
             tempSource.Play();
@@ -63,7 +65,7 @@ public class MonsterNoiseController : MonoBehaviour
     }
     
     public void chasingPlayer() {
-        if (!tempSource.isPlaying && !playerDead) {
+        if (!tempSource.isPlaying && !playerDead && monsterType != 2) {
             tempSource.clip = chasingClips[Random.Range(0, chasingClips.Length)];
             tempSource.pitch = Random.Range(.7f, .8f) + (monsterType / 3f);
             tempSource.Play();
@@ -71,7 +73,7 @@ public class MonsterNoiseController : MonoBehaviour
     }
 
     public void lostPlayer() {
-        if (!tempSource.isPlaying && !playerDead) {
+        if (!tempSource.isPlaying && !playerDead && monsterType != 2) {
             tempSource.clip = lostClips[Random.Range(0, lostClips.Length)];
             tempSource.pitch = Random.Range(.7f, .8f) + (monsterType / 3f);
             tempSource.Play();
