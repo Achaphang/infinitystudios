@@ -39,7 +39,14 @@ public class Keypad : MonoBehaviour
     bool keycardScanning = false;
     float keycardScanningDur = 0f;
 
+    PlayerController3D player;
+
     void Start(){
+        GameObject temp = GameObject.Find("Player Variant").transform.GetChild(0).GetChild(3).GetChild(0).gameObject;
+        if (temp.active == false) {
+            player = GameObject.Find("3dPlayerObjs").GetComponent<PlayerController3D>();
+        }
+
         overlord = GameObject.Find("Overlord").GetComponent<Overlord>();
         keypadLight = GetComponentInChildren<Light>();
         canvas = GetComponentInChildren<Canvas>();
@@ -119,6 +126,13 @@ public class Keypad : MonoBehaviour
     public void EnterPasscode(bool keycard = false) {
         if (correctPasscode || lockedOut)
             return;
+
+        if(player != null) {
+            if(player.accessLevel >= accessLevel) {
+                UnlockDoor(true);
+                return;
+            }
+        }
 
         for (int i = 0; i < 4; i++) {
             if (passcodeEntered[i] != passcode[i] || keycard) {

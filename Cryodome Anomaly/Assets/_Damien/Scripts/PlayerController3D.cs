@@ -32,7 +32,7 @@ public class PlayerController3D : MonoBehaviour
     float lastStamChunk = 0f;
     float lastStamValue = 0f;
 
-    public int accessLevel = 0;
+    public int accessLevel = -1;
 
     void Start()
     {
@@ -184,9 +184,9 @@ public class PlayerController3D : MonoBehaviour
                 if(hit.transform.name == "Level1Keycard" || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard (1)(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
-                    if (accessLevel < 1)
+                    if (accessLevel < 0)
                     {
-                        accessLevel = 1;
+                        accessLevel = 0;
                         accessLevelUI.color = Color.green;
                         accessLevelUI.text = accessLevel.ToString();
                     }
@@ -194,9 +194,9 @@ public class PlayerController3D : MonoBehaviour
                 else if(hit.transform.name == "Level2Keycard" || hit.transform.name == "Level2Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
-                    if (accessLevel < 2)
+                    if (accessLevel < 1)
                     {
-                        accessLevel = 2;
+                        accessLevel = 1;
                         accessLevelUI.color = Color.yellow;
                         accessLevelUI.text = accessLevel.ToString();
                     }
@@ -204,9 +204,9 @@ public class PlayerController3D : MonoBehaviour
                 else if(hit.transform.name == "Level3Keycard" || hit.transform.name == "Level3Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
-                    if (accessLevel < 3)
+                    if (accessLevel < 2)
                     {
-                        accessLevel = 3;
+                        accessLevel = 2;
                         accessLevelUI.color = new Color32(255, 165, 0, 255);
                         accessLevelUI.text = accessLevel.ToString();
                     }
@@ -214,9 +214,9 @@ public class PlayerController3D : MonoBehaviour
                 else if (hit.transform.name == "Level4Keycard" || hit.transform.name == "Level4Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
-                    if (accessLevel < 4)
+                    if (accessLevel < 3)
                     {
-                        accessLevel = 4;
+                        accessLevel = 3;
                         accessLevelUI.color = Color.red;
                         accessLevelUI.text = accessLevel.ToString();
                     }
@@ -224,9 +224,9 @@ public class PlayerController3D : MonoBehaviour
                 else if (hit.transform.name == "Level5Keycard" || hit.transform.name == "Level5Keycard(Clone)")
                 {
                     Destroy(hit.transform.gameObject);
-                    if (accessLevel < 5)
+                    if (accessLevel < 4)
                     {
-                        accessLevel = 5;
+                        accessLevel = 4;
                         accessLevelUI.color = Color.magenta;
                         accessLevelUI.text = accessLevel.ToString();
                     }
