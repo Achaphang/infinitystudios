@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class PlayerController3D : MonoBehaviour
 {
@@ -121,7 +122,7 @@ public class PlayerController3D : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 2f))
         {
-            if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight"
+            if (hit.transform.name == "Keypad" || hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)" || hit.transform.name == "BatteryFlashlight"
                 || hit.transform.name == "BatteryFlashlight(Clone)" || hit.transform.name == "BatteryFlashlight2" || hit.transform.name == "BatteryFlashlight2(Clone)"
                 || hit.transform.name == "Beeper" || hit.transform.name == "Beeper(Clone)" || hit.transform.name == "Stimpack" || hit.transform.name == "Stimpack(Clone)"
                 || hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)" || hit.transform.name == "Level1Keycard" 
@@ -138,6 +139,12 @@ public class PlayerController3D : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                if(hit.transform.name == "Keypad") {
+                    if(hit.collider.transform.GetChild(0) != null) {
+                        hit.collider.transform.GetComponentInChildren<Button>().onClick.Invoke() ;
+                    }
+                }
+
                 if (hit.transform.name == "Flashlight" || hit.transform.name == "Flashlight(Clone)")
                 {
                     transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
