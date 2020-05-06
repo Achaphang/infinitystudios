@@ -19,7 +19,7 @@ public class Keycard : MonoBehaviour
 
     public void OnTriggerEnter(Collider other) {
         if (other.name == "Keypad")
-            if (other.GetComponent<Keypad>().accessLevel <= accessLevel)
+            if (other.GetComponent<Keypad>().accessLevel <= accessLevel || other.GetComponent<Keypad>().accessLevel <= GameObject.Find("3dPlayerObjs").GetComponent<PlayerController3D>().accessLevel)
                 other.GetComponent<Keypad>().KeycardEnter();
             else
                 other.GetComponent<Keypad>().EnterPasscode(true);
@@ -27,7 +27,7 @@ public class Keycard : MonoBehaviour
 
     public void OnTriggerExit(Collider other) {
         if (other.name == "Keypad")
-            if (other.GetComponent<Keypad>().accessLevel <= accessLevel)
+            if (other.GetComponent<Keypad>().accessLevel <= accessLevel || other.GetComponent<Keypad>().accessLevel <= GameObject.Find("3dPlayerObjs").GetComponent<PlayerController3D>().accessLevel)
                 other.GetComponent<Keypad>().KeycardExit();
     }
 }

@@ -32,7 +32,7 @@ public class PlayerController3D : MonoBehaviour
     float lastStamChunk = 0f;
     float lastStamValue = 0f;
 
-    int accessLevel = 0;
+    public int accessLevel = 0;
 
     void Start()
     {
