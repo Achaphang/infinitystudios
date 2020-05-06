@@ -19,14 +19,8 @@ public class MouseController : MonoBehaviour
     {
         if (gameMenu.GetComponent<In_Game_Menu>().menuActive == false) 
         {
-            if (Input.GetButton("MouseToggle")) {
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true;
-                return;
-            } else {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
