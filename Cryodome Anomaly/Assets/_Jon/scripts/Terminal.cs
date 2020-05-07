@@ -14,7 +14,7 @@ public class Terminal : MonoBehaviour
     void Start(){
         title = transform.GetChild(0).GetChild(1).GetComponent<Text>();
         txt = transform.GetChild(0).GetChild(0).GetComponent<Text>();
-        StartCoroutine(LateStart(2));
+        StartCoroutine(LateStart(1.5f));
     }
 
     IEnumerator LateStart(float wait) {
@@ -32,11 +32,15 @@ public class Terminal : MonoBehaviour
     // Updated so that each failure reduces the difficulty by 1 to a minimum of 0.
     public void GenerateMathPuzzle(int difficultyInitial) {
         int difficulty = difficultyInitial;
-        if (difficulty < 0)
-            difficulty = 0;
         if (Globals.Instance != null)
             if (Globals.Instance.difficulty != -1)
                 difficulty = difficulty - (2 - Globals.Instance.difficulty);
+
+        if (difficulty < 0)
+            difficulty = 0;
+
+        if (difficulty > 5)
+            difficulty = 5;
 
         string final = " = ";
         string partialVal = "????";
@@ -169,6 +173,7 @@ public class Terminal : MonoBehaviour
                 break;
             default:
                 Debug.Log("Error in terminal math generation");
+                Debug.Log(difficulty);
                 break;
         }
     }

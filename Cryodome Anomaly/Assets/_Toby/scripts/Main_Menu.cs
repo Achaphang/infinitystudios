@@ -63,8 +63,10 @@ public class Main_Menu : Menu
     }
     
     //Starts the game with the VR PlayerPref activated
-    public void OnVirtualRealityClick()
+    public void OnVirtualRealityClick(int diff)
     {
+        if (Globals.Instance != null)
+            Globals.Instance.difficulty = diff;
         buttonSound.Play();  //Play the fun clicky button sound
         loadingScreen.SetActive(true);  //Show loading screen
         musicVolume.mute = true;  //Stop main menu music

@@ -15,7 +15,7 @@ public class ItemMarker : MonoBehaviour
         if (odds != 100)
             if (Globals.Instance != null)
                 if (Globals.Instance.difficulty != -1)
-                    odds += (30 - (Globals.Instance.difficulty * 15));
+                    odds += (35 - (Globals.Instance.difficulty * 10));
     }
 
     public int GetOdds() {

@@ -46,10 +46,10 @@ public class MonsterController : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
         agent.Warp(new Vector3(transform.position.x, 1, transform.position.z));
-        // Harder difficulties make the monster move slightly faster
+        // Harder difficulties make the monster move slightly faster, lower makes slightly slower.
         if (Globals.Instance != null) 
             if (Globals.Instance.difficulty != -1) 
-                agent.speed = agent.speed - ((2 - Globals.Instance.difficulty) * .125f);
+                agent.speed = agent.speed - ((2 - Globals.Instance.difficulty) * .175f);
 
         walkSpeed = agent.speed;
         runSpeed = walkSpeed * 2.75f;

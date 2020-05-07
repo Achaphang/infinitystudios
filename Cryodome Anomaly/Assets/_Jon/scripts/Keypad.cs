@@ -75,7 +75,7 @@ public class Keypad : MonoBehaviour
         txt = transform.Find("KeypadText").GetChild(0).GetComponent<Text>();
         title = transform.Find("KeypadText").GetChild(1).GetComponent<Text>();
         title.text = overlord.generateNewKeypadName(accessLevel);
-        txt.text = string.Join("", passcode);
+        txt.text = "";
         if (correctPasscode) {
             txt.text = "<color=lime>" + txt.text + "</color>";
         }

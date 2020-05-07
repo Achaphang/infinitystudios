@@ -8,15 +8,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Toby/Scenes/MainMenu.unity
     guid: 2c72e5bb52d936e40a195c03d7e0df09
-  - enabled: 1
-    path: Assets/mainMergeConflict.unity
-    guid: 233112c51baf92246a1da7a3911f9147
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/blank.unity
     guid: deafd7eac50f2cd42945bc79294b7e1e
   - enabled: 0
     path: Assets/demo.unity
     guid: f3b59a246d7175542bfc2b9bc2f4e379
+  - enabled: 1
+    path: Assets/main.unity
+    guid: 41876988c22f52d43b93d4f4349d029d
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 21c5bcb37c0ed64488f852bdd26e777e,
       type: 2}

@@ -33,8 +33,6 @@ public class Overlord : MonoBehaviour {
         // Load best score, if existent, at start of game
         ScoreData data = SavingSystem.LoadData();
         if (data != null) {
-            Debug.Log("here.");
-            Debug.Log(data.time);
             timer.best = data.time;
             bestTime.text = "[BEST: " + timer.best + "]";
         }

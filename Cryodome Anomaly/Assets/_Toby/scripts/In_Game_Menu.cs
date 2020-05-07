@@ -88,8 +88,6 @@ public class In_Game_Menu : Menu
 
                 //Pause game
                 Time.timeScale = 0;
-
-                Debug.Log("Game Menu Activated");
             }
         }
     }
