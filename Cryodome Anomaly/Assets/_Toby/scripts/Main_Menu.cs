@@ -66,7 +66,8 @@ public class Main_Menu : Menu
     public void OnVirtualRealityClick(int diff)
     {
         if (Globals.Instance != null)
-            Globals.Instance.difficulty = diff;
+            if(Globals.Instance.difficulty != -1)
+                Globals.Instance.difficulty = diff;
         buttonSound.Play();  //Play the fun clicky button sound
         loadingScreen.SetActive(true);  //Show loading screen
         musicVolume.mute = true;  //Stop main menu music
