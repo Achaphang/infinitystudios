@@ -53,7 +53,7 @@ public abstract class Menu : MonoBehaviour
     IEnumerator LoadYourAsyncScene()
     {
         //Provide time for beep sounds and loading screens to play
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         //Loads into the next relevant scene
         AsyncOperation load = SceneManager.LoadSceneAsync(sceneToLoad);

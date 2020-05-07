@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class PlayerController3D : MonoBehaviour
 {
+    public GameObject tutorialPanel;
+    public GameObject darkBackground;
     CharacterController controller;
     public Image crosshair;
     public Image beeperUI;
@@ -128,7 +130,8 @@ public class PlayerController3D : MonoBehaviour
                 || hit.transform.name == "SuperStimpack" || hit.transform.name == "SuperStimpack(Clone)" || hit.transform.name == "Level1Keycard" 
                 || hit.transform.name == "Level1Keycard(Clone)" || hit.transform.name == "Level1Keycard (1)" || hit.transform.name == "Level1Keycard (1)(Clone)"
                 || hit.transform.name == "Level2Keycard" || hit.transform.name == "Level2Keycard(Clone)" || hit.transform.name == "Level3Keycard" || hit.transform.name == "Level3Keycard(Clone)"
-                || hit.transform.name == "Level4Keycard" || hit.transform.name == "Level4Keycard(Clone)" || hit.transform.name == "Level5Keycard" || hit.transform.name == "Level5Keycard(Clone)")
+                || hit.transform.name == "Level4Keycard" || hit.transform.name == "Level4Keycard(Clone)" || hit.transform.name == "Level5Keycard" || hit.transform.name == "Level5Keycard(Clone)"
+                || hit.transform.name == "Tutorial Computer")
             {
                 crosshair.color = new Color32(0, 188, 54, 255);
             }
@@ -238,6 +241,13 @@ public class PlayerController3D : MonoBehaviour
                         accessLevelUI.text = accessLevel.ToString();
                     }
                 }
+
+                if(hit.transform.name == "Tutorial Computer")
+                {
+                    tutorialPanel.SetActive(true);
+                    darkBackground.SetActive(true);
+                }
+          
             }
         }
         else

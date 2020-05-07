@@ -25,6 +25,10 @@ public class In_Game_Menu : Menu
 
         //Unpause
         Time.timeScale = 1;
+
+        //release mouse
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public override void OnBackClick()
