@@ -49,7 +49,7 @@ public class MonsterNoiseController : MonoBehaviour
         if(!movementSource.isPlaying && !playerDead) {
             movementSource.clip = movementClips[Random.Range(0, movementClips.Length)];
             if (monsterType == 2)
-                movementSource.volume = .25f;
+                movementSource.volume = .1f;
             movementSource.pitch = 1f + agent.speed / 2f;
             movementSource.Play();
         }
